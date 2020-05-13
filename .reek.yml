@@ -34,3 +34,4 @@ exclude_paths:
   - db/
   - app/views/
   - config/
+  - node_modules/
