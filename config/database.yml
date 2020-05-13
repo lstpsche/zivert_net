@@ -17,13 +17,17 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: 5
+
+dev_default: &dev_default
+  <<: *default
+  host: <%= ENV['DEV_DB_HOST'] %>
+  user: <%= ENV['DEV_DB_USER'] %>
+  password: <%= ENV['DEV_DB_PASS'] %>
 
 development:
-  <<: *default
-  database: zivert_net_development
+  <<: *dev_default
+  database: <%= ENV['DEV_DB_NAME'] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -56,7 +60,7 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
+  <<: *dev_default
   database: zivert_net_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
@@ -78,8 +82,11 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+
 production:
   <<: *default
-  database: zivert_net_production
-  username: zivert_net
-  password: <%= ENV['ZIVERT_NET_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DB_NAME'] %>
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
+  user: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>
