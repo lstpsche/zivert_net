@@ -27,6 +27,8 @@ detectors:
     max_instance_variables: 6
   UtilityFunction:
     enabled: false
+  UncommunicativeModuleName:
+    enabled:
 
 exclude_paths:
   - vendor/

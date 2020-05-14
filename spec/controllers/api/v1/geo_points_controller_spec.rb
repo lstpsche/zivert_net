@@ -87,7 +87,12 @@ describe Api::V1::GeoPointsController, type: :controller do
         }.to_json
       end
 
-      before { allow(geo_point).to receive_message_chain(:errors, :message).with(no_args).with(no_args).and_return('error message') }
+      before do
+        allow(geo_point)
+          .to receive_message_chain(:errors, :message)
+          .with(no_args).with(no_args)
+          .and_return('error message')
+      end
 
       it { is_expected.to have_http_status(:ok) }
 
@@ -142,7 +147,12 @@ describe Api::V1::GeoPointsController, type: :controller do
         }.to_json
       end
 
-      before { allow(geo_point).to receive_message_chain(:errors, :message).with(no_args).with(no_args).and_return('error message') }
+      before do
+        allow(geo_point)
+          .to receive_message_chain(:errors, :message)
+          .with(no_args).with(no_args)
+          .and_return('error message')
+      end
 
       it { is_expected.to have_http_status(:ok) }
 
@@ -183,7 +193,12 @@ describe Api::V1::GeoPointsController, type: :controller do
         }.to_json
       end
 
-      before { allow(geo_point).to receive_message_chain(:errors, :message).with(no_args).with(no_args).and_return('error message') }
+      before do
+        allow(geo_point)
+          .to receive_message_chain(:errors, :message)
+          .with(no_args).with(no_args)
+          .and_return('error message')
+      end
 
       it { is_expected.to have_http_status(:ok) }
 

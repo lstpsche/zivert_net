@@ -4,12 +4,14 @@ require 'simplecov'
 require 'simplecov-json'
 
 SimpleCov.formatters = [
-    SimpleCov::Formatter::HTMLFormatter
+  SimpleCov::Formatter::HTMLFormatter
 ]
 
 MINIMUM_COVERAGE = 27
 SimpleCov.at_exit do
-  abort "Too low coverage. Expected #{MINIMUM_COVERAGE} was #{SimpleCov.result.covered_percent}" if SimpleCov.result.covered_percent < MINIMUM_COVERAGE
+  if SimpleCov.result.covered_percent < MINIMUM_COVERAGE
+    abort "Too low coverage. Expected #{MINIMUM_COVERAGE} was #{SimpleCov.result.covered_percent}"
+  end
   SimpleCov.result.format!
 end
 
