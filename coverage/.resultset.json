@@ -12,7 +12,7 @@
           null,
           null,
           1,
-          1,
+          0,
           null,
           null
         ]
@@ -44,6 +44,53 @@
       },
       "/home/lstpsche/education/zivert_net/app/helpers/home_helper.rb": {
         "lines": [
+          null,
+          null,
+          1,
+          null
+        ]
+      },
+      "/home/lstpsche/education/zivert_net/app/controllers/api/v1/devise_custom/sessions_controller.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/home/lstpsche/education/zivert_net/app/controllers/application_controller.rb": {
+        "lines": [
+          null,
+          null,
           1,
           null
         ]
@@ -53,16 +100,6 @@
           null,
           null,
           0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/lstpsche/education/zivert_net/app/controllers/application_controller.rb": {
-        "lines": [
-          null,
-          null,
           0,
           0
         ],
@@ -105,19 +142,13 @@
           0,
           0,
           0,
-          0,
           null,
           0,
           0,
           null,
           0,
           0,
-          0,
           null,
-          0,
-          0,
-          0,
-          0,
           0,
           0,
           0,
@@ -139,36 +170,8 @@
           0,
           null,
           0,
-          null,
           0,
           0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/lstpsche/education/zivert_net/app/controllers/api/v1/devise_custom/sessions_controller.rb": {
-        "lines": [
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
           0,
           0,
           0,
@@ -176,20 +179,17 @@
           null,
           0,
           null,
-          null,
-          null,
-          null,
-          null,
-          0,
           0,
           0,
           0,
           null,
+          0,
+          0,
+          0,
           null,
+          0,
+          0,
           null,
-          0,
-          0,
-          0,
           0,
           0,
           0,
@@ -281,6 +281,6 @@
         }
       }
     },
-    "timestamp": 1589466847
+    "timestamp": 1589475658
   }
 }
