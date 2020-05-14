@@ -15,6 +15,7 @@ gem 'pry-rails'
 gem 'puma', '~> 3.11'
 gem 'react-rails'
 gem 'responders'
+gem 'slim-rails'
 # I18n for JS
 gem 'i18n-js'
 # Use SCSS for stylesheets
