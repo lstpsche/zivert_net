@@ -6,6 +6,7 @@ ruby '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.1'
 # Use postgresql as the database for Active Record
+gem 'devise'
 gem 'dotenv-rails', '~> 2.7.5'
 gem 'fast_jsonapi'
 gem 'pg', '>= 0.18', '< 2.0'
