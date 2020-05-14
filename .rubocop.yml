@@ -51,6 +51,10 @@ Layout/LineLength:
 Metrics/MethodLength:
   Max: 20
 
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
 Naming/RescuedExceptionsVariableName:
   PreferredName: error
 

@@ -1,5 +1,24 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+require 'simplecov-json'
+
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter
+]
+
+MINIMUM_COVERAGE = 27
+SimpleCov.at_exit do
+  if SimpleCov.result.covered_percent < MINIMUM_COVERAGE
+    abort "Too low coverage. Expected #{MINIMUM_COVERAGE} was #{SimpleCov.result.covered_percent}"
+  end
+  SimpleCov.result.format!
+end
+
+SimpleCov.start 'rails' do
+  add_filter 'vendor'
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'

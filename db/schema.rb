@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2020_05_13_210837) do
   enable_extension "plpgsql"
 
   create_table "geo_points", force: :cascade do |t|
-    t.integer "width"
-    t.integer "height"
+    t.integer "width", default: 0, null: false
+    t.integer "height", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
