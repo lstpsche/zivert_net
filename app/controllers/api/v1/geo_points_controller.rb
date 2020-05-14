@@ -3,6 +3,8 @@
 module Api
   module V1
     class GeoPointsController < ApplicationController
+      before_action :authenticate_user!
+
       def index
         geo_points = GeoPoint.all.map { |gp| serialize_geo_point(gp) }
 
