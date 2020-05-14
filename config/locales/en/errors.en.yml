@@ -1,0 +1,6 @@
+en:
+  errors:
+    action_not_performed: Action was not performed
+    cant_be_blank: can't be blank
+    record_not_found: Record can't be found
+    internal_server_error: Internal server error. Please, try again later.
