@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-describe GeoPoint, type: :model do
+module HomeHelper
 end

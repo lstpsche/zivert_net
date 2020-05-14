@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 describe Api::V1::GeoPointsController, type: :controller do
+  let(:user) { create(:user) }
+
   describe 'GET index' do
     subject { get(:index) }
 
@@ -13,6 +15,7 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:expected_result) { { geo_points: [serialized_geo_point1, serialized_geo_point2] }.to_json }
 
     before do
+      sign_in(user)
       allow(GeoPoint).to receive(:all).with(no_args).and_return([geo_point1, geo_point2])
       allow(controller).to receive(:serialize_geo_point).with(geo_point1).and_return(serialized_geo_point1)
       allow(controller).to receive(:serialize_geo_point).with(geo_point2).and_return(serialized_geo_point2)
@@ -35,6 +38,7 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:expected_result) { { geo_point: serialized_geo_point }.to_json }
 
     before do
+      sign_in(user)
       allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
       allow(controller).to receive(:serialize_geo_point).with(geo_point).and_return(serialized_geo_point)
     end
@@ -56,7 +60,10 @@ describe Api::V1::GeoPointsController, type: :controller do
 
     let(:geo_point) { instance_double(GeoPoint, save: saved) }
 
-    before { allow(GeoPoint).to receive(:new).and_return(geo_point) }
+    before do
+      sign_in(user)
+      allow(GeoPoint).to receive(:new).and_return(geo_point)
+    end
 
     context 'when new geo point was saved' do
       let(:saved) { true }
@@ -114,6 +121,7 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:geo_point) { instance_double(GeoPoint) }
 
     before do
+      sign_in(user)
       allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
       allow(geo_point).to receive(:update).and_return(updated)
     end
@@ -170,7 +178,10 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:geo_point_id) { rand(100) }
     let(:geo_point) { instance_double(GeoPoint, destroy: destroyed) }
 
-    before { allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point) }
+    before do
+      sign_in(user)
+      allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
+    end
 
     context 'when geo point was destroyed' do
       let(:destroyed) { true }
