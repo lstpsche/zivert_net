@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :geo_points, except: %[new edit]
+      resources :map, only: :index
+
+      get '/auth/signed_in', to: 'auth#signed_in'
     end
   end
 
