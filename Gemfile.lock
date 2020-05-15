@@ -44,6 +44,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    alertifyjs-rails (1.12.0)
     arel (9.0.0)
     ast (2.4.0)
     babel-source (5.8.35)
@@ -247,7 +248,7 @@ GEM
     simplecov-json (0.2.1)
       json
       simplecov
-    slim (4.0.1)
+    slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
     slim-rails (3.2.0)
@@ -318,6 +319,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  alertifyjs-rails
   bootsnap (>= 1.1.0)
   byebug
   capybara

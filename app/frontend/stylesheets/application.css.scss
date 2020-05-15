@@ -1,0 +1,47 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+
+@import "bootstrap";
+
+// @import "alertify";
+// @import "alertify/default";
+// @import "alertify/bootstrap";
+
+@import "react-block-ui/style.css";
+@import "loaders.css/loaders.min.css";
+
+// components
+@import "./components/block_ui.scss";
+@import "./components/dropdown.scss";
+@import "./components/geo_points/geo_points.scss";
+@import "./components/loader.scss";
+@import "./components/map/map.scss";
+@import "./components/navbar.scss";
+
+#full-page-cover {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}

@@ -16,3 +16,14 @@
 // const imagePath = (name) => images(name, true)
 
 console.log('Hello World from Webpacker')
+
+// libs
+import "i18n-js";
+import "./translations.js";
+import "bootstrap";
+
+// custom stylesheets
+import "../stylesheets/application.css.scss";
+
+// main React app
+import "./index";

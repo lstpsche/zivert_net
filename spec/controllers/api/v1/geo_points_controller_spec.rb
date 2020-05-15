@@ -57,6 +57,7 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:params) { { geo_point: { width: width, height: height } } }
     let(:width) { rand(100) }
     let(:height) { rand(100) }
+    let(:rad_value) { rand(100) }
 
     let(:geo_point) { instance_double(GeoPoint, save: saved) }
 
@@ -117,6 +118,7 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:params) { { id: geo_point_id, geo_point: { width: width, height: height } } }
     let(:width) { rand(100) }
     let(:height) { rand(100) }
+    let(:rad_value) { rand(100) }
 
     let(:geo_point) { instance_double(GeoPoint) }
 
