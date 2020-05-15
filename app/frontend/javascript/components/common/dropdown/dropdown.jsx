@@ -7,22 +7,17 @@ class Dropdown extends React.Component {
 
     this.state = { showMenu: false }
 
-    this.showMenu = this.showMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
-
+    this.toggleMenu = this.toggleMenu.bind(this);
     this.renderItems = this.renderItems.bind(this);
   }
 
-  showMenu () {
-    this.setState({ showMenu: true }, () => {
-      document.addEventListener("click", this.closeMenu);
-    });
-  }
-
-  closeMenu () {
-    this.setState({ showMenu: false }, () => {
-      document.removeEventListener("click", this.closeMenu)
-    });
+  toggleMenu (state) {
+    this.setState({ showMenu: state }, () => {
+      if (state)
+        document.addEventListener("click", this.closeMenu);
+      else
+        document.removeEventListener("click", this.closeMenu);
+    })
   }
 
   renderItems (items) {
@@ -46,7 +41,7 @@ class Dropdown extends React.Component {
         <button
           className={"dropdown-header dropdown-toggle " + header.className}
           id={header.id}
-          onClick={this.showMenu}
+          onClick={this.toggleMenu(!showMenu)}
         >
           {header.title}
         </button>
