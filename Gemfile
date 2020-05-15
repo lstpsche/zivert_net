@@ -75,6 +75,6 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
-  gem 'simplecov', require: false
+  gem 'simplecov', '~> 0.17.1', require: false
   gem 'simplecov-json'
 end
