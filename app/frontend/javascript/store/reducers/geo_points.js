@@ -2,10 +2,11 @@
 //
 // geoPoints: [
 //   {
-//     id: geoPointsId,
-//     width: geoPointsWidth,
-//     height: geoPointsHeight,
-//     radValue: geoPointsRadValue
+//     id: geoPointId,
+//     longitude: geoPointWidth,
+//     latitude: geoPointHeight,
+//     radValue: geoPointRadValue,
+//     comment: geoPointComment
 //   },
 //   ...
 // ]
@@ -18,7 +19,7 @@ import {
 } from "../actionTypes/geo_points";
 
 function geoPoints(state = [], action) {
-  const { type: actionType, id, width, height, radValue } = action;
+  const { type: actionType, id, longitude, latitude, radValue, comment } = action;
 
   switch(actionType) {
     case SET_GEO_POINTS:
@@ -26,11 +27,11 @@ function geoPoints(state = [], action) {
     case ADD_GEO_POINT:
       return [
         ...state,
-        { id, width, height, radValue }
+        { id, longitude, latitude, radValue, comment }
       ]
     case UPDATE_GEO_POINT:
       return state.map (geoPoint =>
-        geoPoint.id === id ? { ...geoPoint, width, height, radValue } : geo_point
+        geoPoint.id === id ? { ...geoPoint, longitude, latitude, radValue, comment } : geo_point
       )
     case REMOVE_GEO_POINT:
       return state.filter(({ id: geoPointId }) => geoPointId !== id)

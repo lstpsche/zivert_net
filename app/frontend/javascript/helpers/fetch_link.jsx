@@ -1,6 +1,7 @@
 const defaultArgs = {
   onSuccess: (response) => { return response },
   onFailure: (error) => { throw new Error(error) },
+  onComplete: (response) => { return response },
   errorMessage: I18n.t("errors.internal_server_error")
 }
 
@@ -29,24 +30,28 @@ function fetchGet ({
     link,
     onSuccess = defaultArgs.onSuccess,
     onFailure = defaultArgs.onFailure,
+    onComplete = defaultArgs.onComplete,
     errorMessage = defaultArgs.errorMessage
   }) {
   return fetch(link, { headers })
     .then(response => filterResponseCode(response, errorMessage))
     .then(response => onSuccess(response))
     .catch(error => onFailure(error))
+    .then(response => onComplete(response))
 }
 
 function fetchWithBody ({
     link, method, body = "",
     onSuccess = defaultArgs.onSuccess,
     onFailure = defaultArgs.onFailure,
+    onComplete = defaultArgs.onComplete,
     errorMessage = defaultArgs.errorMessage
   }) {
   return fetch(link, { headers, method, body })
     .then(response => filterResponseCode(response, errorMessage))
     .then(response => onSuccess(response))
     .catch(error => onFailure(error))
+    .then(response => onComplete(response))
 }
 
 export default fetchLink;

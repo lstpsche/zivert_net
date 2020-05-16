@@ -1,6 +1,5 @@
 import fetchLink from "../../../helpers/fetch_link";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 
 class DropdownItem extends React.Component {
   constructor (props) {

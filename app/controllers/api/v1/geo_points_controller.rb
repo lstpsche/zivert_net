@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class GeoPointsController < ApplicationController
+    class GeoPointsController < Api::V1::ApplicationController
       before_action :authenticate_user!
 
       def index

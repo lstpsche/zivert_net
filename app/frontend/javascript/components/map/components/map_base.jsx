@@ -1,20 +1,25 @@
 import { Map as MapLeaflet, TileLayer } from "react-leaflet";
-import PropTypes from "prop-types";
+import GeoPointMarker from "./geo_point_marker";
 
 class MapBase extends React.Component {
   constructor (props) {
     super(props);
-
-    const { markers } = props;
-
-    this.state = { markers };
   }
 
-  renderMarkers () {
-    const { markers } = this.state;
+  renderGeoPoints () {
+    const { geoPoints } = this.props;
 
-    // TODO: add markers rendering here [#ZN-12]
-    return
+    return geoPoints.map(({ id, latitude, longitude, radValue, comment }) => {
+      return (
+        <GeoPointMarker
+          key={"geo-point-marker-" + id}
+          latitude={latitude}
+          longitude={longitude}
+          radValue={radValue}
+          comment={comment}
+        />
+      )
+    })
   }
 
   render () {
@@ -29,7 +34,7 @@ class MapBase extends React.Component {
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {this.renderMarkers()}
+        {this.renderGeoPoints()}
       </MapLeaflet>
     )
   }
@@ -42,7 +47,7 @@ MapBase.propTypes = {
 }
 
 MapBase.defaultProps = {
-  center: [53.900574, 27.558995],  // Center of Minsk city
+  center: [53.900574, 27.558995],  // The center of Minsk city
   zoom: 12,  // Zoomed to fully show the whole Minsk city
   markers: []
 }

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import DropdownItem from "./dropdown_item";
 
 class Dropdown extends React.Component {

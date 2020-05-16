@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class AuthController < ApplicationController
+    class AuthController < Api::V1::ApplicationController
       def signed_in
         if user_signed_in?
           render json: { signed_in: true, user: serialized_current_user }.to_json

@@ -5,19 +5,19 @@ import {
   REMOVE_GEO_POINT,
 } from "../actionTypes/geo_points";
 
-export const setGeoPoints = (geo_points) => ({
+export const setGeoPoints = (geoPoints) => ({
   type: SET_GEO_POINTS,
-  geo_points
+  geoPoints
 })
 
-export const addGeoPoint = ({ id, width, height, rad_value }) => ({
+export const addGeoPoint = ({ id, longitude, latitude, radValue }) => ({
   type: ADD_GEO_POINT,
-  id, width, height, rad_value
+  id, longitude, latitude, radValue
 })
 
-export const updateGeoPoint = ({ id, width, height, rad_value }) => ({
+export const updateGeoPoint = ({ id, longitude, latitude, radValue }) => ({
   type: UPDATE_GEO_POINT,
-  id, width, height, rad_value
+  id, longitude, latitude, radValue
 })
 
 export const removeGeoPoint = ({ id }) => ({
