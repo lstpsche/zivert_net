@@ -1,5 +1,4 @@
 import { Loader as LibLoader } from "react-loaders";
-import PropTypes from "prop-types";
 
 class Loader extends React.Component {
   render () {

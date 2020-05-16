@@ -1,32 +1,25 @@
-import { Map as MapLeaflet, TileLayer, Marker, Popup } from "react-leaflet";
-import PropTypes from "prop-types";
+import { Map as MapLeaflet, TileLayer } from "react-leaflet";
+import GeoPointMarker from "./geo_point_marker";
 
 class MapBase extends React.Component {
   constructor (props) {
     super(props);
   }
 
-  renderGeoPoint ({ id, latitude, longitude, radValue, comment }) {
-    // TODO: try showing 2 Popups (one with radValue, and one with comment) at different places
-    // radValue - at the marker, like it's a marker part; comment - higher than marker, like a popup
-
-    return (
-      <Marker
-        key={"geo-point-marker-" + id}
-        position={[latitude, longitude]}
-        riseOnHover={true}
-      >
-        <Popup>
-          {comment}
-        </Popup>
-      </Marker>
-    )
-  }
-
   renderGeoPoints () {
     const { geoPoints } = this.props;
 
-    return geoPoints.map(this.renderGeoPoint)
+    return geoPoints.map(({ id, latitude, longitude, radValue, comment }) => {
+      return (
+        <GeoPointMarker
+          key={"geo-point-marker-" + id}
+          latitude={latitude}
+          longitude={longitude}
+          radValue={radValue}
+          comment={comment}
+        />
+      )
+    })
   }
 
   render () {

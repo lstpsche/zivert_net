@@ -9,7 +9,8 @@ environment.plugins.prepend("Provide", new webpack.ProvidePlugin({
   I18n: "i18n-js",
   React: "react",
   BlockUi: ["react-block-ui", "default"],
-  _: "underscore"
+  _: "underscore",
+  PropTypes: "prop-types"
 }));
 
 environment.plugins.append("MiniCssExtract", new MiniCssExtractPlugin());
