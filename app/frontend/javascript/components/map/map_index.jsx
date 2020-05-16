@@ -1,15 +1,15 @@
+import MapBase from "./components/map_base";
+
 class MapIndex extends React.Component {
   constructor (props) {
     super(props);
   }
 
   render () {
+    // TODO: add markers here [#ZN-12]
+
     return (
-      <div>
-        <p>
-          {"<OSMap> or smth like that should be here"}
-        </p>
-      </div>
+      <MapBase/>
     )
   }
 }
