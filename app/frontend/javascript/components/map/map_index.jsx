@@ -53,7 +53,14 @@ class MapIndex extends React.Component {
 
     return (
       <div className="container map">
-        <BlockUi tag="div" blocking={mapBlocked} loader={<Loader />} keepInView>
+        <BlockUi
+          tag="div"
+          className="full-page-cover"
+          blocking={mapBlocked}
+          loader={<Loader />}
+          message={<div className="loader-message">{ I18n.t("common.screen_block.loading_geo_points") }</div>}
+          keepInView
+        >
           <MapBase
             geoPoints={geoPoints}
             onDoubleClick={this.showCreationModal}

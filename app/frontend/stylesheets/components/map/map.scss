@@ -1,5 +1,20 @@
 // import all Map styles files here
 
 #main-map {
-  height: 800px;
+  height: 100vh;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  width: 100vw;
+}
+
+.leaflet-top {
+  left: 7px;
+  top: 70px;
+}
+
+.leaflet-bar a {
+  height: 37px;
+  line-height: 37px;
+  width: 33px;
 }

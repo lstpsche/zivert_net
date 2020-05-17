@@ -6,7 +6,7 @@ module Api
       before_action :authenticate_user!, except: :index
 
       def index
-        # TODO: render here geo_points/users/all related to maps info
+        # render here geo_points/users/all related to maps info
         geo_points = GeoPoint.all.map do |gp|
           serialize_geo_point(gp)
         end
