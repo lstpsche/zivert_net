@@ -1,20 +1,21 @@
 .marker-icon {
   align-items: center;
   background-color: #ffd12b;
-  border-radius: 40px;
+  border-radius: 32px;
   box-shadow: inset 0 0 3px 4px #ffa100, 0 0 8px 6px #ffa100;
   color: #4a4a4a;
   display: flex;
+  font-size: 11px;
   font-weight: 600;
   justify-content: center;
-  height: 40px;
-  width: 40px;
+  height: 32px;
+  width: 32px;
 }
 
 // !important is needed here because library sets default marker-icon styles dynamically on each element
 .leaflet-marker-icon {
-  height: 40px !important;
-  margin-left: -21px !important;
-  margin-top: -20px !important;
-  width: 40px !important;
+  height: 32px !important;
+  margin-left: -16px !important;
+  margin-top: -23px !important;
+  width: 32px !important;
 }

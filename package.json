@@ -23,6 +23,7 @@
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.7.0",
+    "react-leaflet-editable-popup": "^1.1.4",
     "react-leaflet-enhanced-marker": "^1.0.15",
     "react-leaflet-google-v2": "^5.1.3",
     "react-loaders": "^3.0.1",

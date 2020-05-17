@@ -9,9 +9,10 @@ class MapBase extends React.Component {
   }
 
   handleMapDblClick ({ originalEvent: { path: pathToTarget }, latlng }) {
-    const classesPath = pathToTarget.map((el) => el.className)
+    const classesPath = pathToTarget.map((el) => el.className).join(" ").split(" ");
+
     if (classesPath.includes("leaflet-marker-icon") || classesPath.includes("marker-popup"))
-      return
+      return;
 
     this.props.onDoubleClick(latlng);
   }
@@ -23,6 +24,7 @@ class MapBase extends React.Component {
       return (
         <GeoPointMarker
           key={"geo-point-marker-" + id}
+          id={id}
           latitude={latitude}
           longitude={longitude}
           radValue={radValue}
