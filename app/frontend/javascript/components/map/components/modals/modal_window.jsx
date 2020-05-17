@@ -55,34 +55,56 @@ class ModalWindow extends React.Component {
     )
   }
 
+  renderModalHeader () {
+    const { title } = this.props;
+
+    return (
+      <Modal.Header closeButton>
+        <Modal.Title>
+          { title }
+        </Modal.Title>
+      </Modal.Header>
+    )
+  }
+
+  renderModalBody () {
+    const { body } = this.props;
+    const { errors } = this.state;
+
+    return (
+      <Modal.Body>
+        {
+          errors.length
+          ? (<Alert variant="danger" className="mb-3"> { errors } </Alert>)
+          : null
+        }
+        { body }
+      </Modal.Body>
+    )
+  }
+
+  renderModalFooter () {
+    const { buttonLoading } = this.state;
+
+    return (
+      <Modal.Footer>
+        {
+          buttonLoading
+          ? this.loadingSubmitButton()
+          : this.regularSubmitButton()
+        }
+      </Modal.Footer>
+    )
+  }
+
   render () {
-    const { title, body, show, handleClose } = this.props;
-    const { buttonLoading, errors } = this.state;
+    const { show, handleClose } = this.props;
 
     return (
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            { title }
-          </Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          {
-            errors.length
-            ? (<Alert variant="danger" className="mb-3"> { errors } </Alert>)
-            : null
-          }
-          { body }
-        </Modal.Body>
-
-        <Modal.Footer>
-          {
-            buttonLoading
-            ? this.loadingSubmitButton()
-            : this.regularSubmitButton()
-          }
-        </Modal.Footer>
+        { this.renderModalHeader() }
+        { this.renderModalBody() }
+        { this.renderModalFooter() }
       </Modal>
     )
   }

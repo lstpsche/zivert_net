@@ -53,18 +53,24 @@ class GeoPointCreationModal extends React.Component {
     })
   }
 
+  inputPrepend (name) {
+    return (
+      <InputGroup.Prepend>
+        <InputGroup.Text id={name + "-addon"}>
+          { I18n.t("modals.fields.labels." + name) }
+        </InputGroup.Text>
+      </InputGroup.Prepend>
+    )
+  }
+
   radValueInputField () {
     const { radValue } = this.state;
 
     return (
       <InputGroup className="mb-3">
-        <InputGroup.Prepend>
-          <InputGroup.Text id="rad-value-addon">
-            { I18n.t("modals.fields.labels.rad_value") }
-          </InputGroup.Text>
-        </InputGroup.Prepend>
+        { this.inputPrepend("rad-value") }
         <FormControl
-          placeholder={I18n.t("modals.fields.placeholders.rad_value")}
+          placeholder={I18n.t("modals.fields.placeholders.rad-value")}
           aria-label="rad-value"
           aria-describedby="rad-value-addon"
           autoComplete="off"
@@ -81,13 +87,9 @@ class GeoPointCreationModal extends React.Component {
 
     return (
       <InputGroup>
-        <InputGroup.Prepend>
-          <InputGroup.Text id="geo-point-comment-addon">
-            { I18n.t("modals.fields.labels.comment") }
-          </InputGroup.Text>
-        </InputGroup.Prepend>
+        { this.inputPrepend("geo-point-comment") }
         <FormControl
-          placeholder={I18n.t("modals.fields.placeholders.comment")}
+          placeholder={I18n.t("modals.fields.placeholders.geo-point-comment")}
           aria-label="geo-point-comment"
           aria-describedby="geo-point-comment-addon"
           autoComplete="off"
@@ -117,7 +119,7 @@ class GeoPointCreationModal extends React.Component {
         title={I18n.t("modals.creation.title")}
         body={this.generateModalBody()}
         onSubmitClick={this.createGeoPoint}
-        handleClose={hideModal}
+        handleClose={this.hideModalWindow}
       />
     )
   }

@@ -4,11 +4,11 @@ en:
       title: Create new Geo Point
     fields:
       labels:
-        comment: Comment
-        rad_value: Radiation value
+        geo-point-comment: Comment
+        rad-value: Radiation value
       placeholders:
-        comment: A small description for this Geo Point
-        rad_value: Input radiation value
+        geo-point-comment: A small description for this Geo Point
+        rad-value: Input radiation value
     buttons:
       create_geo_point: Create Geo Point
       creating_geo_point: Creating...
