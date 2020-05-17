@@ -21,8 +21,8 @@ class MapIndex extends React.Component {
     this.setState({ mapBlocked: state });
   }
 
-  showCreationModal ({ lat, lng }) {
-    this.props.showCreationModal(lat, lng);
+  showCreationModal ({ lat: latitude, lng: longitude }) {
+    this.props.showCreationModal({ latitude, longitude });
   }
 
   componentDidMount () {
@@ -70,7 +70,7 @@ const mapStateToProps = ({ geoPoints }) => ({ geoPoints });
 
 const mapDispatchToProps = dispatch => ({
   setGeoPoints: (geoPoints) => dispatch(setGeoPoints(geoPoints)),
-  showCreationModal: (latitude, longitude) => dispatch(showGeoPointCreationModal(latitude, longitude))
+  showCreationModal: (latlng) => dispatch(showGeoPointCreationModal(latlng))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapIndex);

@@ -2,7 +2,6 @@ en:
   modals:
     creation:
       title: Create new Geo Point
-    create_marker: Create Marker
     fields:
       labels:
         comment: Comment
@@ -10,3 +9,8 @@ en:
       placeholders:
         comment: A small description for this Geo Point
         rad_value: Input radiation value
+    buttons:
+      create_geo_point: Create Geo Point
+      creating_geo_point: Creating...
+    errors:
+      default: Didn't create new Geo Point. Check fields presence.
