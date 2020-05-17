@@ -4,6 +4,16 @@ import GeoPointMarker from "./geo_point_marker";
 class MapBase extends React.Component {
   constructor (props) {
     super(props);
+
+    this.handleMapDblClick = this.handleMapDblClick.bind(this);
+  }
+
+  handleMapDblClick ({ originalEvent: { path: pathToTarget }, latlng }) {
+    const classesPath = pathToTarget.map((el) => el.className)
+    if (classesPath.includes("leaflet-marker-icon") || classesPath.includes("marker-popup"))
+      return
+
+    this.props.onDoubleClick(latlng);
   }
 
   renderGeoPoints () {
@@ -30,6 +40,8 @@ class MapBase extends React.Component {
         id="main-map"
         center={center}
         zoom={zoom}
+        doubleClickZoom={false}
+        ondblclick={this.handleMapDblClick}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

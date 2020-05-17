@@ -3,18 +3,24 @@ import { setGeoPoints } from "../../store/actions/geo_points";
 import fetchLink from "../../helpers/fetch_link";
 import Loader from "../common/loader";
 import MapBase from "./components/map_base";
+import GeoPointCreationModal from "./components/modals/geo_point_creation_modal";
 
 class MapIndex extends React.Component {
   constructor (props) {
     super(props);
 
     this.state = {
-      mapBlocked: false
+      mapBlocked: false,
+      showCreationModal: false
     }
   }
 
   async toggleTableBlock (state) {
     this.setState({ mapBlocked: state });
+  }
+
+  toggleCreationModal (state) {
+    this.setState({ showCreationModal: state });
   }
 
   componentDidMount () {
@@ -40,13 +46,21 @@ class MapIndex extends React.Component {
   }
 
   render () {
-    const { mapBlocked } = this.state;
+    const { mapBlocked, showCreationModal } = this.state;
     const { geoPoints } = this.props;
 
     return (
       <div className="container map">
         <BlockUi tag="div" blocking={mapBlocked} loader={<Loader />} keepInView>
-          <MapBase geoPoints={geoPoints} />
+          <MapBase
+            geoPoints={geoPoints}
+            onDoubleClick={(args) => this.toggleCreationModal(true, args)}
+          />
+
+          <GeoPointCreationModal
+            show={showCreationModal}
+            onClose={(args) => this.toggleCreationModal(false, args)}
+          />
         </BlockUi>
       </div>
     )

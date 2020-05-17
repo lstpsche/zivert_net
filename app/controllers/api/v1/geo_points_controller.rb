@@ -3,7 +3,8 @@
 module Api
   module V1
     class GeoPointsController < Api::V1::ApplicationController
-      before_action :authenticate_user!
+      # TODO: uncomment this at [#ZN-27]
+      # before_action :authenticate_user!, except: %i[index show]
 
       def index
         geo_points = GeoPoint.all.map { |gp| serialize_geo_point(gp) }
@@ -27,7 +28,7 @@ module Api
         if geo_point.update(geo_point_params)
           render json: { success: true, geo_point: serialize_geo_point(geo_point) }.to_json
         else
-          render json: { success: false, errors: geo_point.errors.message }.to_json
+          render json: { success: false, geo_point: serialize_geo_point(geo_point), errors: geo_point.errors.message }.to_json
         end
       end
 
