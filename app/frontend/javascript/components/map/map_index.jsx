@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { setGeoPoints } from "../../store/actions/geo_points";
+import { showGeoPointCreationModal } from "../../store/actions/geo_point_creation_modal";
 import fetchLink from "../../helpers/fetch_link";
 import Loader from "../common/loader";
 import MapBase from "./components/map_base";
@@ -10,17 +11,18 @@ class MapIndex extends React.Component {
     super(props);
 
     this.state = {
-      mapBlocked: false,
-      showCreationModal: false
+      mapBlocked: false
     }
+
+    this.showCreationModal = this.showCreationModal.bind(this);
   }
 
   async toggleTableBlock (state) {
     this.setState({ mapBlocked: state });
   }
 
-  toggleCreationModal (state) {
-    this.setState({ showCreationModal: state });
+  showCreationModal ({ lat, lng }) {
+    this.props.showCreationModal(lat, lng);
   }
 
   componentDidMount () {
@@ -46,7 +48,7 @@ class MapIndex extends React.Component {
   }
 
   render () {
-    const { mapBlocked, showCreationModal } = this.state;
+    const { mapBlocked } = this.state;
     const { geoPoints } = this.props;
 
     return (
@@ -54,23 +56,21 @@ class MapIndex extends React.Component {
         <BlockUi tag="div" blocking={mapBlocked} loader={<Loader />} keepInView>
           <MapBase
             geoPoints={geoPoints}
-            onDoubleClick={(args) => this.toggleCreationModal(true, args)}
+            onDoubleClick={this.showCreationModal}
           />
 
-          <GeoPointCreationModal
-            show={showCreationModal}
-            onClose={(args) => this.toggleCreationModal(false, args)}
-          />
+          <GeoPointCreationModal />
         </BlockUi>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({ geoPoints: state.geoPoints });
+const mapStateToProps = ({ geoPoints }) => ({ geoPoints });
 
 const mapDispatchToProps = dispatch => ({
-  setGeoPoints: (geoPoints) => dispatch(setGeoPoints(geoPoints))
+  setGeoPoints: (geoPoints) => dispatch(setGeoPoints(geoPoints)),
+  showCreationModal: (latitude, longitude) => dispatch(showGeoPointCreationModal(latitude, longitude))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapIndex);
