@@ -27,12 +27,11 @@
 // components
 @import "./components/block_ui.scss";
 @import "./components/dropdown.scss";
-@import "./components/geo_points/geo_points.scss";
-@import "./components/loader.scss";
 @import "./components/map/map.scss";
+@import "./components/modals/modal.scss";
 @import "./components/navbar.scss";
 
-#full-page-cover {
+.full-page-cover {
   align-items: center;
   display: flex;
   flex-direction: column;

@@ -74,7 +74,7 @@ class App extends React.Component {
     user.signedIn = signedIn;
 
     if (signedIn === undefined)
-      return <BlockUi tag="div" id="full-page-cover" blocking={true} loader={<Loader />} keepInView/>
+      return <BlockUi tag="div" className="full-page-cover" blocking={true} loader={<Loader />} keepInView/>
 
     return (
       <BrowserRouter>

@@ -1,5 +1,11 @@
-// import all Map styles files here
+@import "./marker.scss";
+@import "./popup.scss";
+@import "./zoom_control.scss";
 
 #main-map {
-  height: 800px;
+  height: 100vh;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  width: 100vw;
 }
