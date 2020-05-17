@@ -1,8 +1,10 @@
 import { connect } from "react-redux";
 import { setGeoPoints } from "../../store/actions/geo_points";
+import { showGeoPointCreationModal } from "../../store/actions/geo_point_creation_modal";
 import fetchLink from "../../helpers/fetch_link";
 import Loader from "../common/loader";
 import MapBase from "./components/map_base";
+import GeoPointCreationModal from "./components/modals/geo_point_creation_modal";
 
 class MapIndex extends React.Component {
   constructor (props) {
@@ -11,10 +13,16 @@ class MapIndex extends React.Component {
     this.state = {
       mapBlocked: false
     }
+
+    this.showCreationModal = this.showCreationModal.bind(this);
   }
 
   async toggleTableBlock (state) {
     this.setState({ mapBlocked: state });
+  }
+
+  showCreationModal ({ lat: latitude, lng: longitude }) {
+    this.props.showCreationModal({ latitude, longitude });
   }
 
   componentDidMount () {
@@ -46,17 +54,23 @@ class MapIndex extends React.Component {
     return (
       <div className="container map">
         <BlockUi tag="div" blocking={mapBlocked} loader={<Loader />} keepInView>
-          <MapBase geoPoints={geoPoints} />
+          <MapBase
+            geoPoints={geoPoints}
+            onDoubleClick={this.showCreationModal}
+          />
+
+          <GeoPointCreationModal />
         </BlockUi>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({ geoPoints: state.geoPoints });
+const mapStateToProps = ({ geoPoints }) => ({ geoPoints });
 
 const mapDispatchToProps = dispatch => ({
-  setGeoPoints: (geoPoints) => dispatch(setGeoPoints(geoPoints))
+  setGeoPoints: (geoPoints) => dispatch(setGeoPoints(geoPoints)),
+  showCreationModal: (latlng) => dispatch(showGeoPointCreationModal(latlng))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapIndex);

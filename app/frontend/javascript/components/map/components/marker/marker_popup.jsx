@@ -6,7 +6,7 @@ class MarkerPopup extends React.Component {
 
     return (
       <Popup
-        className="marker-comment"
+        className="marker-popup marker-comment"
         closeButton={false}
       >
         {text}

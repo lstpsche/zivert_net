@@ -23,20 +23,20 @@ function geoPoints(state = [], action) {
 
   switch(actionType) {
     case SET_GEO_POINTS:
-      return action.geoPoints
+      return action.geoPoints;
     case ADD_GEO_POINT:
       return [
         ...state,
         { id, longitude, latitude, radValue, comment }
-      ]
+      ];
     case UPDATE_GEO_POINT:
       return state.map (geoPoint =>
         geoPoint.id === id ? { ...geoPoint, longitude, latitude, radValue, comment } : geo_point
-      )
+      );
     case REMOVE_GEO_POINT:
-      return state.filter(({ id: geoPointId }) => geoPointId !== id)
+      return state.filter(({ id: geoPointId }) => geoPointId !== id);
     default:
-      return state
+      return state;
   }
 }
 
