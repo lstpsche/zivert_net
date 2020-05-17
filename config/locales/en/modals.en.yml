@@ -1,0 +1,12 @@
+en:
+  modals:
+    creation:
+      title: Create new Geo Point
+    create_marker: Create Marker
+    fields:
+      labels:
+        comment: Comment
+        rad_value: Radiation value
+      placeholders:
+        comment: A small description for this Geo Point
+        rad_value: Input radiation value
