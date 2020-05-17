@@ -24,6 +24,7 @@ class MapBase extends React.Component {
       return (
         <GeoPointMarker
           key={"geo-point-marker-" + id}
+          id={id}
           latitude={latitude}
           longitude={longitude}
           radValue={radValue}

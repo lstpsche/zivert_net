@@ -1,4 +1,14 @@
 // !important is needed here because library sets default marker-icon styles dynamically on each element
 .leaflet-popup.marker-popup {
   bottom: 10px !important;
+
+  .leaflet-popup-content {
+    .leaflet-popup-useraction-buttons {
+      padding: 0;
+    }
+
+    .popup-text {
+      padding: 0 0 13px 0;
+    }
+  }
 }
