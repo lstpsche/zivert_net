@@ -1,4 +1,6 @@
-// import all Map styles files here
+@import "./marker.scss";
+@import "./popup.scss";
+@import "./zoom_control.scss";
 
 #main-map {
   height: 100vh;
@@ -6,15 +8,4 @@
   position: fixed;
   top: 0px;
   width: 100vw;
-}
-
-.leaflet-top {
-  left: 7px;
-  top: 70px;
-}
-
-.leaflet-bar a {
-  height: 37px;
-  line-height: 37px;
-  width: 33px;
 }
