@@ -62,7 +62,7 @@ class MapIndex extends React.Component {
           keepInView
         >
           <MapBase
-            geoPoints={geoPoints}
+            markers={geoPoints}
             onDoubleClick={this.showCreationModal}
           />
 

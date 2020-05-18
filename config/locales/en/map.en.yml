@@ -1,0 +1,9 @@
+en:
+  map:
+    layers:
+      base:
+        map: Map view
+        satellite: Satellite view
+      overlay:
+        dim_map: Dim map
+        geo_points: Geo Points

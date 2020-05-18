@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 class Home extends React.Component {
   render () {
     return (
-      <div id="full-page-cover">
+      <div className="full-page-cover">
         <div className="content">
           <h1 className="cover-heading">
             {I18n.t("home.main_title")}

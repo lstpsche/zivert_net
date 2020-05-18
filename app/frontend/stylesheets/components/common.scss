@@ -1,0 +1,21 @@
+.full-page-cover {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.full-page {
+  height: 100vh;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  width: 100vw;
+}
