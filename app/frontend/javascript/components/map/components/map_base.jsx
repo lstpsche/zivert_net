@@ -10,10 +10,10 @@ class MapBase extends React.Component {
     this.handleMapDblClick = this.handleMapDblClick.bind(this);
   }
 
-  handleMapDblClick ({ originalEvent: { path: pathToTarget }, latlng }) {
-    const classesPath = pathToTarget.map((el) => el.className).join(" ").split(" ");
+  handleMapDblClick ({ originalEvent: { target: { className: targetClassName } }, latlng }) {
+    const targetClasses = targetClassName.split(" ");
 
-    if (classesPath.includes("leaflet-marker-icon") || classesPath.includes("marker-popup"))
+    if (targetClasses.includes("marker-icon"))
       return;
 
     this.props.onDoubleClick(latlng);
