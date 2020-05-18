@@ -44,6 +44,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    alertifyjs-rails (1.12.0)
     arel (9.0.0)
     ast (2.4.0)
     babel-source (5.8.35)
@@ -240,13 +241,21 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
-    simplecov (0.18.5)
+    simplecov (0.17.1)
       docile (~> 1.1)
-      simplecov-html (~> 0.11)
-    simplecov-html (0.12.2)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     simplecov-json (0.2.1)
       json
       simplecov
+    slim (4.1.0)
+      temple (>= 0.7.6, < 0.9)
+      tilt (>= 2.0.6, < 2.1)
+    slim-rails (3.2.0)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 5.0)
     solargraph (0.39.7)
       backport (~> 1.1)
       benchmark
@@ -272,6 +281,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    temple (0.8.2)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -310,6 +320,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  alertifyjs-rails
   bootsnap (>= 1.1.0)
   byebug
   capybara
@@ -333,8 +344,9 @@ DEPENDENCIES
   rubocop (~> 0.83.0)
   sass-rails (~> 5.0)
   selenium-webdriver
-  simplecov
+  simplecov (~> 0.17.1)
   simplecov-json
+  slim-rails
   solargraph
   spring
   spring-watcher-listen (~> 2.0.0)

@@ -8,6 +8,10 @@ module Api
 
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+      def serialized_current_user
+        UserSerializer.new(current_user).serializable_hash
+      end
+
       def serialize_geo_point(geo_point)
         GeoPointSerializer.new(geo_point).serializable_hash
       end

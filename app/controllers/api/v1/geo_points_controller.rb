@@ -2,32 +2,33 @@
 
 module Api
   module V1
-    class GeoPointsController < ApplicationController
-      before_action :authenticate_user!
+    class GeoPointsController < Api::V1::ApplicationController
+      # TODO: uncomment this at [#ZN-27]
+      # before_action :authenticate_user!, except: %i[index show]
 
       def index
         geo_points = GeoPoint.all.map { |gp| serialize_geo_point(gp) }
 
-        render json: { geo_points: geo_points }.to_json
+        render json: { geoPoints: geo_points }.to_json
       end
 
       def show
-        render json: { geo_point: serialize_geo_point(geo_point) }.to_json
+        render json: { geoPoint: serialize_geo_point(geo_point) }.to_json
       end
 
       def create
         if new_geo_point.save
-          render json: { success: true, geo_point: serialize_geo_point(geo_point) }.to_json
+          render json: { success: true, geoPoint: serialize_geo_point(geo_point) }.to_json
         else
-          render json: { success: false, errors: geo_point.errors.message }.to_json
+          render json: { success: false, errors: geo_point.errors.messages }.to_json
         end
       end
 
       def update
         if geo_point.update(geo_point_params)
-          render json: { success: true, geo_point: serialize_geo_point(geo_point) }.to_json
+          render json: { success: true, geoPoint: serialize_geo_point(geo_point) }.to_json
         else
-          render json: { success: false, errors: geo_point.errors.message }.to_json
+          render json: { success: false, errors: geo_point.errors.messages }.to_json
         end
       end
 
@@ -35,7 +36,7 @@ module Api
         if geo_point.destroy
           render json: { success: true }.to_json
         else
-          render json: { success: false, errors: geo_point.errors.message }.to_json
+          render json: { success: false, errors: geo_point.errors.messages }.to_json
         end
       end
 
@@ -50,9 +51,9 @@ module Api
       end
 
       def geo_point_params
-        return nil unless params.fetch(:geo_point, false)
+        return nil unless params.fetch(:geoPoint, false)
 
-        params.require(:geo_point).permit(:width, :height)
+        params.require(:geoPoint).permit(:latitude, :longitude, :rad_value, :comment)
       end
     end
   end

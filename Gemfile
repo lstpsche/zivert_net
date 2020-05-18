@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'alertifyjs-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.1'
 # Use postgresql as the database for Active Record
@@ -15,6 +16,7 @@ gem 'pry-rails'
 gem 'puma', '~> 3.11'
 gem 'react-rails'
 gem 'responders'
+gem 'slim-rails'
 # I18n for JS
 gem 'i18n-js'
 # Use SCSS for stylesheets
@@ -73,6 +75,6 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
-  gem 'simplecov', require: false
+  gem 'simplecov', '~> 0.17.1', require: false
   gem 'simplecov-json'
 end

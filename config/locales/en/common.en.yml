@@ -1,0 +1,6 @@
+en:
+  common:
+    geo_point: Geo Point
+    screen_block:
+      loading_geo_points: Loading Geo Points...
+    zivert_net: ZivertNet

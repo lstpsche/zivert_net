@@ -12,7 +12,7 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:serialized_geo_point1) { double(:serialized_hash) }
     let(:serialized_geo_point2) { double(:serialized_hash) }
 
-    let(:expected_result) { { geo_points: [serialized_geo_point1, serialized_geo_point2] }.to_json }
+    let(:expected_result) { { geoPoints: [serialized_geo_point1, serialized_geo_point2] }.to_json }
 
     before do
       sign_in(user)
@@ -35,7 +35,7 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:geo_point_id) { rand(100) }
     let(:geo_point) { instance_double(GeoPoint) }
     let(:serialized_geo_point) { double(:serialized_hash) }
-    let(:expected_result) { { geo_point: serialized_geo_point }.to_json }
+    let(:expected_result) { { geoPoint: serialized_geo_point }.to_json }
 
     before do
       sign_in(user)
@@ -54,9 +54,10 @@ describe Api::V1::GeoPointsController, type: :controller do
   describe 'POST create' do
     subject { post(:create, params: params) }
 
-    let(:params) { { geo_point: { width: width, height: height } } }
-    let(:width) { rand(100) }
-    let(:height) { rand(100) }
+    let(:params) { { geoPoint: { latitude: latitude, longitude: longitude } } }
+    let(:latitude) { rand(100) }
+    let(:longitude) { rand(100) }
+    let(:rad_value) { rand(100) }
 
     let(:geo_point) { instance_double(GeoPoint, save: saved) }
 
@@ -71,7 +72,7 @@ describe Api::V1::GeoPointsController, type: :controller do
       let(:expected_result) do
         {
           success: true,
-          geo_point: serialized_geo_point
+          geoPoint: serialized_geo_point
         }.to_json
       end
 
@@ -96,7 +97,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
       before do
         allow(geo_point)
-          .to receive_message_chain(:errors, :message)
+          .to receive_message_chain(:errors, :messages)
           .with(no_args).with(no_args)
           .and_return('error message')
       end
@@ -114,9 +115,10 @@ describe Api::V1::GeoPointsController, type: :controller do
     subject { patch(:update, params: params) }
 
     let(:geo_point_id) { rand(100) }
-    let(:params) { { id: geo_point_id, geo_point: { width: width, height: height } } }
-    let(:width) { rand(100) }
-    let(:height) { rand(100) }
+    let(:params) { { id: geo_point_id, geoPoint: { latitude: latitude, longitude: longitude } } }
+    let(:latitude) { rand(100) }
+    let(:longitude) { rand(100) }
+    let(:rad_value) { rand(100) }
 
     let(:geo_point) { instance_double(GeoPoint) }
 
@@ -132,7 +134,7 @@ describe Api::V1::GeoPointsController, type: :controller do
       let(:expected_result) do
         {
           success: true,
-          geo_point: serialized_geo_point
+          geoPoint: serialized_geo_point
         }.to_json
       end
 
@@ -157,7 +159,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
       before do
         allow(geo_point)
-          .to receive_message_chain(:errors, :message)
+          .to receive_message_chain(:errors, :messages)
           .with(no_args).with(no_args)
           .and_return('error message')
       end
@@ -206,7 +208,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
       before do
         allow(geo_point)
-          .to receive_message_chain(:errors, :message)
+          .to receive_message_chain(:errors, :messages)
           .with(no_args).with(no_args)
           .and_return('error message')
       end
