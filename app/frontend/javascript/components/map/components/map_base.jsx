@@ -1,5 +1,7 @@
-import { Map as MapLeaflet, TileLayer } from "react-leaflet";
-import GeoPointMarker from "./geo_point_marker";
+import { Map as MapLeaflet, LayersControl } from "react-leaflet";
+import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
+import DimmedLayer from "./map_layers/overlays/dimmed_layer";
+import GeoPointsLayer from "./map_layers/overlays/geo_points_layer";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -17,25 +19,8 @@ class MapBase extends React.Component {
     this.props.onDoubleClick(latlng);
   }
 
-  renderGeoPoints () {
-    const { geoPoints } = this.props;
-
-    return geoPoints.map(({ id, latitude, longitude, radValue, comment }) => {
-      return (
-        <GeoPointMarker
-          key={"geo-point-marker-" + id}
-          id={id}
-          latitude={latitude}
-          longitude={longitude}
-          radValue={radValue}
-          comment={comment}
-        />
-      )
-    })
-  }
-
   render () {
-    const { center, zoom } = this.props;
+    const { center, zoom, markers } = this.props;
 
     return (
       <MapLeaflet
@@ -45,10 +30,19 @@ class MapBase extends React.Component {
         doubleClickZoom={false}
         ondblclick={this.handleMapDblClick}
       >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {this.renderGeoPoints()}
+        <LayersControl position="topleft">
+          <LayersControl.BaseLayer checked name={I18n.t("map.layers.base.map")}>
+            <RegularMapLayer />
+          </LayersControl.BaseLayer>
+
+          <LayersControl.Overlay name={I18n.t("map.layers.overlay.dim_map")}>
+            <DimmedLayer />
+          </LayersControl.Overlay>
+
+          <LayersControl.Overlay checked name={I18n.t("map.layers.overlay.geo_points")}>
+            <GeoPointsLayer geoPoints={markers} />
+          </LayersControl.Overlay>
+        </LayersControl>
       </MapLeaflet>
     )
   }
