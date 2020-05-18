@@ -1,16 +1,18 @@
 .leaflet-control-layers {
-  label {
-    display: flex;
-    justify-content: start;
-    margin-left: 5px;
+  .leaflet-control-layers-list {
+    label {
+      display: flex;
+      justify-content: flex-start;
+      margin-left: 5px;
 
-    &:last-child {
-      margin-bottom: 3px;
-    }
+      &:last-child {
+        margin-bottom: 3px;
+      }
 
-    input.leaflet-control-layers-selector {
-      margin-right: 3px;
-      top: 2px;
+      input.leaflet-control-layers-selector {
+        margin-right: 3px;
+        top: 2px;
+      }
     }
   }
 }

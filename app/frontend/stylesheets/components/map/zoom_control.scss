@@ -1,11 +1,16 @@
-.leaflet-top {
-  left: 7px;
-  top: 70px;
-}
+.leaflet-control-container {
+  .leaflet-top {
+    top: 70px;
+  }
 
-.leaflet-bar a,
-.leaflet-bar a:hover {
-  height: 37px;
-  line-height: 37px;
-  width: 33px;
+  .leflet-left {
+    left: 7px;
+  }
+
+  .leaflet-bar a,
+  .leaflet-bar a:hover {
+    height: 37px;
+    line-height: 37px;
+    width: 33px;
+  }
 }
