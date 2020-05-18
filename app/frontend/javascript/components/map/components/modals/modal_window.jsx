@@ -34,13 +34,14 @@ class ModalWindow extends React.Component {
 
   loadingSubmitButton () {
     return (
-      <Button variant="secondary" disabled>
+      <Button variant="secondary" disabled className="submit-button-busy">
         <Spinner
           as="span"
           animation="border"
           size="sm"
           role="status"
           aria-hidden="true"
+          className="button-loading-spinner"
         />
         { I18n.t("modals.buttons.creating_geo_point") }
       </Button>
