@@ -33,3 +33,4 @@ yarn-debug.log*
 .env
 coverage
 /public/javascripts/*
+/app/frontend/packs/translations.js

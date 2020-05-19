@@ -10,3 +10,9 @@
   top: 0px;
   width: 100vw;
 }
+
+.leaflet-control-container {
+  .leaflet-control-attribution.leaflet-control {
+    display: none;
+  }
+}

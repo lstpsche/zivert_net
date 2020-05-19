@@ -7,10 +7,12 @@
     left: 7px;
   }
 
-  .leaflet-bar a,
-  .leaflet-bar a:hover {
-    height: 37px;
-    line-height: 37px;
-    width: 33px;
+  .leaflet-control-zoom {
+    .leaflet-bar a,
+    .leaflet-bar a:hover {
+      height: 37px;
+      line-height: 37px;
+      width: 33px;
+    }
   }
 }
