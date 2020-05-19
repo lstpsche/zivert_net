@@ -4,6 +4,8 @@ module Api
   module V1
     module DeviseCustom
       class RegistrationsController < Devise::RegistrationsController
+        respond_to :json
+
         private
 
         def after_update_path_for(_resource)

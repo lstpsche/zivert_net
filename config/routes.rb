@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  get '/sign_in', to: redirect('/users/sign_in')
+  get '/sign_up', to: redirect('/users/sign_up')
+
   devise_for :users, only: %i[sessions registrations],
     controllers: {
       registrations: 'api/v1/devise_custom/registrations',
       sessions: 'api/v1/devise_custom/sessions'
     },
     path: '',
-    path_names: { sign_in: 'sign_in', sign_out: 'sign_out' },
-    defaults: { format: :json }
+    path_names: { sign_in: 'sign_in', sign_up: 'sign_up', sign_out: 'sign_out' }
 
   namespace :api do
     namespace :v1 do

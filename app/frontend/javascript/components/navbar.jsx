@@ -11,12 +11,6 @@ class Navbar extends React.Component {
     this.state = {
       redirectTo: ""
     }
-
-    this.projectNameLink = this.projectNameLink.bind(this);
-    this.actionsSide = this.actionsSide.bind(this);
-    this.userDropdown = this.userDropdown.bind(this);
-    this.loginLink = this.loginLink.bind(this);
-    this.onLogin = this.onLogin.bind(this);
   }
 
   projectNameLink () {
@@ -36,7 +30,7 @@ class Navbar extends React.Component {
           {
             user.signedIn
               ? this.userDropdown(user)
-              : this.loginLink(this.onLogin)
+              : this.authLinks(this.onLogin)
           }
         </ul>
       </div>
@@ -49,13 +43,28 @@ class Navbar extends React.Component {
     )
   }
 
-  loginLink (callback) {
-    //  TODO:  add link to sign in/sign up [#ZN-8]
-    return "SIGN IN LINK"
-  }
+  authLinks () {
+    return (
+      <div id="auth-links">
+        <Link
+          to="/users/sign_in"
+          id="sign-in-button"
+          className="btn mr-2"
+          role="button"
+        >
+          { I18n.t("devise.sessions.sign_in") }
+        </Link>
 
-  onLogin () {
-    window.location.reload();
+        <Link
+          to="/users/sign_up"
+          id="sign-up-button"
+          className="btn"
+          role="button"
+        >
+          { I18n.t("devise.registrations.sign_up") }
+        </Link>
+      </div>
+    )
   }
 
   render () {
