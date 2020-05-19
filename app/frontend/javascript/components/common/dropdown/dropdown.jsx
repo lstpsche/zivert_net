@@ -49,7 +49,7 @@ class Dropdown extends React.Component {
           showMenu
             ? (
               <div className="dropdown-menu show">
-                {this.renderItems(items)}
+                { this.renderItems(items) }
               </div>
             )
             : null

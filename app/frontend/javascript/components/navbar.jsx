@@ -38,16 +38,16 @@ class Navbar extends React.Component {
   }
 
   userDropdown (user) {
-    return (
-      <UserDropdown user={user} />
-    )
+    // return (
+    //   <UserDropdown user={user} />
+    // )
   }
 
   authLinks () {
     return (
       <div id="auth-links">
         <Link
-          to="/users/sign_in"
+          to="/sign_in"
           id="sign-in-button"
           className="btn mr-2"
           role="button"
@@ -56,7 +56,7 @@ class Navbar extends React.Component {
         </Link>
 
         <Link
-          to="/users/sign_up"
+          to="/sign_up"
           id="sign-up-button"
           className="btn"
           role="button"

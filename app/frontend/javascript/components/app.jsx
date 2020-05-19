@@ -5,8 +5,8 @@ import UserContext from "./contexts/user_context";
 import NotFound from "./errors/not_found";
 import Navbar from "./navbar";
 import Home from "./home";
-import SignIn from "./authorization/sign_in";
-import SignUp from "./authorization/sign_up";
+import SignIn from "./authorization/sign_in/sign_in";
+import SignUp from "./authorization/sign_up/sign_up";
 import MapIndex from "./map/map_index";
 
 class App extends React.Component {
@@ -61,8 +61,8 @@ class App extends React.Component {
     return (
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/users/sign_in" exact component={SignIn} />
-        <Route path="/users/sign_up" exact component={SignUp} />
+        <Route path="/sign_in" exact component={SignIn} />
+        <Route path="/sign_up" exact component={SignUp} />
         <Route path="/map" exact component={MapIndex} />
 
         <Route path="/" render={() => (

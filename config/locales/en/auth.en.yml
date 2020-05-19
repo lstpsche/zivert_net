@@ -1,0 +1,15 @@
+en:
+  auth:
+    buttons:
+      sign_in: Sign in
+      sign_up: Create account
+      already_registered: Already have an account?
+    sign_up:
+      fields:
+        errors:
+          password_length: Password should have at least 6 symbols.
+          password_confirm: Passwords should match.
+        labels:
+          username: Username
+          password: Password
+          password_confirmation: Confirm password
