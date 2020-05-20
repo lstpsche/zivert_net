@@ -28,14 +28,13 @@ class SignInForm extends FormBase {
   }
 
   handleSubmit (event) {
-    const { currentTarget: form } = event;
     const { onSubmit } = this.props;
     const { username, password } = this.state;
 
     event.preventDefault();
     event.stopPropagation();
 
-    if ((form.checkValidity() === false)) {
+    if ((this.form.checkValidity() === false)) {
       this.setState({ formValidated: true });
       return;
     }
@@ -56,7 +55,7 @@ class SignInForm extends FormBase {
 
     if (showAlert)
       return (
-        <Alert variant="danger" onClose={() => this.toggleAlert(false)} dismissible>
+        <Alert id="invalid-creds-alert" variant="danger" onClose={() => this.toggleAlert(false)} dismissible>
           { I18n.t("auth.fields.sign_in.errors.invalid_creds") }
         </Alert>
       )
@@ -87,6 +86,7 @@ class SignInForm extends FormBase {
 
     return (
       <Form
+        ref={el => this.form = el}
         noValidate
         validated={formValidated}
         id="sign-in-form"

@@ -30,6 +30,10 @@ class FormBase extends React.Component {
     }
   }
 
+  renderPasswordInvalidFeedback () {
+    return ""
+  }
+
   renderUsernameField (type) {
     const { username } = this.state;
 
@@ -70,15 +74,8 @@ class FormBase extends React.Component {
           isValid={formValidated && this.isPasswordLengthValid()}
           isInvalid={formValidated && !this.isPasswordLengthValid()}
         />
-        {
-          this.isPasswordLengthValid()
-          ? ""
-          : (
-            <Form.Control.Feedback type="invalid">
-              { I18n.t(`auth.fields.${type}.errors.password_length`) }
-            </Form.Control.Feedback>
-          )
-        }
+
+        { this.renderPasswordInvalidFeedback() }
       </Form.Group>
     )
   }

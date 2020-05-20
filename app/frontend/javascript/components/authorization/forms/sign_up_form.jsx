@@ -22,6 +22,7 @@ class SignUpForm extends FormBase {
 
     this.renderUsernameField = this.renderUsernameField.bind(this);
     this.renderPasswordField = this.renderPasswordField.bind(this);
+    this.renderPasswordInvalidFeedback = this.renderPasswordInvalidFeedback.bind(this);
   }
 
   handleSubmit () {
@@ -34,6 +35,17 @@ class SignUpForm extends FormBase {
     }
 
     onSubmit({ username, password, passwordConfirmation });
+  }
+
+  renderPasswordInvalidFeedback () {
+    if(this.isPasswordLengthValid())
+      return ""
+
+    return (
+      <Form.Control.Feedback type="invalid">
+        { I18n.t(`auth.fields.sign_up.errors.password_length`) }
+      </Form.Control.Feedback>
+    )
   }
 
   renderPasswordConfirmationField () {
@@ -58,7 +70,7 @@ class SignUpForm extends FormBase {
           this.isPasswordsMatch()
           ? ""
           : (
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback type="invalid" className="password-confirmation-feedback">
               { I18n.t("auth.fields.sign_up.errors.password_confirm") }
             </Form.Control.Feedback>
           )

@@ -8,7 +8,6 @@ en:
     fields:
       sign_in:
         errors:
-          password_length: Invalid password.
           invalid_creds: Incorrect username or password.
         labels:
           username: Username
