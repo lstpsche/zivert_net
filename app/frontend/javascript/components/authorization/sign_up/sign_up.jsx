@@ -13,15 +13,17 @@ class SignUp extends React.Component {
       link: "/users",
       method: "POST",
       body: JSON.stringify({ user: { username, password, password_confirmation: passwordConfirmation } }),
-      onSuccess: (response) => {
-        debugger
-      }
+      onSuccess: () => window.location.reload()
     });
   }
 
   render () {
     return (
-      <div id="sign-up-container">
+      <div id="sign-up-container" className="col-xl-8 col-lg-10 col-md-10 col-sm-11">
+        <h2 id="sign-up-title">
+          { I18n.t("auth.titles.sign_up") }
+        </h2>
+
         <SignUpForm
           onSubmit={this.handleSubmit}
         />

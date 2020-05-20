@@ -13,3 +13,5 @@ en:
           username: Username
           password: Password
           password_confirmation: Confirm password
+    titles:
+      sign_up: Create your account

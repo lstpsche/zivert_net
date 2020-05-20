@@ -30,7 +30,7 @@ class SignUpForm extends React.Component {
   isPasswordLengthValid () {
     const { password } = this.state;
 
-    return password.length >= 6;
+    return password.length >= this.minPasswordLength;
   }
 
   handleInputChange ({ target: { name, value } }) {
@@ -45,7 +45,7 @@ class SignUpForm extends React.Component {
     event.preventDefault();
     event.stopPropagation();
 
-    if ((form.checkValidity() === false) || !this.isPasswordsMatch()) {
+    if ((form.checkValidity() === false) || !this.isPasswordLengthValid() || !this.isPasswordsMatch()) {
       this.setState({ formValidated: true });
       return;
     }
@@ -62,6 +62,7 @@ class SignUpForm extends React.Component {
           { I18n.t("auth.sign_up.fields.labels.username") }
         </Form.Label>
         <Form.Control
+          ref={el => this.usernameField = el}
           required
           type="username"
           name="username"
@@ -133,6 +134,19 @@ class SignUpForm extends React.Component {
     )
   }
 
+  componentDidMount () {
+    this.usernameField.focus();
+  }
+
+  componentWillUnmount () {
+    // clear fields to prevent passwords leak alert
+    this.setState({
+      username: "",
+      password: "",
+      passwordConfirmation: ""
+    })
+  }
+
   render () {
     const { formValidated } = this.state;
 
@@ -147,16 +161,19 @@ class SignUpForm extends React.Component {
         { this.renderPasswordField() }
         { this.renderPasswordConfirmationField() }
 
-        <Button variant="secondary" type="submit">
-          {I18n.t("auth.buttons.sign_up")}
-        </Button>
+        <div className="form-actions">
+          <Button variant="secondary" type="submit">
+            {I18n.t("auth.buttons.sign_up")}
+          </Button>
 
-        <Link
-          to="/users/sign_in"
-          id="already-registered-link"
-        >
-          { I18n.t("auth.buttons.already_registered") }
-        </Link>
+          <Link
+            to="/sign_in"
+            id="already-registered-link"
+            className="secondary-link bold"
+          >
+            { I18n.t("auth.buttons.already_registered") }
+          </Link>
+        </div>
       </Form>
     )
   }
