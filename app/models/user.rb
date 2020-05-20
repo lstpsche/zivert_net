@@ -9,4 +9,8 @@ class User < ApplicationRecord
   def email_changed?
     false
   end
+
+  def json
+    UserSerializer.new(self).serializable_hash
+  end
 end

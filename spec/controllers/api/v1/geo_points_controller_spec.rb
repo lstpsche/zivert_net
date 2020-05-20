@@ -6,8 +6,8 @@ describe Api::V1::GeoPointsController, type: :controller do
   describe 'GET index' do
     subject { get(:index) }
 
-    let(:geo_point1) { instance_double(GeoPoint) }
-    let(:geo_point2) { instance_double(GeoPoint) }
+    let(:geo_point1) { instance_double(GeoPoint, json: serialized_geo_point1) }
+    let(:geo_point2) { instance_double(GeoPoint, json: serialized_geo_point2) }
 
     let(:serialized_geo_point1) { double(:serialized_hash) }
     let(:serialized_geo_point2) { double(:serialized_hash) }
@@ -17,8 +17,6 @@ describe Api::V1::GeoPointsController, type: :controller do
     before do
       sign_in(user)
       allow(GeoPoint).to receive(:all).with(no_args).and_return([geo_point1, geo_point2])
-      allow(controller).to receive(:serialize_geo_point).with(geo_point1).and_return(serialized_geo_point1)
-      allow(controller).to receive(:serialize_geo_point).with(geo_point2).and_return(serialized_geo_point2)
     end
 
     it { is_expected.to have_http_status(:ok) }
@@ -33,14 +31,13 @@ describe Api::V1::GeoPointsController, type: :controller do
     subject { get(:show, params: { id: geo_point_id }) }
 
     let(:geo_point_id) { rand(100) }
-    let(:geo_point) { instance_double(GeoPoint) }
+    let(:geo_point) { instance_double(GeoPoint, json: serialized_geo_point) }
     let(:serialized_geo_point) { double(:serialized_hash) }
     let(:expected_result) { { geoPoint: serialized_geo_point }.to_json }
 
     before do
       sign_in(user)
       allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
-      allow(controller).to receive(:serialize_geo_point).with(geo_point).and_return(serialized_geo_point)
     end
 
     it { is_expected.to have_http_status(:ok) }
@@ -76,7 +73,7 @@ describe Api::V1::GeoPointsController, type: :controller do
         }.to_json
       end
 
-      before { allow(controller).to receive(:serialize_geo_point).with(geo_point).and_return(serialized_geo_point) }
+      before { allow(geo_point).to receive(:json).with(no_args).and_return(serialized_geo_point) }
 
       it { is_expected.to have_http_status(:ok) }
 
@@ -120,12 +117,11 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:longitude) { rand(100) }
     let(:rad_value) { rand(100) }
 
-    let(:geo_point) { instance_double(GeoPoint) }
+    let(:geo_point) { instance_double(GeoPoint, update: updated) }
 
     before do
       sign_in(user)
       allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
-      allow(geo_point).to receive(:update).and_return(updated)
     end
 
     context 'when geo point was updated' do
@@ -138,7 +134,7 @@ describe Api::V1::GeoPointsController, type: :controller do
         }.to_json
       end
 
-      before { allow(controller).to receive(:serialize_geo_point).with(geo_point).and_return(serialized_geo_point) }
+      before { allow(geo_point).to receive(:json).with(no_args).and_return(serialized_geo_point) }
 
       it { is_expected.to have_http_status(:ok) }
 

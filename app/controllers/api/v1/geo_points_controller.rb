@@ -7,18 +7,18 @@ module Api
       # before_action :authenticate_user!, except: %i[index show]
 
       def index
-        geo_points = GeoPoint.all.map { |gp| serialize_geo_point(gp) }
+        geo_points = GeoPoint.all.map(&:json)
 
         render json: { geoPoints: geo_points }.to_json
       end
 
       def show
-        render json: { geoPoint: serialize_geo_point(geo_point) }.to_json
+        render json: { geoPoint: geo_point.json }.to_json
       end
 
       def create
         if new_geo_point.save
-          render json: { success: true, geoPoint: serialize_geo_point(geo_point) }.to_json
+          render json: { success: true, geoPoint: geo_point.json }.to_json
         else
           render json: { success: false, errors: geo_point.errors.messages }.to_json
         end
@@ -26,7 +26,7 @@ module Api
 
       def update
         if geo_point.update(geo_point_params)
-          render json: { success: true, geoPoint: serialize_geo_point(geo_point) }.to_json
+          render json: { success: true, geoPoint: geo_point.json }.to_json
         else
           render json: { success: false, errors: geo_point.errors.messages }.to_json
         end

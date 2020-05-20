@@ -8,8 +8,9 @@ module Api
 
         private
 
-        def after_update_path_for(_resource)
-          home_path
+        # needed to render json as response
+        def respond_with(resource, _opt = {})
+          render json: { user: resource.json }.to_json
         end
       end
     end
