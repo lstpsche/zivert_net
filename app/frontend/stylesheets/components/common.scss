@@ -19,3 +19,18 @@
   top: 0px;
   width: 100vw;
 }
+
+a.secondary-link {
+  color: #84888c;
+
+  &:hover {
+    color: #5a6268;
+    text-decoration: none;
+  }
+
+  &.bold {
+    // choose one variant depending on feedback
+    font-weight: 600;
+    // text-shadow: 0.2px 0.4px #b0b5bb;
+  }
+}

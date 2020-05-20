@@ -23,7 +23,13 @@ div.loader.loader-active {
   height: 50px;
 }
 
-.full-page-cover {
+#full-page-loader.full-page-cover {
+  z-index: 1000;
+
+  &.hidden {
+    display: none
+  }
+
   .block-ui-message-container {
     top: 45% !important;
   }

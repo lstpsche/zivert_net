@@ -1,0 +1,77 @@
+.auth-form-container {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 0 5px 30px -7px lightgrey, inset 0 0 10px -2px lightgrey;
+  padding: 25px 15px 20px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  &#sign-in-container {
+    margin-top: 22vh;
+
+    .form-actions {
+      .submit-button {
+        min-width: 38%;
+      }
+    }
+  }
+
+  &#sign-up-container {
+    margin-top: 20vh;
+
+    .form-actions {
+      .submit-button {
+        min-width: 42%;
+      }
+    }
+  }
+
+  #invalid-creds-alert {
+    &.alert.show {
+      margin: 0 7px -10px;
+    }
+  }
+
+  .form-inputs {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 40px 5px 30px;
+    padding: 20px 15px 15px;
+
+    .form-control {
+      &:focus {
+        box-shadow: 0 0 0 0.05rem rgba(0, 123, 255, 0.25);
+      }
+    }
+
+    .password-confirmation-feedback {
+      margin-bottom: -20px;
+    }
+  }
+
+  .form-actions {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 8px 7px;
+
+    .secondary-link {
+      margin-bottom: 4px;
+      margin-top: 8px;
+      padding-left: 8px;
+    }
+  }
+
+  .auth-title {
+    text-align: center;
+
+    &.primary {
+      margin-bottom: 35px;
+    }
+
+    &.secondary {
+      color: #888888;
+    }
+  }
+}

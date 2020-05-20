@@ -111,7 +111,7 @@ class GeoPointCreationModal extends React.Component {
   }
 
   render () {
-    const { show, hideModal } = this.props;
+    const { show } = this.props;
 
     return (
       <ModalWindow

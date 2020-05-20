@@ -1,0 +1,26 @@
+en:
+  auth:
+    buttons:
+      already_registered: Already have an account?
+      create_account: Create an account
+      sign_in: Sign in
+      sign_up: Create account
+    fields:
+      sign_in:
+        errors:
+          invalid_creds: Incorrect username or password.
+        labels:
+          username: Username
+          password: Password
+      sign_up:
+        errors:
+          password_length: Password should have at least 6 symbols.
+          password_confirm: Passwords should match.
+        labels:
+          username: Username
+          password: Password
+          password_confirmation: Confirm password
+    titles:
+      sign_in: Sign in to ZivertNet
+      sign_up: Create your account
+      join_zivertnet: Join ZivertNet

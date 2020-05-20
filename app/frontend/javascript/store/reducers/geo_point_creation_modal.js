@@ -12,7 +12,7 @@ import {
   HIDE_GEO_POINT_CREATION_MODAL
 } from "../actionTypes/geo_point_creation_modal";
 
-function geoPointCreationModals(state = [], action) {
+function geoPointCreationModals(state = { show: false }, action) {
   const { type: actionType, latitude, longitude } = action;
 
   switch(actionType) {
