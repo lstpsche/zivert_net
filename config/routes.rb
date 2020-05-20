@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   devise_for :users, only: %i[sessions registrations],
     controllers: {
-      registrations: 'api/v1/devise_custom/registrations'
+      registrations: 'api/v1/devise_custom/registrations',
+      sessions: 'api/v1/devise_custom/sessions'
     },
     path_names: { sign_in: 'sign_in', sign_up: 'sign_up', sign_out: 'sign_out' }
 

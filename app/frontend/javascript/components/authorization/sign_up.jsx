@@ -1,5 +1,5 @@
-import fetchLink from "../../../helpers/fetch_link";
-import SignUpForm from "./sign_up_form";
+import fetchLink from "../../helpers/fetch_link";
+import SignUpForm from "./forms/sign_up_form";
 
 class SignUp extends React.Component {
   constructor (props) {
@@ -19,8 +19,11 @@ class SignUp extends React.Component {
 
   render () {
     return (
-      <div id="sign-up-container" className="col-xl-8 col-lg-10 col-md-10 col-sm-11">
-        <h2 id="sign-up-title">
+      <div id="sign-up-container" className="auth-form-container col-xl-8 col-lg-10 col-md-10 col-sm-11">
+        <h5 className="auth-title secondary">
+          { I18n.t("auth.titles.join_zivertnet") }
+        </h5>
+        <h2 className="auth-title primary">
           { I18n.t("auth.titles.sign_up") }
         </h2>
 

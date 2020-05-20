@@ -2,8 +2,8 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import NotFound from "./errors/not_found";
 import Home from "./home";
-import SignIn from "./authorization/sign_in/sign_in";
-import SignUp from "./authorization/sign_up/sign_up";
+import SignIn from "./authorization/sign_in";
+import SignUp from "./authorization/sign_up";
 import MapIndex from "./map/map_index";
 
 class Routes extends React.Component {

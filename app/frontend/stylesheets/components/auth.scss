@@ -1,0 +1,50 @@
+.auth-form-container {
+  margin-left: auto;
+  margin-right: auto;
+
+  &#sign-in-container {
+    margin-top: 25vh;
+
+    .form-actions {
+      .submit-button {
+        min-width: 38%;
+      }
+    }
+  }
+
+  &#sign-up-container {
+    margin-top: 20vh;
+
+    .form-actions {
+      .submit-button {
+        min-width: 42%;
+      }
+    }
+  }
+
+  .form-actions {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    width: 99%;
+
+    .secondary-link {
+      margin-bottom: 4px;
+      margin-top: 8px;
+    }
+  }
+
+  .auth-title {
+    text-align: center;
+
+    &.primary {
+      margin-bottom: 35px;
+    }
+
+    &.secondary {
+      color: #888888;
+    }
+  }
+}
