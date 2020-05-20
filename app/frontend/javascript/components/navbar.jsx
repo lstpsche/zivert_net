@@ -1,18 +1,8 @@
-import { Link, Redirect } from "react-router-dom";
-import UserContext from "./contexts/user_context";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import UserDropdown from "./common/user_dropdown";
 
 class Navbar extends React.Component {
-  static contextType = UserContext;
-
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      redirectTo: ""
-    }
-  }
-
   projectNameLink () {
     return (
       <Link to="/" className="navbar-brand">
@@ -22,28 +12,28 @@ class Navbar extends React.Component {
   }
 
   actionsSide () {
-    const user = this.context;
+    const { currentUser: { signedIn } } = this.props;
 
     return (
       <div className="navbar-nav ml-auto">
         <ul className="navbar-nav mr-auto">
           {
-            user.signedIn
-              ? this.userDropdown(user)
-              : this.authLinks(this.onLogin)
+            signedIn
+              ? this.renderUserDropdown()
+              : this.renderAuthLinks()
           }
         </ul>
       </div>
     )
   }
 
-  userDropdown (user) {
-    // return (
-    //   <UserDropdown user={user} />
-    // )
+  renderUserDropdown () {
+    const { currentUser } = this.props;
+
+    return <UserDropdown user={currentUser} />
   }
 
-  authLinks () {
+  renderAuthLinks () {
     return (
       <div id="auth-links">
         <Link
@@ -68,11 +58,8 @@ class Navbar extends React.Component {
   }
 
   render () {
-    const { redirectTo } = this.state;
-
     return (
       <nav className="navbar navbar-expand navbar-light bg-light global-navbar">
-        { redirectTo ? <Redirect to={redirectTo} /> : null }
         <div className="container col-lg-7 col-md-10 col-sm-11 col-xs-auto">
           { this.projectNameLink() }
           { this.actionsSide() }
@@ -82,4 +69,6 @@ class Navbar extends React.Component {
   }
 };
 
-export default Navbar;
+const mapStateToProps = ({ currentUser }) => ({ currentUser });
+
+export default connect(mapStateToProps)(Navbar);

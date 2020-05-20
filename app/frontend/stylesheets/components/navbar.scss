@@ -3,13 +3,14 @@ nav.navbar.global-navbar {
 }
 
 nav.navbar {
-  a#navbar-user-dropdown {
-    align-items: center;
-    display: flex;
-
-    img#navbar-user-avatar {
-      margin-left: 5px;
+  button#user-dropdown {
+    &::after {
+      vertical-align: 1px;
     }
+  }
+
+  .dropdown-menu {
+    left: -60px;
   }
 
   button.dropdown-header {
