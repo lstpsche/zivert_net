@@ -40,7 +40,7 @@ class Dropdown extends React.Component {
         <button
           className={"dropdown-header dropdown-toggle " + header.className}
           id={header.id}
-          onClick={this.toggleMenu(!showMenu)}
+          onClick={() => this.toggleMenu(!showMenu)}
         >
           {header.title}
         </button>
@@ -49,7 +49,7 @@ class Dropdown extends React.Component {
           showMenu
             ? (
               <div className="dropdown-menu show">
-                {this.renderItems(items)}
+                { this.renderItems(items) }
               </div>
             )
             : null

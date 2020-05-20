@@ -6,16 +6,13 @@ Rails.application.routes.draw do
       registrations: 'api/v1/devise_custom/registrations',
       sessions: 'api/v1/devise_custom/sessions'
     },
-    path: '',
-    path_names: { sign_in: 'sign_in', sign_out: 'sign_out' },
-    defaults: { format: :json }
+    path_names: { sign_in: 'sign_in', sign_up: 'sign_up', sign_out: 'sign_out' }
 
   namespace :api do
     namespace :v1 do
+      resources :current_user, only: :index
       resources :geo_points, except: %i[new edit]
       resources :map, only: :index
-
-      get '/auth/signed_in', to: 'auth#signed_in'
     end
   end
 

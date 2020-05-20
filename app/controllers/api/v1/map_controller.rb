@@ -7,9 +7,7 @@ module Api
 
       def index
         # render here geo_points/users/all related to maps info
-        geo_points = GeoPoint.all.map do |gp|
-          serialize_geo_point(gp)
-        end
+        geo_points = GeoPoint.all.map(&:json)
 
         render json: { geoPoints: geo_points }.to_json
       end

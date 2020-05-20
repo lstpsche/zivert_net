@@ -1,24 +1,8 @@
-import { Link, Redirect } from "react-router-dom";
-import UserContext from "./contexts/user_context";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import UserDropdown from "./common/user_dropdown";
 
 class Navbar extends React.Component {
-  static contextType = UserContext;
-
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      redirectTo: ""
-    }
-
-    this.projectNameLink = this.projectNameLink.bind(this);
-    this.actionsSide = this.actionsSide.bind(this);
-    this.userDropdown = this.userDropdown.bind(this);
-    this.loginLink = this.loginLink.bind(this);
-    this.onLogin = this.onLogin.bind(this);
-  }
-
   projectNameLink () {
     return (
       <Link to="/" className="navbar-brand">
@@ -28,42 +12,54 @@ class Navbar extends React.Component {
   }
 
   actionsSide () {
-    const user = this.context;
+    const { currentUser: { signedIn } } = this.props;
 
     return (
       <div className="navbar-nav ml-auto">
         <ul className="navbar-nav mr-auto">
           {
-            user.signedIn
-              ? this.userDropdown(user)
-              : this.loginLink(this.onLogin)
+            signedIn
+              ? this.renderUserDropdown()
+              : this.renderAuthLinks()
           }
         </ul>
       </div>
     )
   }
 
-  userDropdown (user) {
+  renderUserDropdown () {
+    const { currentUser } = this.props;
+
+    return <UserDropdown user={currentUser} />
+  }
+
+  renderAuthLinks () {
     return (
-      <UserDropdown user={user} />
+      <div id="auth-links">
+        <Link
+          to="/sign_in"
+          id="sign-in-button"
+          className="btn mr-2"
+          role="button"
+        >
+          { I18n.t("devise.sessions.sign_in") }
+        </Link>
+
+        <Link
+          to="/sign_up"
+          id="sign-up-button"
+          className="btn"
+          role="button"
+        >
+          { I18n.t("devise.registrations.sign_up") }
+        </Link>
+      </div>
     )
   }
 
-  loginLink (callback) {
-    //  TODO:  add link to sign in/sign up [#ZN-8]
-    return "SIGN IN LINK"
-  }
-
-  onLogin () {
-    window.location.reload();
-  }
-
   render () {
-    const { redirectTo } = this.state;
-
     return (
       <nav className="navbar navbar-expand navbar-light bg-light global-navbar">
-        { redirectTo ? <Redirect to={redirectTo} /> : null }
         <div className="container col-lg-7 col-md-10 col-sm-11 col-xs-auto">
           { this.projectNameLink() }
           { this.actionsSide() }
@@ -73,4 +69,6 @@ class Navbar extends React.Component {
   }
 };
 
-export default Navbar;
+const mapStateToProps = ({ currentUser }) => ({ currentUser });
+
+export default connect(mapStateToProps)(Navbar);

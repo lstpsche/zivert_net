@@ -5,8 +5,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
+  has_many :geo_points
+
   # it's needed to escape devise's extreme depending on emails
   def email_changed?
     false
+  end
+
+  def json
+    UserSerializer.new(self).serializable_hash
   end
 end

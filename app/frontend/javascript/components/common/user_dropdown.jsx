@@ -4,27 +4,41 @@ class UserDropdown extends React.Component {
   constructor (props) {
     super(props);
 
-    this.header = this.header.bind(this);
-    this.itemsList = this.itemsList.bind(this);
+    this.onSignOut = this.onSignOut.bind(this);
   }
 
-  header ({first_name: firstName, last_name: lastName}) {
+  dropdownTitle () {
+    const { user: { firstName, lastName, username } } = this.props;
+
+    var fullName = [firstName, lastName].join(" ");
+
+    if (fullName === " ")
+      return username;
+
+    return fullName;
+  }
+
+  onSignOut () {
+    window.location.reload();
+  }
+
+  renderHeader () {
     return (
       {
-        title: firstName + " " + lastName,
+        title: this.dropdownTitle(),
         className: "btn nav-link",
         id: "user-dropdown"
       }
     )
   }
 
-  itemsList () {
+  renderItemsList () {
     var list = [
       {
-        title: I18n.t("common.sign_out"),
-        link: "/api/v1/sign_out",
+        title: I18n.t("devise.sessions.sign_out"),
+        link: "/users/sign_out",
         method: "DELETE",
-        onClickCallback: () => window.location.reload()
+        onClickCallback: this.onSignOut
       }
     ];
 
@@ -32,17 +46,17 @@ class UserDropdown extends React.Component {
   }
 
   render () {
-    const { user } = this.props;
-    const header = this.header(user);
-    const itemsList = this.itemsList(user);
-
     return (
       <Dropdown
-        header={header}
-        items={itemsList}
+        header={this.renderHeader()}
+        items={this.renderItemsList()}
       />
     )
   }
+}
+
+UserDropdown.propTypes = {
+  user: PropTypes.object.isRequired
 }
 
 export default UserDropdown;
