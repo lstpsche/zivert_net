@@ -67,6 +67,24 @@ class SignUpForm extends FormBase {
     )
   }
 
+  renderFormActions () {
+    return (
+      <div className="form-actions">
+        <Link
+          to="/sign_in"
+          id="already-registered-link"
+          className="secondary-link bold"
+        >
+          { I18n.t("auth.buttons.already_registered") }
+        </Link>
+
+        <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
+          { I18n.t("auth.buttons.sign_up") }
+        </Button>
+      </div>
+    )
+  }
+
   render () {
     const { formValidated } = this.state;
 
@@ -77,23 +95,13 @@ class SignUpForm extends FormBase {
         validated={formValidated}
         id="sign-up-form"
       >
-        { this.renderUsernameField("sign_up") }
-        { this.renderPasswordField("sign_up") }
-        { this.renderPasswordConfirmationField() }
-
-        <div className="form-actions">
-          <Link
-            to="/sign_in"
-            id="already-registered-link"
-            className="secondary-link bold"
-          >
-            { I18n.t("auth.buttons.already_registered") }
-          </Link>
-
-          <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
-            { I18n.t("auth.buttons.sign_up") }
-          </Button>
+        <div className="form-inputs">
+          { this.renderUsernameField("sign_up") }
+          { this.renderPasswordField("sign_up") }
+          { this.renderPasswordConfirmationField() }
         </div>
+
+        { this.renderFormActions() }
       </Form>
     )
   }

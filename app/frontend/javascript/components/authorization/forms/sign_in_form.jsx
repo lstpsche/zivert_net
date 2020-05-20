@@ -64,6 +64,24 @@ class SignInForm extends FormBase {
     return "";
   }
 
+  renderFormActions () {
+    return (
+      <div className="form-actions">
+        <Link
+          to="/sign_up"
+          id="create-account-link"
+          className="secondary-link bold"
+        >
+          { I18n.t("auth.buttons.create_account") }
+        </Link>
+
+        <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
+          { I18n.t("auth.buttons.sign_in") }
+        </Button>
+      </div>
+    )
+  }
+
   render () {
     const { formValidated } = this.state;
 
@@ -74,22 +92,13 @@ class SignInForm extends FormBase {
         id="sign-in-form"
       >
         { this.renderAlert() }
-        { this.renderUsernameField("sign_in") }
-        { this.renderPasswordField("sign_in") }
 
-        <div className="form-actions">
-          <Link
-            to="/sign_up"
-            id="create-account-link"
-            className="secondary-link bold"
-          >
-            { I18n.t("auth.buttons.create_account") }
-          </Link>
-
-          <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
-            { I18n.t("auth.buttons.sign_in") }
-          </Button>
+        <div className="form-inputs">
+          { this.renderUsernameField("sign_in") }
+          { this.renderPasswordField("sign_in") }
         </div>
+
+        { this.renderFormActions() }
       </Form>
     )
   }
