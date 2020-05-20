@@ -1,7 +1,7 @@
 en:
   modals:
     creation:
-      title: Create new Geo Point
+      title: Create a new Geo Point
     fields:
       labels:
         geo-point-comment: Comment
