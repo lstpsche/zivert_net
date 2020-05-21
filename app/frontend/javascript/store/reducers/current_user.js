@@ -14,11 +14,11 @@ import {
 } from "../actionTypes/current_user";
 
 function currentUser(state = { signedIn: undefined }, action) {
-  const { type: actionType, firstName, lastName, username, signedIn } = action;
+  const { type: actionType, id, firstName, lastName, username, signedIn } = action;
 
   switch(actionType) {
     case SET_CURRENT_USER:
-      return { firstName, lastName, username, signedIn };
+      return { id, firstName, lastName, username, signedIn };
     case REMOVE_CURRENT_USER:
       return {};
     default:

@@ -3,12 +3,13 @@ import GeoPointMarker from "../../geo_point_marker";
 
 class GeoPointsLayer extends React.Component {
   renderGeoPoints () {
-    const { geoPoints } = this.props;
+    const { geoPoints, currentUserId } = this.props;
 
-    return geoPoints.map(({ id, latitude, longitude, radValue, comment }) => {
+    return geoPoints.map(({ id, userId, latitude, longitude, radValue, comment }) => {
       return (
         <GeoPointMarker
           key={"geo-point-marker-" + id}
+          removable={userId === currentUserId}
           id={id}
           latitude={latitude}
           longitude={longitude}
@@ -29,7 +30,8 @@ class GeoPointsLayer extends React.Component {
 }
 
 GeoPointsLayer.propTypes = {
-  geoPoints: PropTypes.array.isRequired
+  geoPoints: PropTypes.array.isRequired,
+  currentUserId: PropTypes.number.isRequired
 }
 
 export default GeoPointsLayer;

@@ -24,7 +24,7 @@ class MapBase extends React.Component {
   }
 
   render () {
-    const { center, zoom, markers } = this.props;
+    const { center, zoom, markers, currentUserId } = this.props;
 
     return (
       <MapLeaflet
@@ -44,7 +44,7 @@ class MapBase extends React.Component {
           </LayersControl.Overlay>
 
           <LayersControl.Overlay checked name={I18n.t("map.layers.overlay.geo_points")}>
-            <GeoPointsLayer geoPoints={markers} />
+            <GeoPointsLayer geoPoints={markers} currentUserId={currentUserId} />
           </LayersControl.Overlay>
         </LayersControl>
       </MapLeaflet>
@@ -53,15 +53,15 @@ class MapBase extends React.Component {
 }
 
 MapBase.propTypes = {
-  center: PropTypes.array.isRequired,
-  zoom: PropTypes.number.isRequired,
-  markers: PropTypes.array.isRequired
+  center: PropTypes.array,
+  zoom: PropTypes.number,
+  markers: PropTypes.array.isRequired,
+  currentUserId: PropTypes.number.isRequired
 }
 
 MapBase.defaultProps = {
   center: [53.900574, 27.558995],  // The center of Minsk city
-  zoom: 12,  // Zoomed to fully show the whole Minsk city
-  markers: []
+  zoom: 12  // Zoomed to fully show the whole Minsk city
 }
 
 const mapStateToProps = ({ currentUser: { signedIn } }) => ({ signedIn });

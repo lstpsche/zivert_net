@@ -33,8 +33,6 @@
 @import "./components/navbar.scss";
 @import "./components/auth.scss";
 
-a, button {
-  &:focus {
-    outline: none !important;
-  }
+:focus {
+  outline: none !important;
 }
