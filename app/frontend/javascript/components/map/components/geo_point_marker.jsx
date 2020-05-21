@@ -36,7 +36,7 @@ class GeoPointMarker extends React.Component {
   }
 
   render () {
-    const { latitude, longitude, radValue, comment } = this.props;
+    const { removable, geoPointUserId, latitude, longitude, radValue, comment } = this.props;
 
     return (
       <Marker
@@ -45,7 +45,9 @@ class GeoPointMarker extends React.Component {
         riseOnHover={true}
       >
         <MarkerPopup
+          markerRemovable={removable}
           text={comment}
+          geoPointUserId={geoPointUserId}
           removalCallback={this.onRemove}
         />
       </Marker>
@@ -54,6 +56,7 @@ class GeoPointMarker extends React.Component {
 }
 
 GeoPointMarker.propTypes = {
+  removable: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
   latitude: PropTypes.number.isRequired,
   longitude: PropTypes.number.isRequired,

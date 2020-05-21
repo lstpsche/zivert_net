@@ -28,7 +28,9 @@ detectors:
   UtilityFunction:
     enabled: false
   UncommunicativeModuleName:
-    enabled:
+    enabled: false
+  MissingSafeMethod:
+    enabled: false
 
 exclude_paths:
   - vendor/

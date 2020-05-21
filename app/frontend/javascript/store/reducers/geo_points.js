@@ -19,7 +19,7 @@ import {
 } from "../actionTypes/geo_points";
 
 function geoPoints(state = [], action) {
-  const { type: actionType, id, longitude, latitude, radValue, comment } = action;
+  const { type: actionType, id, userId, longitude, latitude, radValue, comment } = action;
 
   switch(actionType) {
     case SET_GEO_POINTS:
@@ -27,7 +27,7 @@ function geoPoints(state = [], action) {
     case ADD_GEO_POINT:
       return [
         ...state,
-        { id, longitude, latitude, radValue, comment }
+        { id, userId, longitude, latitude, radValue, comment }
       ];
     case UPDATE_GEO_POINT:
       return state.map (geoPoint =>

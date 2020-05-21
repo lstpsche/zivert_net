@@ -1,3 +1,4 @@
+import { connect } from "react-redux";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
@@ -11,6 +12,9 @@ class MapBase extends React.Component {
   }
 
   handleMapDblClick ({ originalEvent: { target: { className: targetClassName } }, latlng }) {
+    if (!this.props.signedIn)
+      return;
+
     const targetClasses = targetClassName.split(" ");
 
     if (targetClasses.includes("marker-icon"))
@@ -20,7 +24,7 @@ class MapBase extends React.Component {
   }
 
   render () {
-    const { center, zoom, markers } = this.props;
+    const { center, zoom, markers, currentUserId } = this.props;
 
     return (
       <MapLeaflet
@@ -40,7 +44,7 @@ class MapBase extends React.Component {
           </LayersControl.Overlay>
 
           <LayersControl.Overlay checked name={I18n.t("map.layers.overlay.geo_points")}>
-            <GeoPointsLayer geoPoints={markers} />
+            <GeoPointsLayer geoPoints={markers} currentUserId={currentUserId} />
           </LayersControl.Overlay>
         </LayersControl>
       </MapLeaflet>
@@ -49,15 +53,17 @@ class MapBase extends React.Component {
 }
 
 MapBase.propTypes = {
-  center: PropTypes.array.isRequired,
-  zoom: PropTypes.number.isRequired,
-  markers: PropTypes.array.isRequired
+  center: PropTypes.array,
+  zoom: PropTypes.number,
+  markers: PropTypes.array.isRequired,
+  currentUserId: PropTypes.number.isRequired
 }
 
 MapBase.defaultProps = {
   center: [53.900574, 27.558995],  // The center of Minsk city
-  zoom: 12,  // Zoomed to fully show the whole Minsk city
-  markers: []
+  zoom: 12  // Zoomed to fully show the whole Minsk city
 }
 
-export default MapBase;
+const mapStateToProps = ({ currentUser: { signedIn } }) => ({ signedIn });
+
+export default connect(mapStateToProps)(MapBase);

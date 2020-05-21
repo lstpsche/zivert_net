@@ -1,31 +1,43 @@
 import Popup from "react-leaflet-editable-popup";
 
 class MarkerPopup extends React.Component {
-  renderText () {
+  renderSpace () {
+    const { text, markerRemovable } = this.props;
+
+    if (!text.length || !markerRemovable)
+      return "";
+
+    return <div className="space-between"></div>
+  }
+
+  renderContent () {
     const { text } = this.props;
 
     if (!text)
-      return "";
+      return this.renderSpace();
 
     return (
-      <div className="popup-text">
-        {text}
+      <div className="popup-content">
+        <div className="popup-text">
+          {text}
+        </div>
+        { this.renderSpace() }
       </div>
     )
   }
 
   render () {
-    const { removalCallback } = this.props;
+    const { removalCallback, markerRemovable } = this.props;
 
     return (
       <Popup
         className="marker-popup marker-comment"
         closeButton={false}
-        removable
+        removable={markerRemovable}
         nametag={I18n.t("common.geo_point")}
         removalCallback={removalCallback}
       >
-        { this.renderText() }
+        { this.renderContent() }
       </Popup>
     )
   }
@@ -33,11 +45,13 @@ class MarkerPopup extends React.Component {
 
 MarkerPopup.propTypes = {
   text: PropTypes.string,
+  markerRemovable: PropTypes.bool,
   removalCallback: PropTypes.func
 }
 
 MarkerPopup.defaultProps = {
   text: "",
+  markerRemovable: false,
   removalCallback: () => {}
 }
 

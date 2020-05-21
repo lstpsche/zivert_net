@@ -15,4 +15,10 @@ class User < ApplicationRecord
   def json
     UserSerializer.new(self).serializable_hash
   end
+
+  class << self
+    def username_unique?(username)
+      where(username: username).empty?
+    end
+  end
 end

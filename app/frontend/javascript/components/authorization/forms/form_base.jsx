@@ -1,4 +1,4 @@
-import { Form } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 
 class FormBase extends React.Component {
   constructor (props) {
@@ -10,7 +10,7 @@ class FormBase extends React.Component {
   isPasswordsMatch () {
     const { password, passwordConfirmation } = this.state;
 
-    return password === passwordConfirmation
+    return password === passwordConfirmation;
   }
 
   isPasswordLengthValid () {
@@ -26,12 +26,29 @@ class FormBase extends React.Component {
   handleKeyPress (event) {
     // needed to prevent passwords leak alert, that is caused by bootstrap default submit
     if (event.which === 13) {
-      this.handleSubmit(event)
+      this.handleSubmit(event);
     }
   }
 
   renderPasswordInvalidFeedback () {
-    return ""
+    return "";
+  }
+
+  toggleAlert (state) {
+    this.setState({ showAlert: state });
+  }
+
+  renderAlert (error) {
+    const { showAlert } = this.state;
+
+    if (showAlert)
+      return (
+        <Alert id="alert-block" variant="danger" onClose={() => this.toggleAlert(false)} dismissible>
+          { error }
+        </Alert>
+      )
+
+    return "";
   }
 
   renderUsernameField (type) {

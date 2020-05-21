@@ -3,8 +3,8 @@
 module Api
   module V1
     class GeoPointsController < Api::V1::ApplicationController
-      # TODO: uncomment this at [#ZN-27]
-      # before_action :authenticate_user!, except: %i[index show]
+      before_action :authenticate_user!, except: %i[index show]
+      before_action :check_authorship!, only: %i[update destroy]
 
       def index
         geo_points = GeoPoint.all.map(&:json)
@@ -17,7 +17,7 @@ module Api
       end
 
       def create
-        if new_geo_point.save
+        if build_geo_point.save
           render json: { success: true, geoPoint: geo_point.json }.to_json
         else
           render json: { success: false, errors: geo_point.errors.messages }.to_json
@@ -42,12 +42,16 @@ module Api
 
       private
 
+      def check_authorship!
+        raise Authentication::NotPermitted unless current_user.id == geo_point.user_id
+      end
+
       def geo_point
         @geo_point ||= GeoPoint.find(params[:id])
       end
 
-      def new_geo_point
-        @geo_point = GeoPoint.new(geo_point_params)
+      def build_geo_point
+        @geo_point = current_user.geo_points.build(geo_point_params)
       end
 
       def geo_point_params
