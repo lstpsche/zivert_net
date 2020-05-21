@@ -3,5 +3,5 @@
 class GeoPointSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :id, :longitude, :latitude, :rad_value, :comment
+  attributes :id, :user_id, :longitude, :latitude, :rad_value, :comment
 end

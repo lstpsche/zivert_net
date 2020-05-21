@@ -10,12 +10,12 @@ export const setGeoPoints = (geoPoints) => ({
   geoPoints
 })
 
-export const addGeoPoint = ({ id, longitude, latitude, rad_value, comment }) => ({
+export const addGeoPoint = ({ id, user_id, longitude, latitude, rad_value, comment }) => ({
   type: ADD_GEO_POINT,
-  id, longitude, latitude, radValue: rad_value, comment
+  id, userId: user_id, longitude, latitude, radValue: rad_value, comment
 })
 
-export const updateGeoPoint = ({ id, longitude, latitude, rad_value, comment }) => ({
+export const updateGeoPoint = ({ id,  longitude, latitude, rad_value, comment }) => ({
   type: UPDATE_GEO_POINT,
   id, longitude, latitude, radValue: rad_value, comment
 })
