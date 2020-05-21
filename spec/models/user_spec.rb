@@ -22,4 +22,22 @@ describe User, type: :model do
 
     it { is_expected.to eq(serialized_hash) }
   end
+
+  describe '.username_unique?' do
+    subject { described_class.username_unique?(username) }
+
+    before { create(:user, username: 'existing_username') }
+
+    context 'when username is not unique' do
+      let(:username) { 'existing_username' }
+
+      it { is_expected.to be(false) }
+    end
+
+    context 'when username is unique' do
+      let(:username) { 'not_existing_username' }
+
+      it { is_expected.to be(true) }
+    end
+  end
 end
