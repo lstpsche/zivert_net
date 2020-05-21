@@ -1,4 +1,4 @@
-import { Alert, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import FormBase from "./form_base";
 
@@ -18,6 +18,7 @@ class SignInForm extends FormBase {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
+    this.renderAlert = this.renderAlert.bind(this);
     this.renderUsernameField = this.renderUsernameField.bind(this);
     this.renderPasswordField = this.renderPasswordField.bind(this);
 
@@ -43,24 +44,11 @@ class SignInForm extends FormBase {
   }
 
   onFailure () {
+    this.setState({
+      password: "",
+      formValidated: false
+    });
     this.toggleAlert(true);
-  }
-
-  toggleAlert (state) {
-    this.setState({ showAlert: state });
-  }
-
-  renderAlert () {
-    const { showAlert } = this.state;
-
-    if (showAlert)
-      return (
-        <Alert id="invalid-creds-alert" variant="danger" onClose={() => this.toggleAlert(false)} dismissible>
-          { I18n.t("auth.fields.sign_in.errors.invalid_creds") }
-        </Alert>
-      )
-
-    return "";
   }
 
   renderFormActions () {
@@ -91,7 +79,7 @@ class SignInForm extends FormBase {
         validated={formValidated}
         id="sign-in-form"
       >
-        { this.renderAlert() }
+        { this.renderAlert(I18n.t("auth.fields.sign_in.errors.invalid_creds")) }
 
         <div className="form-inputs">
           { this.renderUsernameField("sign_in") }

@@ -10,7 +10,9 @@ class SignUpForm extends FormBase {
       username: "",
       password: "",
       passwordConfirmation: "",
-      formValidated: false
+      formValidated: false,
+      showAlert: false,
+      error: ""
     }
 
     this.isPasswordsMatch = this.isPasswordsMatch.bind(this);
@@ -18,11 +20,16 @@ class SignUpForm extends FormBase {
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onFailure = this.onFailure.bind(this);
+
+    this.renderAlert = this.renderAlert.bind(this);
     this.renderUsernameField = this.renderUsernameField.bind(this);
     this.renderPasswordField = this.renderPasswordField.bind(this);
     this.renderPasswordInvalidFeedback = this.renderPasswordInvalidFeedback.bind(this);
+
+    this.toggleAlert = this.toggleAlert.bind(this);
   }
 
   handleSubmit () {
@@ -34,11 +41,21 @@ class SignUpForm extends FormBase {
       return;
     }
 
-    onSubmit({ username, password, passwordConfirmation });
+    onSubmit({ username, password, passwordConfirmation, failureCallback: this.onFailure });
+  }
+
+  onFailure ({ error }) {
+    this.setState({
+      password: "",
+      passwordConfirmation: "",
+      formValidated: false,
+      error
+    });
+    this.toggleAlert(true);
   }
 
   renderPasswordInvalidFeedback () {
-    if(this.isPasswordLengthValid())
+    if (this.isPasswordLengthValid())
       return ""
 
     return (
@@ -98,7 +115,7 @@ class SignUpForm extends FormBase {
   }
 
   render () {
-    const { formValidated } = this.state;
+    const { formValidated, error } = this.state;
 
     return (
       <Form
@@ -107,6 +124,8 @@ class SignUpForm extends FormBase {
         validated={formValidated}
         id="sign-up-form"
       >
+        { this.renderAlert(error) }
+
         <div className="form-inputs">
           { this.renderUsernameField("sign_up") }
           { this.renderPasswordField("sign_up") }

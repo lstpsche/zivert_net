@@ -8,12 +8,19 @@ class SignUp extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit ({ username, password, passwordConfirmation }) {
+  handleSubmit ({ username, password, passwordConfirmation, failureCallback }) {
     fetchLink({
       link: "/users",
       method: "POST",
       body: JSON.stringify({ user: { username, password, password_confirmation: passwordConfirmation } }),
-      onSuccess: () => window.location.reload()
+      onSuccess: ({ error }) => {
+        if (error) {
+          failureCallback({ error });
+          return;
+        }
+
+        window.location.reload();
+      }
     });
   }
 
