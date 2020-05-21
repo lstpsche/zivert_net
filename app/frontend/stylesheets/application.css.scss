@@ -32,3 +32,9 @@
 @import "./components/modals/modal.scss";
 @import "./components/navbar.scss";
 @import "./components/auth.scss";
+
+a, button {
+  &:focus {
+    outline: none !important;
+  }
+}

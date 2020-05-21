@@ -7,6 +7,6 @@ FactoryBot.define do
     sequence(:latitude) { |_i| rand(100) }
     sequence(:longitude) { |_i| rand(100) }
     sequence(:comment) { |i| "comment_#{i}" }
-    sequence(:user) { |i| create(:user) }
+    sequence(:user) { |_i| create(:user) }
   end
 end
