@@ -1,3 +1,4 @@
+import { connect } from "react-redux";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
@@ -11,6 +12,9 @@ class MapBase extends React.Component {
   }
 
   handleMapDblClick ({ originalEvent: { target: { className: targetClassName } }, latlng }) {
+    if (!this.props.signedIn)
+      return;
+
     const targetClasses = targetClassName.split(" ");
 
     if (targetClasses.includes("marker-icon"))
@@ -60,4 +64,6 @@ MapBase.defaultProps = {
   markers: []
 }
 
-export default MapBase;
+const mapStateToProps = ({ currentUser: { signedIn } }) => ({ signedIn });
+
+export default connect(mapStateToProps)(MapBase);

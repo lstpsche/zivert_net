@@ -30,21 +30,39 @@ describe Api::V1::GeoPointsController, type: :controller do
   describe 'GET show' do
     subject { get(:show, params: { id: geo_point_id }) }
 
-    let(:geo_point_id) { rand(100) }
-    let(:geo_point) { instance_double(GeoPoint, json: serialized_geo_point) }
-    let(:serialized_geo_point) { double(:serialized_hash) }
-    let(:expected_result) { { geoPoint: serialized_geo_point }.to_json }
+    before { sign_in(user) }
 
-    before do
-      sign_in(user)
-      allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
+    context 'when geo point was found' do
+      let(:geo_point_id) { rand(100) }
+      let(:geo_point) { instance_double(GeoPoint, json: serialized_geo_point) }
+      let(:serialized_geo_point) { double(:serialized_hash) }
+      let(:expected_result) { { geoPoint: serialized_geo_point }.to_json }
+
+      before { allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point) }
+
+      it { is_expected.to have_http_status(:ok) }
+
+      it 'renders json with given geo point' do
+        subject
+        expect(response.body).to eq(expected_result)
+      end
     end
 
-    it { is_expected.to have_http_status(:ok) }
+    context 'when geo point was not found' do
+      let(:geo_point_id) { rand(100) }
+      let(:expected_result) { { error: 'not found error' }.to_json }
 
-    it 'renders json with given geo point' do
-      subject
-      expect(response.body).to eq(expected_result)
+      before do
+        allow(I18n).to receive(:t).with('errors.record_not_found').and_return('not found error')
+        allow(GeoPoint).to receive(:find).and_raise(ActiveRecord::RecordNotFound)
+      end
+
+      it { is_expected.to have_http_status(:bad_request) }
+
+      it 'renders json with given geo point' do
+        subject
+        expect(response.body).to eq(expected_result)
+      end
     end
   end
 
@@ -56,11 +74,14 @@ describe Api::V1::GeoPointsController, type: :controller do
     let(:longitude) { rand(100) }
     let(:rad_value) { rand(100) }
 
-    let(:geo_point) { instance_double(GeoPoint, save: saved) }
+    let(:geo_point) { instance_double(GeoPoint, user_id: user.id, save: saved) }
+    let(:user_geo_points) { double(:user_geo_point, build: geo_point) }
+
+    let(:stubbed_user) { instance_double(User, geo_points: user_geo_points) }
 
     before do
       sign_in(user)
-      allow(GeoPoint).to receive(:new).and_return(geo_point)
+      allow(controller).to receive(:current_user).with(no_args).and_return(stubbed_user)
     end
 
     context 'when new geo point was saved' do
@@ -113,59 +134,92 @@ describe Api::V1::GeoPointsController, type: :controller do
 
     let(:geo_point_id) { rand(100) }
     let(:params) { { id: geo_point_id, geoPoint: { latitude: latitude, longitude: longitude } } }
+    let(:geo_point_id) { rand(100) }
     let(:latitude) { rand(100) }
     let(:longitude) { rand(100) }
-    let(:rad_value) { rand(100) }
-
-    let(:geo_point) { instance_double(GeoPoint, update: updated) }
 
     before do
-      sign_in(user)
-      allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
+      allow(I18n).to receive(:t).and_call_original
+      allow(I18n).to receive(:t).with('errors.not_permitted').and_return('not permitted error')
+      allow(I18n).to receive(:t).with('errors.record_not_found').and_return('not found error')
     end
 
-    context 'when geo point was updated' do
-      let(:updated) { true }
-      let(:serialized_geo_point) { double(:serialized_hash) }
-      let(:expected_result) do
-        {
-          success: true,
-          geoPoint: serialized_geo_point
-        }.to_json
+    context 'when user authenticated' do
+      before { sign_in(user) }
+
+      context 'when geo point was found' do
+        let(:geo_point) { instance_double(GeoPoint, user_id: geo_point_user_id, update: updated) }
+
+        before { allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point) }
+
+        context 'when geo point belongs to user' do
+          let(:geo_point_user_id) { user.id }
+
+          context 'when geo point was updated' do
+            let(:updated) { true }
+            let(:serialized_geo_point) { double(:serialized_geo_point) }
+            let(:expected_result) { { success: true, geoPoint: serialized_geo_point }.to_json }
+
+            before { allow(geo_point).to receive(:json).with(no_args).and_return(serialized_geo_point) }
+
+            it { is_expected.to have_http_status(:ok) }
+
+            it 'renders json with error message' do
+              subject
+              expect(response.body).to eq(expected_result)
+            end
+          end
+
+          context 'when geo point was not updated' do
+            let(:updated) { false }
+            let(:geo_point_errors_messages) { double(:geo_point_errors_messages) }
+            let(:expected_result) { { success: false, errors: geo_point_errors_messages }.to_json }
+
+            before do
+              allow(geo_point).to receive_message_chain(:errors, :messages)
+                .with(no_args).with(no_args)
+                .and_return(geo_point_errors_messages)
+            end
+
+            it { is_expected.to have_http_status(:ok) }
+
+            it 'renders json with error message' do
+              subject
+              expect(response.body).to eq(expected_result)
+            end
+          end
+        end
+
+        context 'when geo point does not belong to user' do
+          let(:geo_point_user_id) { user.id + 1 }
+          let(:expected_result) { { error: 'not permitted error' }.to_json }
+          let(:updated) { nil }
+
+          it { is_expected.to have_http_status(:bad_request) }
+
+          it 'renders json with error message' do
+            subject
+            expect(response.body).to eq(expected_result)
+          end
+        end
       end
 
-      before { allow(geo_point).to receive(:json).with(no_args).and_return(serialized_geo_point) }
+      context 'when geo point was not found' do
+        let(:expected_result) { { error: 'not found error' }.to_json }
 
-      it { is_expected.to have_http_status(:ok) }
+        before { allow(GeoPoint).to receive(:find).and_raise(ActiveRecord::RecordNotFound) }
 
-      it 'renders json with updated geo point' do
-        subject
-        expect(response.body).to eq(expected_result)
+        it { is_expected.to have_http_status(:bad_request) }
+
+        it 'renders json with error message' do
+          subject
+          expect(response.body).to eq(expected_result)
+        end
       end
     end
 
-    context 'when geo point was not updated' do
-      let(:updated) { false }
-      let(:expected_result) do
-        {
-          success: false,
-          errors: 'error message'
-        }.to_json
-      end
-
-      before do
-        allow(geo_point)
-          .to receive_message_chain(:errors, :messages)
-          .with(no_args).with(no_args)
-          .and_return('error message')
-      end
-
-      it { is_expected.to have_http_status(:ok) }
-
-      it 'renders json with error message' do
-        subject
-        expect(response.body).to eq(expected_result)
-      end
+    context 'when user is not authenticated' do
+      it { is_expected.to redirect_to(user_session_path) }
     end
   end
 
@@ -174,47 +228,89 @@ describe Api::V1::GeoPointsController, type: :controller do
 
     let(:params) { { id: geo_point_id } }
     let(:geo_point_id) { rand(100) }
-    let(:geo_point) { instance_double(GeoPoint, destroy: destroyed) }
 
     before do
-      sign_in(user)
-      allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
+      allow(I18n).to receive(:t).and_call_original
+      allow(I18n).to receive(:t).with('errors.not_permitted').and_return('not permitted error')
+      allow(I18n).to receive(:t).with('errors.record_not_found').and_return('not found error')
     end
 
-    context 'when geo point was destroyed' do
-      let(:destroyed) { true }
-      let(:expected_result) { { success: true }.to_json }
+    # sign_in(user)
+    # allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
 
-      it { is_expected.to have_http_status(:ok) }
+    context 'when user authenticated' do
+      before { sign_in(user) }
 
-      it 'renders json with success: true' do
-        subject
-        expect(response.body).to eq(expected_result)
+      context 'when geo point was found' do
+        let(:geo_point) { instance_double(GeoPoint, user_id: geo_point_user_id, destroy: destroyed) }
+
+        before { allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point) }
+
+        context 'when geo point belongs to user' do
+          let(:geo_point_user_id) { user.id }
+
+          context 'when geo point was destroyed' do
+            let(:destroyed) { true }
+            let(:expected_result) { { success: true }.to_json }
+
+            it { is_expected.to have_http_status(:ok) }
+
+            it 'renders json with error message' do
+              subject
+              expect(response.body).to eq(expected_result)
+            end
+          end
+
+          context 'when geo point was not destroyed' do
+            let(:destroyed) { false }
+            let(:geo_point_errors_messages) { double(:geo_point_errors_messages) }
+            let(:expected_result) { { success: false, errors: geo_point_errors_messages }.to_json }
+
+            before do
+              allow(geo_point).to receive_message_chain(:errors, :messages)
+                .with(no_args).with(no_args)
+                .and_return(geo_point_errors_messages)
+            end
+
+            it { is_expected.to have_http_status(:ok) }
+
+            it 'renders json with error message' do
+              subject
+              expect(response.body).to eq(expected_result)
+            end
+          end
+        end
+
+        context 'when geo point does not belong to user' do
+          let(:geo_point_user_id) { user.id + 1 }
+          let(:expected_result) { { error: 'not permitted error' }.to_json }
+          let(:destroyed) { nil }
+
+          it { is_expected.to have_http_status(:bad_request) }
+
+          it 'renders json with error message' do
+            subject
+            expect(response.body).to eq(expected_result)
+          end
+        end
+      end
+
+      context 'when geo point was not found' do
+        let(:expected_result) { { error: 'not found error' }.to_json }
+
+        before { allow(GeoPoint).to receive(:find).and_raise(ActiveRecord::RecordNotFound) }
+
+        it { is_expected.to have_http_status(:bad_request) }
+
+        it 'renders json with error message' do
+          subject
+          expect(response.body).to eq(expected_result)
+        end
       end
     end
 
-    context 'when geo point was not destroyed' do
-      let(:destroyed) { false }
-      let(:expected_result) do
-        {
-          success: false,
-          errors: 'error message'
-        }.to_json
-      end
-
-      before do
-        allow(geo_point)
-          .to receive_message_chain(:errors, :messages)
-          .with(no_args).with(no_args)
-          .and_return('error message')
-      end
-
-      it { is_expected.to have_http_status(:ok) }
-
-      it 'renders json with error message' do
-        subject
-        expect(response.body).to eq(expected_result)
-      end
+    context 'when user is not authenticated' do
+      it { is_expected.to redirect_to(user_session_path) }
     end
   end
 end
