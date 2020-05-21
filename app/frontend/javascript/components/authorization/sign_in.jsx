@@ -26,7 +26,7 @@ class SignIn extends React.Component {
 
   render () {
     return (
-      <div id="sign-in-container" className="auth-form-container col-xl-8 col-lg-10 col-md-10 col-sm-11">
+      <div id="sign-in-container" className="auth-form-container col-xl-6 col-lg-10 col-md-10 col-sm-11">
         <h2 className="auth-title primary">
           { I18n.t("auth.titles.sign_in") }
         </h2>

@@ -26,7 +26,7 @@ class SignUp extends React.Component {
 
   render () {
     return (
-      <div id="sign-up-container" className="auth-form-container col-xl-8 col-lg-10 col-md-10 col-sm-11">
+      <div id="sign-up-container" className="auth-form-container col-xl-7 col-lg-10 col-md-10 col-sm-11">
         <h5 className="auth-title secondary">
           { I18n.t("auth.titles.join_zivertnet") }
         </h5>
