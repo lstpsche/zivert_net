@@ -5,7 +5,7 @@ import GeoPointCreationModal from "./components/modals/geo_point_creation_modal"
 
 class MapIndex extends React.Component {
   render () {
-    const { mapBlock: { state: mapBlocked, blockMessage } } = this.props;
+    const { mapBlock: { state: mapBlocked, blockMessage }, showCreationModal, pointLatitude, pointLongitude } = this.props;
 
     return (
       <div className="container map">
@@ -20,13 +20,22 @@ class MapIndex extends React.Component {
         >
           <MapBase />
 
-          <GeoPointCreationModal />
+          {
+            showCreationModal
+            ? <GeoPointCreationModal latitude={pointLatitude} longitude={pointLongitude} />
+            : ""
+          }
         </BlockUi>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ mainMap: { block } }) => ({ mapBlock: block });
+const mapStateToProps = ({ geoPointCreationModal: { show, latitude, longitude }, mainMap: { block } }) => ({
+  mapBlock: block,
+  showCreationModal: show,
+  pointLatitude: latitude,
+  pointLongitude: longitude
+});
 
 export default connect(mapStateToProps)(MapIndex);

@@ -10,7 +10,7 @@ class ModalWindow extends React.Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onCreateCallback = this.onCreateCallback.bind(this);
+    this.onCreateFailure = this.onCreateFailure.bind(this);
   }
 
   toggleButtonLoading (state) {
@@ -19,16 +19,11 @@ class ModalWindow extends React.Component {
 
   handleSubmit () {
     this.toggleButtonLoading(true);
-    this.props.onSubmitClick({ createCallback: this.onCreateCallback });
+    this.props.onSubmitClick({ onCreateFailure: this.onCreateFailure });
   }
 
-  onCreateCallback (success) {
-    if (success) {
-      this.setState({ errors: "" });
-    } else {
-      this.setState({ errors: I18n.t("modals.errors.default") });
-    }
-
+  onCreateFailure () {
+    this.setState({ errors: I18n.t("modals.errors.default") });
     this.toggleButtonLoading(false);
   }
 
@@ -99,10 +94,10 @@ class ModalWindow extends React.Component {
   }
 
   render () {
-    const { show, handleClose } = this.props;
+    const { handleClose } = this.props;
 
     return (
-      <Modal show={show} onHide={handleClose}>
+      <Modal show onHide={handleClose}>
         { this.renderModalHeader() }
         { this.renderModalBody() }
         { this.renderModalFooter() }
@@ -112,7 +107,6 @@ class ModalWindow extends React.Component {
 }
 
 ModalWindow.propTypes = {
-  show: PropTypes.bool.isRequired,
   title: PropTypes.string,
   body: PropTypes.oneOfType([
     PropTypes.string,

@@ -5,9 +5,13 @@ en:
     fields:
       labels:
         geo-point-comment: Comment
+        latitude: Latitude
+        longitude: Longitude
         rad-value: Radiation value
       placeholders:
         geo-point-comment: A small description for this Geo Point
+        latitude: Latitude
+        longitude: Longitude
         rad-value: Input radiation value
     buttons:
       create_geo_point: Create Geo Point
