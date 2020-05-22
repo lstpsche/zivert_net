@@ -23,11 +23,23 @@ div.loader.loader-active {
   height: 50px;
 }
 
-#full-page-loader.full-page-cover {
-  z-index: 1000;
-
+.full-page-cover {
   &.hidden {
     display: none
+  }
+
+  &#full-page-loader {
+    z-index: 1000;
+
+    .block-ui-overlay {
+      opacity: 1;
+    }
+  }
+
+  &#full-map-loader {
+    .block-ui-overlay {
+      opacity: 0.5;
+    }
   }
 
   .block-ui-message-container {
