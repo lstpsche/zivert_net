@@ -3,6 +3,10 @@ nav.navbar.global-navbar {
 }
 
 nav.navbar {
+  #about-link {
+    padding: 10px 16px 7px;
+  }
+
   button#user-dropdown {
     &::after {
       vertical-align: 1px;

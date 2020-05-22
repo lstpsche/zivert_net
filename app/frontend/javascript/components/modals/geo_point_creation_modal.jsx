@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import { hideGeoPointCreationModal } from "../../../../store/actions/geo_point_creation_modal";
-import { addGeoPoint } from "../../../../store/actions/geo_points";
+import { hideGeoPointCreationModal } from "../../store/actions/modals";
+import { addGeoPoint } from "../../store/actions/geo_points";
 import ModalWindow from "./modal_window";
-import { FormControl, InputGroup, Row, Col, Form } from "react-bootstrap";
-import fetchLink from "../../../../helpers/fetch_link";
+import { FormControl, InputGroup, Row, Col } from "react-bootstrap";
+import fetchLink from "../../helpers/fetch_link";
 
 class GeoPointCreationModal extends React.Component {
   constructor (props) {
@@ -50,7 +50,7 @@ class GeoPointCreationModal extends React.Component {
   renderInputPrepend (name) {
     return (
       <InputGroup.Prepend>
-        <InputGroup.Text id={name + "Addon"}>
+        <InputGroup.Text id={name + "-addon"}>
           { I18n.t("modals.fields.labels." + name) }
         </InputGroup.Text>
       </InputGroup.Prepend>
@@ -147,7 +147,8 @@ class GeoPointCreationModal extends React.Component {
 
     return (
       <ModalWindow
-        show={true}
+        show
+        submittable
         title={I18n.t("modals.creation.title")}
         body={this.renderModalBody()}
         onSubmitClick={this.createGeoPoint}

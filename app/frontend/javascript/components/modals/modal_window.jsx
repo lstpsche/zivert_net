@@ -79,11 +79,11 @@ class ModalWindow extends React.Component {
     )
   }
 
-  renderModalFooter () {
+  renderModalSubmitFooter () {
     const { buttonLoading } = this.state;
 
     return (
-      <Modal.Footer>
+      <Modal.Footer className="submittable-footer">
         {
           buttonLoading
           ? this.loadingSubmitButton()
@@ -93,14 +93,22 @@ class ModalWindow extends React.Component {
     )
   }
 
+  renderModalEmptyFooter () {
+    return <Modal.Footer className="empty-footer" />
+  }
+
   render () {
-    const { handleClose } = this.props;
+    const { show, submittable, handleClose } = this.props;
 
     return (
-      <Modal show onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         { this.renderModalHeader() }
         { this.renderModalBody() }
-        { this.renderModalFooter() }
+        {
+          submittable
+          ? this.renderModalSubmitFooter()
+          : this.renderModalEmptyFooter()
+        }
       </Modal>
     )
   }
@@ -112,14 +120,17 @@ ModalWindow.propTypes = {
     PropTypes.string,
     PropTypes.object
   ]),
-  onSubmitClick: PropTypes.func,
-  handleClose: PropTypes.func.isRequired
+  show: PropTypes.bool,
+  submittable: PropTypes.bool,
+  handleClose: PropTypes.func.isRequired,
+  onSubmitClick: PropTypes.func
 }
 
 ModalWindow.defaultProps = {
   title: "Sample title",
   body: "Sample Body",
-  onSubmitClick: () => {}
+  show: true,
+  submittable: false
 }
 
 export default ModalWindow;

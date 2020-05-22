@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { showAboutModal } from "../store/actions/modals";
 import UserDropdown from "./common/user_dropdown";
 
 class Navbar extends React.Component {
-  projectNameLink () {
+  renderProjectNameLink () {
     return (
       <Link to="/" className="navbar-brand">
         { I18n.t("common.zivert_net") }
@@ -11,7 +12,15 @@ class Navbar extends React.Component {
     )
   }
 
-  actionsSide () {
+  renderAboutButton () {
+    return (
+      <button id="about-link" className="btn nav-link" onClick={this.props.showAboutModal}>
+        About
+      </button>
+    )
+  }
+
+  renderActionsSide () {
     const { currentUser: { signedIn } } = this.props;
 
     return (
@@ -61,8 +70,9 @@ class Navbar extends React.Component {
     return (
       <nav className="navbar navbar-expand navbar-light bg-light global-navbar">
         <div className="container col-lg-7 col-md-10 col-sm-11 col-xs-auto">
-          { this.projectNameLink() }
-          { this.actionsSide() }
+          { this.renderProjectNameLink() }
+          { this.renderAboutButton() }
+          { this.renderActionsSide() }
         </div>
       </nav>
     )
@@ -71,4 +81,8 @@ class Navbar extends React.Component {
 
 const mapStateToProps = ({ currentUser }) => ({ currentUser });
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = dispatch => ({
+  showAboutModal: () => dispatch(showAboutModal())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

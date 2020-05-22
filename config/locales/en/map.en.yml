@@ -7,3 +7,5 @@ en:
       overlay:
         dim_map: Dim map
         geo_points: Geo Points
+    attribution:
+      about_link: About
