@@ -1,6 +1,20 @@
 .modal-dialog {
   margin-top: 100px;
 
+  #about-modal-body {
+    white-space: break-spaces;
+  }
+
+  .latitude-input {
+    padding: 0;
+    padding-left: 15px;
+  }
+
+  .longitude-input {
+    padding: 0;
+    padding-right: 15px;
+  }
+
  .submit-button-busy {
     align-items: center;
     display: flex;

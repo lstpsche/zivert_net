@@ -10,7 +10,7 @@ class ModalWindow extends React.Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onCreateCallback = this.onCreateCallback.bind(this);
+    this.onCreateFailure = this.onCreateFailure.bind(this);
   }
 
   toggleButtonLoading (state) {
@@ -19,16 +19,11 @@ class ModalWindow extends React.Component {
 
   handleSubmit () {
     this.toggleButtonLoading(true);
-    this.props.onSubmitClick({ createCallback: this.onCreateCallback });
+    this.props.onSubmitClick({ onCreateFailure: this.onCreateFailure });
   }
 
-  onCreateCallback (success) {
-    if (success) {
-      this.setState({ errors: "" });
-    } else {
-      this.setState({ errors: I18n.t("modals.errors.default") });
-    }
-
+  onCreateFailure () {
+    this.setState({ errors: I18n.t("modals.errors.default") });
     this.toggleButtonLoading(false);
   }
 
@@ -84,11 +79,11 @@ class ModalWindow extends React.Component {
     )
   }
 
-  renderModalFooter () {
+  renderModalSubmitFooter () {
     const { buttonLoading } = this.state;
 
     return (
-      <Modal.Footer>
+      <Modal.Footer className="submittable-footer">
         {
           buttonLoading
           ? this.loadingSubmitButton()
@@ -98,34 +93,44 @@ class ModalWindow extends React.Component {
     )
   }
 
+  renderModalEmptyFooter () {
+    return <Modal.Footer className="empty-footer" />
+  }
+
   render () {
-    const { show, handleClose } = this.props;
+    const { show, submittable, handleClose } = this.props;
 
     return (
       <Modal show={show} onHide={handleClose}>
         { this.renderModalHeader() }
         { this.renderModalBody() }
-        { this.renderModalFooter() }
+        {
+          submittable
+          ? this.renderModalSubmitFooter()
+          : this.renderModalEmptyFooter()
+        }
       </Modal>
     )
   }
 }
 
 ModalWindow.propTypes = {
-  show: PropTypes.bool.isRequired,
   title: PropTypes.string,
   body: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
   ]),
-  onSubmitClick: PropTypes.func,
-  handleClose: PropTypes.func.isRequired
+  show: PropTypes.bool,
+  submittable: PropTypes.bool,
+  handleClose: PropTypes.func.isRequired,
+  onSubmitClick: PropTypes.func
 }
 
 ModalWindow.defaultProps = {
   title: "Sample title",
   body: "Sample Body",
-  onSubmitClick: () => {}
+  show: true,
+  submittable: false
 }
 
 export default ModalWindow;

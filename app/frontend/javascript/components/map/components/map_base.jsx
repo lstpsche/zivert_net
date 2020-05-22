@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { showGeoPointCreationModal } from "../../../store/actions/modals";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
@@ -20,11 +21,11 @@ class MapBase extends React.Component {
     if (targetClasses.includes("marker-icon"))
       return;
 
-    this.props.onDoubleClick(latlng);
+    this.props.showCreationModal(latlng);
   }
 
   render () {
-    const { center, zoom, markers, currentUserId } = this.props;
+    const { center, zoom } = this.props;
 
     return (
       <MapLeaflet
@@ -44,7 +45,7 @@ class MapBase extends React.Component {
           </LayersControl.Overlay>
 
           <LayersControl.Overlay checked name={I18n.t("map.layers.overlay.geo_points")}>
-            <GeoPointsLayer geoPoints={markers} currentUserId={currentUserId} />
+            <GeoPointsLayer />
           </LayersControl.Overlay>
         </LayersControl>
       </MapLeaflet>
@@ -54,9 +55,7 @@ class MapBase extends React.Component {
 
 MapBase.propTypes = {
   center: PropTypes.array,
-  zoom: PropTypes.number,
-  markers: PropTypes.array.isRequired,
-  currentUserId: PropTypes.number.isRequired
+  zoom: PropTypes.number
 }
 
 MapBase.defaultProps = {
@@ -66,4 +65,8 @@ MapBase.defaultProps = {
 
 const mapStateToProps = ({ currentUser: { signedIn } }) => ({ signedIn });
 
-export default connect(mapStateToProps)(MapBase);
+const mapDispatchToProps = dispatch => ({
+  showCreationModal: ({ lat: latitude, lng: longitude }) => dispatch(showGeoPointCreationModal({ latitude, longitude }))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapBase);

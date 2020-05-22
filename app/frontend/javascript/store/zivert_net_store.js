@@ -3,9 +3,15 @@ import reducers from "./reducers/index";
 
 const defaultStoreValue = {
   geoPoints: [],
-  geoPointCreationModals: { show: false },
+  modals: {
+    geoPointCreation: { show: false },
+    about: { show: false }
+  },
   currentUser: { signedIn: undefined },
-  blocking: { fullPage: true }
+  blocking: { fullPage: true },
+  mainMap: {
+    block: { state: false, blockMessage: undefined }
+  }
 }
 
 export default createStore(reducers, defaultStoreValue);
