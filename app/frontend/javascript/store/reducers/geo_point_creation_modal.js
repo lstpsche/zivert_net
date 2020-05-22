@@ -1,6 +1,6 @@
-// GeoPointCreationModals tree structure:
+// GeoPointCreationModal tree structure:
 
-// geoPointCreationModals: {
+// geoPointCreationModal: {
 //   show: showModal,
 //   latitude: clickedLatitude,
 //   longitude: clickedLongitude
@@ -12,7 +12,7 @@ import {
   HIDE_GEO_POINT_CREATION_MODAL
 } from "../actionTypes/geo_point_creation_modal";
 
-function geoPointCreationModals(state = { show: false }, action) {
+function geoPointCreationModal(state = { show: false }, action) {
   const { type: actionType, latitude, longitude } = action;
 
   switch(actionType) {
@@ -25,4 +25,4 @@ function geoPointCreationModals(state = { show: false }, action) {
   }
 }
 
-export default geoPointCreationModals;
+export default geoPointCreationModal;

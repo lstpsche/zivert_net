@@ -2,39 +2,33 @@ import { connect } from "react-redux";
 import { hideGeoPointCreationModal } from "../../../../store/actions/geo_point_creation_modal";
 import { addGeoPoint } from "../../../../store/actions/geo_points";
 import ModalWindow from "./modal_window";
-import { InputGroup, FormControl } from "react-bootstrap";
+import { FormControl, InputGroup, Row, Col, Form } from "react-bootstrap";
 import fetchLink from "../../../../helpers/fetch_link";
 
 class GeoPointCreationModal extends React.Component {
   constructor (props) {
     super(props);
 
+    const { latitude, longitude } = this.props;
+
     this.state = {
+      latitude,
+      longitude,
       radValue: "",
       comment: ""
     }
 
     this.createGeoPoint = this.createGeoPoint.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.hideModalWindow = this.hideModalWindow.bind(this);
-  }
-
-  hideModalWindow () {
-    this.props.hideModal();
-    this.clearInputs();
-  }
-
-  clearInputs () {
-    this.setState({ radValue: "", comment: "" });
   }
 
   handleInputChange ({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
-  createGeoPoint ({ createCallback = () => {} }) {
-    const { latitude, longitude, addGeoPoint } = this.props;
-    const { radValue, comment } = this.state;
+  createGeoPoint ({ onCreateFailure = () => {} }) {
+    const { addGeoPoint } = this.props;
+    const { latitude, longitude, radValue, comment } = this.state;
 
     fetchLink({
       link: "/api/v1/geo_points",
@@ -43,32 +37,69 @@ class GeoPointCreationModal extends React.Component {
       onSuccess: ({ success, geoPoint, errors }) => {
         if (success) {
           addGeoPoint(geoPoint.data.attributes);
-          this.hideModalWindow();
+          this.props.hideModal();
         } else {
           // TODO: add errors handling with alertify or smth
           console.log(errors);
+          onCreateFailure();
         }
-        createCallback(success);
       }
     })
   }
 
-  inputPrepend (name) {
+  renderInputPrepend (name) {
     return (
       <InputGroup.Prepend>
-        <InputGroup.Text id={name + "-addon"}>
+        <InputGroup.Text id={name + "Addon"}>
           { I18n.t("modals.fields.labels." + name) }
         </InputGroup.Text>
       </InputGroup.Prepend>
     )
   }
 
-  radValueInputField () {
+  renderLatitudeLongitude () {
+    const { latitude, longitude } = this.state;
+
+    return (
+      <Row className="lat-lng-inputs">
+        <Col className="latitude-input">
+          <InputGroup className="mb-3">
+            { this.renderInputPrepend("latitude") }
+            <FormControl
+              placeholder={I18n.t("modals.fields.placeholders.latitude")}
+              aria-label="latitude"
+              aria-describedby="latitude-addon"
+              autoComplete="off"
+              name="latitude"
+              value={latitude}
+              onChange={this.handleInputChange}
+            />
+          </InputGroup>
+        </Col>
+        <Col className="longitude-input">
+          <InputGroup className="mb-3">
+            { this.renderInputPrepend("longitude") }
+            <FormControl
+              placeholder={I18n.t("modals.fields.placeholders.longitude")}
+              aria-label="longitude"
+              aria-describedby="longitude-addon"
+              autoComplete="off"
+              name="longitude"
+              value={longitude}
+              onChange={this.handleInputChange}
+            />
+          </InputGroup>
+        </Col>
+      </Row>
+    )
+  }
+
+  renderRadValueInputField () {
     const { radValue } = this.state;
 
     return (
       <InputGroup className="mb-3">
-        { this.inputPrepend("rad-value") }
+        { this.renderInputPrepend("rad-value") }
         <FormControl
           placeholder={I18n.t("modals.fields.placeholders.rad-value")}
           aria-label="rad-value"
@@ -82,12 +113,12 @@ class GeoPointCreationModal extends React.Component {
     )
   }
 
-  geoPointCommentInputField () {
+  renderGeoPointCommentInputField () {
     const { comment } = this.state;
 
     return (
       <InputGroup>
-        { this.inputPrepend("geo-point-comment") }
+        { this.renderInputPrepend("geo-point-comment") }
         <FormControl
           placeholder={I18n.t("modals.fields.placeholders.geo-point-comment")}
           aria-label="geo-point-comment"
@@ -101,37 +132,39 @@ class GeoPointCreationModal extends React.Component {
     )
   }
 
-  generateModalBody () {
+  renderModalBody () {
     return (
       <div id="geo-point-creation-modal-body">
-        { this.radValueInputField() }
-        { this.geoPointCommentInputField() }
+        { this.renderLatitudeLongitude() }
+        { this.renderRadValueInputField() }
+        { this.renderGeoPointCommentInputField() }
       </div>
     )
   }
 
   render () {
-    const { show } = this.props;
+    const { hideModal } = this.props;
 
     return (
       <ModalWindow
-        show={show}
+        show={true}
         title={I18n.t("modals.creation.title")}
-        body={this.generateModalBody()}
+        body={this.renderModalBody()}
         onSubmitClick={this.createGeoPoint}
-        handleClose={this.hideModalWindow}
+        handleClose={hideModal}
       />
     )
   }
 }
 
-const mapStateToProps = ({ geoPointCreationModals: { show, latitude, longitude } }) => ({
-  show, latitude, longitude
-});
+GeoPointCreationModal.propTypes = {
+  latitude: PropTypes.number.isRequired,
+  longitude: PropTypes.number.isRequired
+}
 
 const mapDispatchToProps = dispatch => ({
   hideModal: () => dispatch(hideGeoPointCreationModal()),
   addGeoPoint: (geoPoint) => dispatch(addGeoPoint(geoPoint))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GeoPointCreationModal);
+export default connect(undefined, mapDispatchToProps)(GeoPointCreationModal);
