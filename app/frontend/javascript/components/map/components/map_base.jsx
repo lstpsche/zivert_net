@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { showGeoPointCreationModal } from "../../../store/actions/geo_point_creation_modal";
+import { showGeoPointCreationModal } from "../../../store/actions/modals";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";

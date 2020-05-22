@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Loader from "../common/loader";
 import MapBase from "./components/map_base";
-import GeoPointCreationModal from "./components/modals/geo_point_creation_modal";
+import GeoPointCreationModal from "../modals/geo_point_creation_modal";
 
 class MapIndex extends React.Component {
   render () {
@@ -31,7 +31,7 @@ class MapIndex extends React.Component {
   }
 }
 
-const mapStateToProps = ({ geoPointCreationModal: { show, latitude, longitude }, mainMap: { block } }) => ({
+const mapStateToProps = ({ modals: { geoPointCreation: { show, latitude, longitude } }, mainMap: { block } }) => ({
   mapBlock: block,
   showCreationModal: show,
   pointLatitude: latitude,

@@ -5,6 +5,7 @@ import { setFullPageBlock } from "../store/actions/blocking";
 import fetchLink from "../helpers/fetch_link";
 import Navbar from "./navbar";
 import Routes from "./routes";
+import AboutModal from "./modals/about_modal";
 
 class App extends React.Component {
   fetchCurrentUser () {
@@ -34,6 +35,7 @@ class App extends React.Component {
         <div className="container col-lg-7 col-md-10 col-sm-11 col-xs-auto">
           <Routes />
         </div>
+        <AboutModal />
       </BrowserRouter>
     )
   }
