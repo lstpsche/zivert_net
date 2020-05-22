@@ -56,7 +56,7 @@ MapBase.propTypes = {
   center: PropTypes.array,
   zoom: PropTypes.number,
   markers: PropTypes.array.isRequired,
-  currentUserId: PropTypes.number.isRequired
+  currentUserId: PropTypes.number
 }
 
 MapBase.defaultProps = {

@@ -31,7 +31,7 @@ class GeoPointsLayer extends React.Component {
 
 GeoPointsLayer.propTypes = {
   geoPoints: PropTypes.array.isRequired,
-  currentUserId: PropTypes.number.isRequired
+  currentUserId: PropTypes.number
 }
 
 export default GeoPointsLayer;
