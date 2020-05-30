@@ -32,7 +32,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Navbar />
-        <div className="container col-lg-7 col-md-10 col-sm-11 col-xs-auto">
+        <div className="main-container container col-lg-7 col-md-10 col-sm-11 col-xs-auto">
           <Routes />
         </div>
         <AboutModal />
