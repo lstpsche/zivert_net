@@ -5,7 +5,7 @@ describe Api::V1::DeviseCustom::SessionsController, type: :controller do
     subject { post(:create, params: params) }
 
     let(:user) { create(:user) }
-    let(:params) { { user: { username: user.username, password: user.password } } }
+    let(:params) { { user: { username: user.username, nickname: user.nickname, password: user.password } } }
 
     let(:stubbed_current_user) { instance_double(User, present?: signed_in) }
 
@@ -18,7 +18,8 @@ describe Api::V1::DeviseCustom::SessionsController, type: :controller do
             id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
-            username: user.username
+            username: user.username,
+            nickname: user.nickname
           }
         }
       }

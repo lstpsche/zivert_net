@@ -13,6 +13,7 @@ describe UserSerializer do
       expect(result_json[:first_name]).to eq(user.first_name)
       expect(result_json[:last_name]).to eq(user.last_name)
       expect(result_json[:username]).to eq(user.username)
+      expect(result_json[:nickname]).to eq(user.nickname)
     end
   end
 end

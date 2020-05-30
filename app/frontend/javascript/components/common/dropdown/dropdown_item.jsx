@@ -21,7 +21,7 @@ class DropdownItem extends React.Component {
     });
   }
 
-  itemLink ({ link, className, id, title }) {
+  itemLink ({ link, className = "", id, title }) {
     return (
       <Link
         to={link}
@@ -34,7 +34,7 @@ class DropdownItem extends React.Component {
   }
 
   itemButton (item) {
-    const { className, id, title } = item;
+    const { className = "", id, title } = item;
 
     return (
       <button
