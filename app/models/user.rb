@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
   class << self
     def username_unique?(username)
-      where(username: username).empty?
+      where(username: username.downcase).empty?
     end
   end
 end

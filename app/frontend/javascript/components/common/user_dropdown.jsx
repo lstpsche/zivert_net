@@ -8,12 +8,12 @@ class UserDropdown extends React.Component {
   }
 
   dropdownTitle () {
-    const { user: { firstName, lastName, username } } = this.props;
+    const { user: { firstName, lastName, nickname } } = this.props;
 
     var fullName = [firstName, lastName].join(" ");
 
     if (fullName === " ")
-      return username;
+      return nickname;
 
     return fullName;
   }
@@ -33,7 +33,7 @@ class UserDropdown extends React.Component {
   }
 
   renderItemsList () {
-    var list = [
+    return [
       {
         title: I18n.t("devise.sessions.sign_out"),
         link: "/users/sign_out",
@@ -41,8 +41,6 @@ class UserDropdown extends React.Component {
         onClickCallback: this.onSignOut
       }
     ];
-
-    return list;
   }
 
   render () {

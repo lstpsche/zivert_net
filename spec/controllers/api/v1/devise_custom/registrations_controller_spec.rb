@@ -6,7 +6,16 @@ describe Api::V1::DeviseCustom::RegistrationsController, type: :controller do
   describe 'private#check_username_uniqueness!' do
     subject { post(:create, params: params) }
 
-    let(:params) { { user: { username: 'sample_username', password: 'password', password_confirmation: 'password' } } }
+    let(:params) do
+      {
+        user: {
+          username: 'sample_username',
+          nickname: 'Sample_Username',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+      }
+    end
 
     before { allow(User).to receive(:username_unique?).and_return(unique) }
 
@@ -32,7 +41,8 @@ describe Api::V1::DeviseCustom::RegistrationsController, type: :controller do
         expect(JSON.parse(response.body)['user']['data']['attributes']).to include(
           'first_name' => '',
           'last_name' => '',
-          'username' => 'sample_username'
+          'username' => 'sample_username',
+          'nickname' => 'Sample_Username'
         )
       end
     end
@@ -54,7 +64,8 @@ describe Api::V1::DeviseCustom::RegistrationsController, type: :controller do
             id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
-            username: new_user.username
+            username: new_user.username,
+            nickname: user.nickname
           }
         }
       }

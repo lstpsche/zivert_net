@@ -12,7 +12,7 @@ class SignUp extends React.Component {
     fetchLink({
       link: "/users",
       method: "POST",
-      body: JSON.stringify({ user: { username, password, password_confirmation: passwordConfirmation } }),
+      body: JSON.stringify({ user: { username, nickname: username, password, password_confirmation: passwordConfirmation } }),
       onSuccess: ({ error }) => {
         if (error) {
           failureCallback({ error });
