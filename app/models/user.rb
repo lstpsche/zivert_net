@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable
 
   has_many :geo_points
+  has_many :measurements
 
   # it's needed to escape devise's extreme depending on emails
   def email_changed?
