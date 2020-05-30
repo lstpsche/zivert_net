@@ -34,3 +34,9 @@ a.secondary-link {
     // text-shadow: 0.2px 0.4px #b0b5bb;
   }
 }
+
+.form-control {
+  &:focus {
+    box-shadow: 0 0 0 0.05rem rgba(0, 123, 255, 0.25);
+  }
+}
