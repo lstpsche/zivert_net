@@ -179,7 +179,6 @@ describe Api::V1::GeoPointsController, type: :controller do
                 .with('geo_points_channel', action: :update, geoPoint: serialized_geo_point)
             end
 
-
             it { is_expected.to have_http_status(:ok) }
 
             it 'broadcasts geo point to channel' do
