@@ -1,5 +1,3 @@
-import { connect } from "react-redux";
-import { removeGeoPoint } from "../../../store/actions/geo_points";
 import Marker from "react-leaflet-enhanced-marker";
 import MarkerIcon from "./marker/marker_icon";
 import MarkerPopup from "./marker/marker_popup";
@@ -19,9 +17,7 @@ class GeoPointMarker extends React.Component {
       link: "/api/v1/geo_points/" + id,
       method: "DELETE",
       onSuccess: ({ success, errors }) => {
-        if (success)
-          this.props.removeGeoPoint(id);
-        else {
+        if (!success) {
           // TODO: add errors handling with alertify or smth
           console.log("Could not remove.");
           console.log(errors);
@@ -68,8 +64,4 @@ GeoPointMarker.defaultProps = {
   comment: ""
 }
 
-const mapDispatchToProps = dispatch => ({
-  removeGeoPoint: (id) => dispatch(removeGeoPoint({ id }))
-})
-
-export default connect(undefined, mapDispatchToProps)(GeoPointMarker);
+export default GeoPointMarker;
