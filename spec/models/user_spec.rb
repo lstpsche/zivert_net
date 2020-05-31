@@ -29,7 +29,7 @@ describe User, type: :model do
     before { create(:user, username: 'existing_username') }
 
     context 'when username is not unique' do
-      let(:username) { 'existing_username' }
+      let(:username) { 'Existing_Username' }
 
       it { is_expected.to be(false) }
     end

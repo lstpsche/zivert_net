@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
 import { hideGeoPointCreationModal } from "../../store/actions/modals";
-import { addGeoPoint } from "../../store/actions/geo_points";
 import ModalWindow from "./modal_window";
 import { FormControl, InputGroup, Row, Col } from "react-bootstrap";
 import fetchLink from "../../helpers/fetch_link";
@@ -27,16 +26,14 @@ class GeoPointCreationModal extends React.Component {
   }
 
   createGeoPoint ({ onCreateFailure = () => {} }) {
-    const { addGeoPoint } = this.props;
     const { latitude, longitude, radValue, comment } = this.state;
 
     fetchLink({
       link: "/api/v1/geo_points",
       method: "POST",
       body: JSON.stringify({ geoPoint: { latitude, longitude, rad_value: radValue, comment } }),
-      onSuccess: ({ success, geoPoint, errors }) => {
+      onSuccess: ({ success, errors }) => {
         if (success) {
-          addGeoPoint(geoPoint.data.attributes);
           this.props.hideModal();
         } else {
           // TODO: add errors handling with alertify or smth
@@ -164,8 +161,7 @@ GeoPointCreationModal.propTypes = {
 }
 
 const mapDispatchToProps = dispatch => ({
-  hideModal: () => dispatch(hideGeoPointCreationModal()),
-  addGeoPoint: (geoPoint) => dispatch(addGeoPoint(geoPoint))
+  hideModal: () => dispatch(hideGeoPointCreationModal())
 });
 
 export default connect(undefined, mapDispatchToProps)(GeoPointCreationModal);

@@ -4,6 +4,7 @@ import { setMainMapBlock } from "../../../../../store/actions/main_map";
 import fetchLink from "../../../../../helpers/fetch_link";
 import { FeatureGroup } from "react-leaflet";
 import GeoPointMarker from "../../geo_point_marker";
+import GeoPointsConsumer from "../../../../channels/geo_points_consumer";
 
 class GeoPointsLayer extends React.Component {
   async toggleMapBlock (state, blockMessage) {
@@ -51,6 +52,7 @@ class GeoPointsLayer extends React.Component {
   render () {
     return (
       <FeatureGroup>
+        <GeoPointsConsumer />
         { this.renderGeoPoints() }
       </FeatureGroup>
     )
