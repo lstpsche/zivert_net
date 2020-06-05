@@ -87,26 +87,22 @@ describe Api::V1::GeoPointsController, type: :controller do
     context 'when new geo point was saved' do
       let(:saved) { true }
       let(:serialized_geo_point) { double(:serialized_hash) }
-      let(:action_cable_server) { double(:action_cable_server) }
-      let(:expected_result) { { success: true }.to_json }
+      let(:expected_result) do
+        {
+          success: true,
+          errors: []
+        }.to_json
+      end
 
       before do
         allow(geo_point).to receive(:json).with(no_args).and_return(serialized_geo_point)
-        allow(ActionCable).to receive(:server).with(no_args).and_return(action_cable_server)
-        allow(action_cable_server)
-          .to receive(:broadcast)
-          .with('geo_points_channel', action: :create, geoPoint: serialized_geo_point)
+        allow(geo_point)
+          .to receive_message_chain(:errors, :messages)
+          .with(no_args).with(no_args)
+          .and_return([])
       end
 
       it { is_expected.to have_http_status(:ok) }
-
-      it 'broadcasts geo point to channel' do
-        expect(action_cable_server)
-          .to receive(:broadcast)
-          .with('geo_points_channel', action: :create, geoPoint: serialized_geo_point)
-
-        subject
-      end
 
       it 'renders json with newly created geo point' do
         subject
@@ -168,26 +164,22 @@ describe Api::V1::GeoPointsController, type: :controller do
           context 'when geo point was updated' do
             let(:updated) { true }
             let(:serialized_geo_point) { double(:serialized_geo_point) }
-            let(:action_cable_server) { double(:action_cable_server) }
-            let(:expected_result) { { success: true }.to_json }
+            let(:expected_result) do
+              {
+                success: true,
+                errors: []
+              }.to_json
+            end
 
             before do
               allow(geo_point).to receive(:json).with(no_args).and_return(serialized_geo_point)
-              allow(ActionCable).to receive(:server).with(no_args).and_return(action_cable_server)
-              allow(action_cable_server)
-                .to receive(:broadcast)
-                .with('geo_points_channel', action: :update, geoPoint: serialized_geo_point)
+              allow(geo_point)
+                .to receive_message_chain(:errors, :messages)
+                .with(no_args).with(no_args)
+                .and_return([])
             end
 
             it { is_expected.to have_http_status(:ok) }
-
-            it 'broadcasts geo point to channel' do
-              expect(action_cable_server)
-                .to receive(:broadcast)
-                .with('geo_points_channel', action: :update, geoPoint: serialized_geo_point)
-
-              subject
-            end
 
             it 'renders json with error message' do
               subject
@@ -277,26 +269,22 @@ describe Api::V1::GeoPointsController, type: :controller do
           context 'when geo point was destroyed' do
             let(:destroyed) { true }
             let(:serialized_geo_point) { double(:serialized_geo_point) }
-            let(:action_cable_server) { double(:action_cable_server) }
-            let(:expected_result) { { success: true }.to_json }
+            let(:expected_result) do
+              {
+                success: true,
+                errors: []
+              }.to_json
+            end
 
             before do
               allow(geo_point).to receive(:json).with(no_args).and_return(serialized_geo_point)
-              allow(ActionCable).to receive(:server).with(no_args).and_return(action_cable_server)
-              allow(action_cable_server)
-                .to receive(:broadcast)
-                .with('geo_points_channel', action: :destroy, geoPoint: serialized_geo_point)
+              allow(geo_point)
+                .to receive_message_chain(:errors, :messages)
+                .with(no_args).with(no_args)
+                .and_return([])
             end
 
             it { is_expected.to have_http_status(:ok) }
-
-            it 'broadcasts geo point to channel' do
-              expect(action_cable_server)
-                .to receive(:broadcast)
-                .with('geo_points_channel', action: :destroy, geoPoint: serialized_geo_point)
-
-              subject
-            end
 
             it 'renders json with error message' do
               subject
