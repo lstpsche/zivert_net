@@ -5,6 +5,43 @@ describe GeoPoint, type: :model do
 
   let(:geo_point) { build_stubbed(:geo_point) }
 
+  describe 'callbacks' do
+    describe 'after_create' do
+      subject { create(:geo_point) }
+
+      it 'calls geo points creation job' do
+        expect(GeoPoints::CreationJob).to receive(:perform_now)
+        subject
+      end
+    end
+
+    describe 'after_update' do
+      subject { geo_point.update(rad_value: rand(100)) }
+
+      let!(:geo_point) { create(:geo_point) }
+
+      before { allow(GeoPoints::CreationJob).to receive(:perform_now) }
+
+      it 'calls geo points updation job' do
+        expect(GeoPoints::UpdationJob).to receive(:perform_now)
+        subject
+      end
+    end
+
+    describe 'after_destroy' do
+      subject { geo_point.destroy }
+
+      let!(:geo_point) { create(:geo_point) }
+
+      before { allow(GeoPoints::CreationJob).to receive(:perform_now) }
+
+      it 'calls geo points deletion job' do
+        expect(GeoPoints::DeletionJob).to receive(:perform_now)
+        subject
+      end
+    end
+  end
+
   describe '#json' do
     subject { super().json }
 

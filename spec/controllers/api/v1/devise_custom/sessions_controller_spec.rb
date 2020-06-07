@@ -19,7 +19,8 @@ describe Api::V1::DeviseCustom::SessionsController, type: :controller do
             first_name: user.first_name,
             last_name: user.last_name,
             username: user.username,
-            nickname: user.nickname
+            nickname: user.nickname,
+            admin: user.admin
           }
         }
       }

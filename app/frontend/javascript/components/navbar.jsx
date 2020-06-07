@@ -4,6 +4,12 @@ import { showAboutModal } from "../store/actions/modals";
 import UserDropdown from "./common/user_dropdown";
 
 class Navbar extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.renderAdminBadge = this.renderAdminBadge.bind(this);
+  }
+
   renderProjectNameLink () {
     return (
       <Link to="/" className="navbar-brand">
@@ -15,9 +21,20 @@ class Navbar extends React.Component {
   renderAboutButton () {
     return (
       <button id="about-link" className="btn nav-link" onClick={this.props.showAboutModal}>
-        About
+        { I18n.t("common.about") }
       </button>
     )
+  }
+
+  renderAdminBadge () {
+    const { currentUser: { admin: isAdmin } } = this.props;
+
+    if (isAdmin)
+      return (
+        <span id="admin-badge" className="btn mr-2">
+          { I18n.t("common.admin") }
+        </span>
+      )
   }
 
   renderActionsSide () {
@@ -26,6 +43,7 @@ class Navbar extends React.Component {
     return (
       <div className="navbar-nav ml-auto">
         <ul className="navbar-nav mr-auto">
+          { this.renderAdminBadge() }
           {
             signedIn
               ? this.renderUserDropdown()
