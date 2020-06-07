@@ -1,5 +1,7 @@
 en:
   common:
+    about: About
+    admin: Superuser
     geo_point: Geo Point
     screen_block:
       loading_geo_points: Loading Geo Points...

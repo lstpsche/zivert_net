@@ -17,30 +17,15 @@ module Api
       end
 
       def create
-        if build_geo_point.save
-          broadcast_action_to_channel(:create)
-          action_success
-        else
-          action_failure
-        end
+        render_json_response(success: build_geo_point.save)
       end
 
       def update
-        if geo_point.update(geo_point_params)
-          broadcast_action_to_channel(:update)
-          action_success
-        else
-          action_failure
-        end
+        render_json_response(success: geo_point.update(geo_point_params))
       end
 
       def destroy
-        if geo_point.destroy
-          broadcast_action_to_channel(:destroy)
-          action_success
-        else
-          action_failure
-        end
+        render_json_response(success: geo_point.destroy)
       end
 
       private
@@ -49,16 +34,8 @@ module Api
         raise Authentication::NotPermitted unless current_user.id == geo_point.user_id
       end
 
-      def broadcast_action_to_channel(action)
-        ActionCable.server.broadcast('geo_points_channel', action: action, geoPoint: geo_point.json)
-      end
-
-      def action_success
-        render json: { success: true }.to_json
-      end
-
-      def action_failure
-        render json: { success: false, errors: geo_point.errors.messages }.to_json
+      def render_json_response(success:)
+        render json: { success: success, errors: geo_point.errors&.messages }.to_json
       end
 
       def geo_point

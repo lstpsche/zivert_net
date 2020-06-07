@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe GeoPointsChannel, type: :channel do
+describe GeoPoints::UpdationChannel, type: :channel do
   describe '#subscribed' do
     subject { subscribe }
 
