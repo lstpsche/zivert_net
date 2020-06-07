@@ -7,8 +7,20 @@ import GeoPointMarker from "../../geo_point_marker";
 import GeoPointsChannel from "../../../../channels/geo_points_channel";
 
 class GeoPointsLayer extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.isPointRemovable = this.isPointRemovable.bind(this);
+  }
+
   async toggleMapBlock (state, blockMessage) {
     this.props.setMainMapBlock({ state, blockMessage });
+  }
+
+  isPointRemovable (geoPointUserId) {
+    const { currentUserId, isCurrentUserAdmin } = this.props;
+
+    return (geoPointUserId === currentUserId || isCurrentUserAdmin)
   }
 
   componentDidMount () {
@@ -32,13 +44,13 @@ class GeoPointsLayer extends React.Component {
   }
 
   renderGeoPoints () {
-    const { geoPoints, currentUserId } = this.props;
+    const { geoPoints } = this.props;
 
     return geoPoints.map(({ id, userId, latitude, longitude, radValue, comment }) => {
       return (
         <GeoPointMarker
           key={"geo-point-marker-" + id}
-          removable={userId === currentUserId}
+          removable={this.isPointRemovable(userId)}
           id={id}
           latitude={latitude}
           longitude={longitude}
@@ -59,7 +71,7 @@ class GeoPointsLayer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ geoPoints, currentUser: { id: currentUserId } }) => ({ geoPoints, currentUserId });
+const mapStateToProps = ({ geoPoints, currentUser: { id: currentUserId, admin: isCurrentUserAdmin } }) => ({ geoPoints, currentUserId, isCurrentUserAdmin });
 
 const mapDispatchToProps = dispatch => ({
   setGeoPoints: (geoPoints) => dispatch(setGeoPoints(geoPoints)),
