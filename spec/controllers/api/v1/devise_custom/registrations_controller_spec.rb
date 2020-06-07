@@ -65,7 +65,8 @@ describe Api::V1::DeviseCustom::RegistrationsController, type: :controller do
             first_name: user.first_name,
             last_name: user.last_name,
             username: new_user.username,
-            nickname: user.nickname
+            nickname: user.nickname,
+            admin: user.admin
           }
         }
       }

@@ -61,7 +61,8 @@ GeoPointMarker.propTypes = {
 }
 
 GeoPointMarker.defaultProps = {
-  comment: ""
+  comment: "",
+  removable: false
 }
 
 export default GeoPointMarker;

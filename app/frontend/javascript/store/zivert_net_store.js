@@ -7,7 +7,7 @@ const defaultStoreValue = {
     geoPointCreation: { show: false },
     about: { show: false }
   },
-  currentUser: { signedIn: undefined },
+  currentUser: { signedIn: undefined, admin: false },
   blocking: { fullPage: true },
   mainMap: {
     block: { state: false, blockMessage: undefined }
