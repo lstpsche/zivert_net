@@ -18,7 +18,7 @@ module Api
         end
 
         def configure_permitted_parameters
-          devise_parameter_sanitizer.permit(:sign_up, keys: %i[username nickname first_name last_name])
+          devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name username nickname])
         end
 
         # needed to render json as response

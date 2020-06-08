@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import FormBase from "./form_base";
 
@@ -7,6 +7,8 @@ class SignUpForm extends FormBase {
     super(props);
 
     this.state = {
+      firstName: "",
+      lastName: "",
       username: "",
       password: "",
       passwordConfirmation: "",
@@ -34,14 +36,14 @@ class SignUpForm extends FormBase {
 
   handleSubmit () {
     const { onSubmit } = this.props;
-    const { username, password, passwordConfirmation } = this.state;
+    const { firstName, lastName, username, password, passwordConfirmation } = this.state;
 
     if ((this.form.checkValidity() === false) || !this.isPasswordLengthValid() || !this.isPasswordsMatch()) {
       this.setState({ formValidated: true });
       return;
     }
 
-    onSubmit({ username, password, passwordConfirmation, failureCallback: this.onFailure });
+    onSubmit({ firstName, lastName, username, password, passwordConfirmation, failureCallback: this.onFailure });
   }
 
   onFailure ({ error }) {
@@ -52,6 +54,43 @@ class SignUpForm extends FormBase {
       error
     });
     this.toggleAlert(true);
+  }
+
+  renderFirstLastNameField () {
+    const { firstName, lastName } = this.props;
+
+    return (
+      <Row className="first-last-name-row">
+        <Col className="first-name-col">
+          <Form.Group controlId="formFirstName">
+            <Form.Label>
+              { I18n.t("auth.fields.sign_up.labels.first_name") }
+            </Form.Label>
+            <Form.Control
+              type="firstName"
+              name="firstName"
+              value={firstName}
+              onChange={this.handleInputChange}
+              onKeyPress={this.handleKeyPress}
+            />
+          </Form.Group>
+        </Col>
+        <Col className="last-name-col">
+          <Form.Group controlId="formLastName">
+            <Form.Label>
+              { I18n.t("auth.fields.sign_up.labels.last_name") }
+            </Form.Label>
+            <Form.Control
+              type="lastName"
+              name="lastName"
+              value={lastName}
+              onChange={this.handleInputChange}
+              onKeyPress={this.handleKeyPress}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+    )
   }
 
   renderPasswordInvalidFeedback () {
@@ -70,7 +109,7 @@ class SignUpForm extends FormBase {
 
     return (
       <Form.Group controlId="formPasswordConfirmation">
-        <Form.Label>
+        <Form.Label className="required">
           { I18n.t("auth.fields.sign_up.labels.password_confirmation") }
         </Form.Label>
         <Form.Control
@@ -127,6 +166,7 @@ class SignUpForm extends FormBase {
         { this.renderAlert(error) }
 
         <div className="form-inputs">
+          { this.renderFirstLastNameField() }
           { this.renderUsernameField("sign_up") }
           { this.renderPasswordField("sign_up") }
           { this.renderPasswordConfirmationField() }
