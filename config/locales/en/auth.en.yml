@@ -17,6 +17,8 @@ en:
           password_length: Password should have at least 6 symbols.
           password_confirm: Passwords should match.
         labels:
+          first_name: First Name
+          last_name: Last Name
           username: Username
           password: Password
           password_confirmation: Confirm password
