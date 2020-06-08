@@ -109,7 +109,7 @@ class SignUpForm extends FormBase {
 
     return (
       <Form.Group controlId="formPasswordConfirmation">
-        <Form.Label>
+        <Form.Label className="required">
           { I18n.t("auth.fields.sign_up.labels.password_confirmation") }
         </Form.Label>
         <Form.Control

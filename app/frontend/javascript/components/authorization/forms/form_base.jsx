@@ -56,7 +56,7 @@ class FormBase extends React.Component {
 
     return (
       <Form.Group controlId="formUsername">
-        <Form.Label>
+        <Form.Label className={type === "sign_up" ? "required" : null}>
           { I18n.t(`auth.fields.${type}.labels.username`) }
         </Form.Label>
         <Form.Control
@@ -78,7 +78,7 @@ class FormBase extends React.Component {
 
     return (
       <Form.Group controlId="formPassword">
-        <Form.Label>
+        <Form.Label className={type === "sign_up" ? "required" : null}>
           { I18n.t(`auth.fields.${type}.labels.password`) }
         </Form.Label>
         <Form.Control
