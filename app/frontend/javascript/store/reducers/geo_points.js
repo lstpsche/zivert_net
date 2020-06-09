@@ -10,6 +10,7 @@
 //   },
 //   ...
 // ]
+//
 
 import {
   SET_GEO_POINTS,

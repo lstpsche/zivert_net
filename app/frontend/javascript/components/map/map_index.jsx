@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import Loader from "../common/loader";
+import Sidebar from "../sidebar/sidebar";
 import MapBase from "./components/map_base";
 import GeoPointCreationModal from "../modals/geo_point_creation_modal";
 
@@ -19,6 +20,7 @@ class MapIndex extends React.Component {
           keepInView
         >
           <MapBase />
+          <Sidebar />
 
           {
             showCreationModal

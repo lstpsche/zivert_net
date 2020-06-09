@@ -1,0 +1,6 @@
+en:
+  sidebar:
+    tabs:
+      headers:
+        geo_point_details: GeoPoint details
+        user_measurements_history: My measurement

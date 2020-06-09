@@ -1,0 +1,11 @@
+#sidebar {
+  top: 67px;
+  max-height: 900px;
+  transition: max-height .3s, width .5s;
+
+  &.collapsed {
+    max-height: 84px;
+    transition: max-height .4s .5s, width .5s;
+    width: 43px;
+  }
+}
