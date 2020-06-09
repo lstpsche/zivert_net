@@ -11,6 +11,10 @@ const defaultStoreValue = {
   blocking: { fullPage: true },
   mainMap: {
     block: { state: false, blockMessage: undefined }
+  },
+  sidebar: {
+    collapsed: true,
+    selectedTabId: "user-measurements-history-tab"
   }
 }
 
