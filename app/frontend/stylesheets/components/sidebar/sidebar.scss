@@ -4,7 +4,7 @@
   transition: max-height .3s, width .3s;
 
   &.collapsed {
-    max-height: 84px;
+    max-height: 140px; // 124px - to fit 3 icons
     transition: max-height .3s .25s, width .3s;
     width: 43px;
   }

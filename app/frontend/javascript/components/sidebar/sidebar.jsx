@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import { showSidebar, hideSidebar } from "../../store/actions/sidebar";
 import { Sidebar as SidebarLib, Tab } from "react-leaflet-sidetabs";
-import { FaChevronRight, FaTachometerAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaChevronRight, FaTachometerAlt, FaMapMarkerAlt, FaLayerGroup } from "react-icons/fa";
 import UserMeasurementsHistoryTabContent from "./tabs_content/user_measurements_history_tab_content";
 import GeoPointDetailsTabContent from "./tabs_content/geo_point_details_tab_content";
+import MapSettingsTabContent from "./tabs_content/map_settings_tab_content";
 
 class Sidebar extends React.Component {
   render () {
@@ -32,6 +33,15 @@ class Sidebar extends React.Component {
           anchor="top"
         >
           <GeoPointDetailsTabContent />
+        </Tab>
+
+        <Tab
+          id="map-settings-tab"
+          header={ I18n.t("sidebar.tabs.headers.map_settings") }
+          icon={<FaLayerGroup />}
+          anchor="bottom"
+        >
+          <MapSettingsTabContent />
         </Tab>
       </SidebarLib>
     )
