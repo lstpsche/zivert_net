@@ -32,10 +32,10 @@ class MapSettingsTabContent extends React.Component {
   renderBaseSelection () {
     return (
       <Form>
-        <Form.Label>Base map</Form.Label>
+        <Form.Label>{ I18n.t("sidebar.tabs.map_settings.sections.base_map") }</Form.Label>
         <Form.Check
           type="radio"
-          label="Regular map"
+          label={ I18n.t("sidebar.tabs.map_settings.labels.regular_map") }
           id="regular-map-radio"
           name="regularMap"
           onChange={this.onBaseChange}
@@ -48,10 +48,10 @@ class MapSettingsTabContent extends React.Component {
   renderOverlaysSelection () {
     return (
       <Form>
-        <Form.Label>Overlay layers</Form.Label>
+        <Form.Label>{ I18n.t("sidebar.tabs.map_settings.sections.overlay_layers") }</Form.Label>
         <Form.Check
           type="checkbox"
-          label="Dim map"
+          label={ I18n.t("sidebar.tabs.map_settings.labels.dimmer") }
           id="dimmer-layer-checkbox"
           name="dimmer"
           onChange={this.onOverlayChange}
@@ -59,7 +59,7 @@ class MapSettingsTabContent extends React.Component {
         />
         <Form.Check
           type="checkbox"
-          label="Geo Points"
+          label={ I18n.t("sidebar.tabs.map_settings.labels.geo_points") }
           id="geo-points-layer-checkbox"
           name="geoPoints"
           onChange={this.onOverlayChange}

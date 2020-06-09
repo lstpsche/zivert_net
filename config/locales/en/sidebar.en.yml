@@ -2,6 +2,14 @@ en:
   sidebar:
     tabs:
       headers:
-        geo_point_details: GeoPoint details
-        map_settings: Map settings
-        user_measurements_history: My measurement
+        geo_point_details: GeoPoint Details
+        map_settings: Map Settings
+        user_measurements_history: My Measurement
+      map_settings:
+        labels:
+          dimmer: Dim map
+          geo_points: Geo Points
+          regular_map: Regular map
+        sections:
+          base_map: Base map
+          overlay_layers: Overlay layers
