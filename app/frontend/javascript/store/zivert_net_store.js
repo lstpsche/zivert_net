@@ -10,7 +10,16 @@ const defaultStoreValue = {
   currentUser: { signedIn: undefined, admin: false },
   blocking: { fullPage: true },
   mainMap: {
-    block: { state: false, blockMessage: undefined }
+    block: { state: false, blockMessage: undefined },
+    layers: {
+      base: {
+        regularMap: { selected: true }
+      },
+      overlays: {
+        dimmer: { selected: false },
+        geoPoints: { selected: true }
+      }
+    }
   },
   sidebar: {
     collapsed: true,
