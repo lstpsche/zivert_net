@@ -25,7 +25,7 @@ class MapBase extends React.Component {
   }
 
   render () {
-    const { center, zoom } = this.props;
+    const { center, zoom, regularMapSelected, dimmedLayerSelected, geoPointsLayerSelected } = this.props;
 
     return (
       <MapLeaflet
@@ -36,15 +36,15 @@ class MapBase extends React.Component {
         ondblclick={this.handleMapDblClick}
       >
         <LayersControl position="topleft">
-          <LayersControl.BaseLayer checked name={I18n.t("map.layers.base.map")}>
+          <LayersControl.BaseLayer checked={regularMapSelected} name={I18n.t("map.layers.base.map")}>
             <RegularMapLayer />
           </LayersControl.BaseLayer>
 
-          <LayersControl.Overlay name={I18n.t("map.layers.overlay.dim_map")}>
+          <LayersControl.Overlay checked={dimmedLayerSelected} name={I18n.t("map.layers.overlay.dim_map")}>
             <DimmedLayer />
           </LayersControl.Overlay>
 
-          <LayersControl.Overlay checked name={I18n.t("map.layers.overlay.geo_points")}>
+          <LayersControl.Overlay checked={geoPointsLayerSelected} name={I18n.t("map.layers.overlay.geo_points")}>
             <GeoPointsLayer />
           </LayersControl.Overlay>
         </LayersControl>
@@ -63,7 +63,12 @@ MapBase.defaultProps = {
   zoom: 12  // Zoomed to fully show the whole Minsk city
 }
 
-const mapStateToProps = ({ currentUser: { signedIn } }) => ({ signedIn });
+const mapStateToProps = ({ currentUser: { signedIn }, mainMap: { layers } }) => ({
+  signedIn,
+  regularMapSelected: layers.base.regularMap.selected,
+  dimmedLayerSelected: layers.overlays.dimmer.selected,
+  geoPointsLayerSelected: layers.overlays.geoPoints.selected
+});
 
 const mapDispatchToProps = dispatch => ({
   showCreationModal: ({ lat: latitude, lng: longitude }) => dispatch(showGeoPointCreationModal({ latitude, longitude }))

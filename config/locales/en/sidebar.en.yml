@@ -3,4 +3,5 @@ en:
     tabs:
       headers:
         geo_point_details: GeoPoint details
+        map_settings: Map settings
         user_measurements_history: My measurement
