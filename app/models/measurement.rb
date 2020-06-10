@@ -4,6 +4,10 @@ class Measurement < ApplicationRecord
   belongs_to :user
   belongs_to :geo_point
 
+  def json
+    MeasurementSerializer.new(self).serializable_hash
+  end
+
   class << self
     def create_initial(geo_point:)
       create(
