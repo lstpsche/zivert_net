@@ -6,11 +6,21 @@ class GeoPoint < ApplicationRecord
   belongs_to :user
   has_many :measurements
 
-  after_create ->(geo_point) { GeoPoints::CreationJob.perform_now(geo_point) }
+  after_create :broadcast_creation, :create_initial_measurement
   after_update ->(geo_point) { GeoPoints::UpdationJob.perform_now(geo_point) }
   after_destroy ->(geo_point) { GeoPoints::DeletionJob.perform_now(geo_point) }
 
   def json
     GeoPointSerializer.new(self).serializable_hash
+  end
+
+  private
+
+  def broadcast_creation
+    GeoPoints::CreationJob.perform_now(self)
+  end
+
+  def create_initial_measurement
+    Measurement.create_initial(geo_point: self)
   end
 end

@@ -4,7 +4,7 @@ en:
       headers:
         geo_point_details: GeoPoint Details
         map_settings: Map Settings
-        user_measurements_history: My Measurement
+        user_measurements_history: My Measurements
       map_settings:
         labels:
           dimmer: Dim map
