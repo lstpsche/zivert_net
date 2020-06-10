@@ -35,6 +35,7 @@ class MapSettingsTabContent extends React.Component {
         <Form.Label>{ I18n.t("sidebar.tabs.map_settings.sections.base_map") }</Form.Label>
         <Form.Check
           type="radio"
+          className="map-setting-radio"
           label={ I18n.t("sidebar.tabs.map_settings.labels.regular_map") }
           id="regular-map-radio"
           name="regularMap"
@@ -51,6 +52,7 @@ class MapSettingsTabContent extends React.Component {
         <Form.Label>{ I18n.t("sidebar.tabs.map_settings.sections.overlay_layers") }</Form.Label>
         <Form.Check
           type="checkbox"
+          className="map-setting-checkbox"
           label={ I18n.t("sidebar.tabs.map_settings.labels.dimmer") }
           id="dimmer-layer-checkbox"
           name="dimmer"
@@ -59,6 +61,7 @@ class MapSettingsTabContent extends React.Component {
         />
         <Form.Check
           type="checkbox"
+          className="map-setting-checkbox"
           label={ I18n.t("sidebar.tabs.map_settings.labels.geo_points") }
           id="geo-points-layer-checkbox"
           name="geoPoints"

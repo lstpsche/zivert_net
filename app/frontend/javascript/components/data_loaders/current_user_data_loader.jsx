@@ -27,8 +27,7 @@ class CurrentUserDataLoader extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-  setFullPageBlock: (state) => dispatch(setFullPageBlock(state))
+  setFullPageBlock: (state) => dispatch(setFullPageBlock({ state }))
 });
-
 
 export default connect(undefined, mapDispatchToProps)(CurrentUserDataLoader);

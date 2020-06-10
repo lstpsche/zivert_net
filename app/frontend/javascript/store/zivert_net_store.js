@@ -3,12 +3,13 @@ import reducers from "./reducers/index";
 
 const defaultStoreValue = {
   geoPoints: [],
+  measurements: [],
   modals: {
     geoPointCreation: { show: false },
     about: { show: false }
   },
   currentUser: { signedIn: undefined, admin: false },
-  blocking: { fullPage: true },
+  blocking: { fullPage: { state: true, blockMessage: undefined } },
   mainMap: {
     block: { state: false, blockMessage: undefined },
     layers: {

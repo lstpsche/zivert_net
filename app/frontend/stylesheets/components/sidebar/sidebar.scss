@@ -8,4 +8,14 @@
     transition: max-height .3s .25s, width .3s;
     width: 43px;
   }
+
+  #map-settings-tab-content {
+    .map-setting-checkbox {
+      user-select: none;
+    }
+
+    .map-setting-radio {
+      user-select: none;
+    }
+  }
 }
