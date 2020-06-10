@@ -9,8 +9,20 @@ describe GeoPoint, type: :model do
     describe 'after_create' do
       subject { create(:geo_point) }
 
+      before do
+        allow(GeoPoints::CreationJob).to receive(:perform_now)
+        allow(Measurement).to receive(:create_initial)
+      end
+
       it 'calls geo points creation job' do
         expect(GeoPoints::CreationJob).to receive(:perform_now)
+
+        subject
+      end
+
+      it 'creates initial measurement for geo point' do
+        expect(Measurement).to receive(:create_initial)
+
         subject
       end
     end
@@ -20,10 +32,14 @@ describe GeoPoint, type: :model do
 
       let!(:geo_point) { create(:geo_point) }
 
-      before { allow(GeoPoints::CreationJob).to receive(:perform_now) }
+      before do
+        allow(GeoPoints::CreationJob).to receive(:perform_now)
+        allow(Measurement).to receive(:create_initial)
+      end
 
       it 'calls geo points updation job' do
         expect(GeoPoints::UpdationJob).to receive(:perform_now)
+
         subject
       end
     end
@@ -33,10 +49,14 @@ describe GeoPoint, type: :model do
 
       let!(:geo_point) { create(:geo_point) }
 
-      before { allow(GeoPoints::CreationJob).to receive(:perform_now) }
+      before do
+        allow(GeoPoints::CreationJob).to receive(:perform_now)
+        allow(Measurement).to receive(:create_initial)
+      end
 
       it 'calls geo points deletion job' do
         expect(GeoPoints::DeletionJob).to receive(:perform_now)
+
         subject
       end
     end
