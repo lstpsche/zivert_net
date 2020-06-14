@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import { FeatureGroup } from "react-leaflet";
 import GeoPointMarker from "../../geo_point_marker";
-import GeoPointsChannel from "../../../../channels/geo_points_channel";
 
 class GeoPointsLayer extends React.Component {
   renderGeoPoints () {
@@ -23,7 +22,6 @@ class GeoPointsLayer extends React.Component {
   render () {
     return (
       <FeatureGroup>
-        <GeoPointsChannel />
         { this.renderGeoPoints() }
       </FeatureGroup>
     )

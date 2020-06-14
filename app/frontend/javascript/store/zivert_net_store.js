@@ -4,6 +4,7 @@ import reducers from "./reducers/index";
 const defaultStoreValue = {
   geoPoints: [],
   measurements: [],
+  users: [],
   modals: {
     geoPointCreation: { show: false },
     about: { show: false }
