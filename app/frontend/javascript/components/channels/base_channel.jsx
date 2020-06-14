@@ -2,8 +2,8 @@ import { ActionCableConsumer } from "react-actioncable-provider";
 import { Fragment } from "react";
 
 class BaseChannel extends React.Component {
-  handleReceived (actions, { data: { attributes: measurement } }) {
-    actions.each(action => action(measurement));
+  handleReceived (actions, data) {
+    actions.forEach(action => action(data));
   }
 
   renderConsumers (channels) {

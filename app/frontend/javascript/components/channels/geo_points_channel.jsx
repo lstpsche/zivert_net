@@ -17,9 +17,9 @@ class GeoPointsChannel extends BaseChannel {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addGeoPoint: (geoPoint) => dispatch(addGeoPoint(geoPoint)),
-  updateGeoPoint: (geoPoint) => dispatch(updateGeoPoint(geoPoint)),
-  removeGeoPoint: (geoPoint) => dispatch(removeGeoPoint(geoPoint))
+  addGeoPoint: ({ geoPoint }) => dispatch(addGeoPoint(geoPoint.data)),
+  updateGeoPoint: ({ geoPoint }) => dispatch(updateGeoPoint(geoPoint.data)),
+  removeGeoPoint: ({ geoPoint }) => dispatch(removeGeoPoint(geoPoint.data))
 });
 
 export default connect(undefined, mapDispatchToProps)(GeoPointsChannel);

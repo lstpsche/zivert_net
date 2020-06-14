@@ -1,13 +1,13 @@
 class GeoPointInfo extends React.Component {
   render () {
-    const { geoPoint: { id, latitude, longitude, radValue } } = this.props;
+    const { geoPoint: { latitude, longitude, radValue, measurements } } = this.props;
 
     return (
       <div className="geo-point-info">
-        <p>Geo point info</p>
         <p>latitude: { latitude }</p>
         <p>longitude: { longitude }</p>
         <p>Overall Value: { radValue }</p>
+        <p>Measurements count: { measurements.length }</p>
       </div>
     )
   }

@@ -8,11 +8,7 @@ class GeoPointsDataLoader extends React.Component {
     fetchLink({
       link: "/api/v1/geo_points",
       onSuccess: (response) => {
-        this.props.setGeoPoints(
-          response.geoPoints.map(({ data: { attributes: { id, user_id: userId, longitude, latitude, rad_value: radValue, comment } } }) => (
-            { id, userId, longitude, latitude, radValue, comment }
-          ))
-        );
+        this.props.setGeoPoints(response.geoPoints);
       },
       onFailure: (error) => {
         // TODO: add parsing of internal server errors
@@ -33,7 +29,7 @@ class GeoPointsDataLoader extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setGeoPoints: (geo_points) => dispatch(setGeoPoints(geo_points)),
+  setGeoPoints: (geoPoints) => dispatch(setGeoPoints(geoPoints)),
   setFullPageBlock: (state) => dispatch(setFullPageBlock({ state }))
 });
 

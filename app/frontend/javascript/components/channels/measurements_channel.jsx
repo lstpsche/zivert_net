@@ -18,10 +18,10 @@ class MeasurementsChannel extends BaseChannel {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addMeasurement: (measurement) => dispatch(addMeasurement(measurement)),
-  updateMeasurement: (measurement) => dispatch(updateMeasurement(measurement)),
-  removeMeasurement: (measurement) => dispatch(removeMeasurement(measurement)),
-  addMeasurementToGeoPoint: ({ id, geoPointId }) => dispatch(addMeasurementToGeoPoint({ id: geoPointId, measurementId: id }))
+  addMeasurement: ({ measurement }) => dispatch(addMeasurement(measurement.data)),
+  updateMeasurement: ({ measurement }) => dispatch(updateMeasurement(measurement.data)),
+  removeMeasurement: ({ measurement }) => dispatch(removeMeasurement(measurement.data)),
+  addMeasurementToGeoPoint: ({ measurement: { data: { attributes: { id, geo_point_id } } } }) => dispatch(addMeasurementToGeoPoint({ id: geo_point_id, measurementId: id }))
 });
 
 export default connect(undefined, mapDispatchToProps)(MeasurementsChannel);
