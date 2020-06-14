@@ -14,23 +14,19 @@ describe Api::V1::GeoPointsController, type: :controller do
 
     let(:expected_result) { { geoPoints: [serialized_geo_point1, serialized_geo_point2] }.to_json }
 
-    before do
-      sign_in(user)
-      allow(GeoPoint).to receive(:all).with(no_args).and_return([geo_point1, geo_point2])
-    end
+    before { allow(GeoPoint).to receive(:includes).with(:measurements).and_return([geo_point1, geo_point2]) }
 
     it { is_expected.to have_http_status(:ok) }
 
     it 'renders json with geo points' do
       subject
+
       expect(response.body).to eq(expected_result)
     end
   end
 
   describe 'GET show' do
     subject { get(:show, params: { id: geo_point_id }) }
-
-    before { sign_in(user) }
 
     context 'when geo point was found' do
       let(:geo_point_id) { rand(100) }
@@ -44,6 +40,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
       it 'renders json with given geo point' do
         subject
+
         expect(response.body).to eq(expected_result)
       end
     end
@@ -61,6 +58,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
       it 'renders json with given geo point' do
         subject
+
         expect(response.body).to eq(expected_result)
       end
     end
@@ -106,6 +104,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
       it 'renders json with newly created geo point' do
         subject
+
         expect(response.body).to eq(expected_result)
       end
     end
@@ -130,6 +129,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
       it 'renders json with error message' do
         subject
+
         expect(response.body).to eq(expected_result)
       end
     end
@@ -183,6 +183,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
             it 'renders json with error message' do
               subject
+
               expect(response.body).to eq(expected_result)
             end
           end
@@ -202,6 +203,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
             it 'renders json with error message' do
               subject
+
               expect(response.body).to eq(expected_result)
             end
           end
@@ -216,6 +218,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
           it 'renders json with error message' do
             subject
+
             expect(response.body).to eq(expected_result)
           end
         end
@@ -230,6 +233,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
         it 'renders json with error message' do
           subject
+
           expect(response.body).to eq(expected_result)
         end
       end
@@ -288,6 +292,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
             it 'renders json with error message' do
               subject
+
               expect(response.body).to eq(expected_result)
             end
           end
@@ -307,6 +312,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
             it 'renders json with error message' do
               subject
+
               expect(response.body).to eq(expected_result)
             end
           end
@@ -321,6 +327,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
           it 'renders json with error message' do
             subject
+
             expect(response.body).to eq(expected_result)
           end
         end
@@ -335,6 +342,7 @@ describe Api::V1::GeoPointsController, type: :controller do
 
         it 'renders json with error message' do
           subject
+
           expect(response.body).to eq(expected_result)
         end
       end

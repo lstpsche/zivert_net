@@ -7,7 +7,7 @@ module Api
       before_action :check_authorship!, only: %i[update destroy]
 
       def index
-        geo_points = GeoPoint.all.map(&:json)
+        geo_points = GeoPoint.includes(:measurements).map(&:json)
 
         render json: { geoPoints: geo_points }.to_json
       end

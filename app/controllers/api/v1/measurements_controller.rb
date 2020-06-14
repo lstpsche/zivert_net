@@ -3,6 +3,8 @@
 module Api
   module V1
     class MeasurementsController < ApplicationController
+      before_action :authenticate_user!, except: %i[index show]
+
       def index
         measurements = Measurement.all.map(&:json)
 
