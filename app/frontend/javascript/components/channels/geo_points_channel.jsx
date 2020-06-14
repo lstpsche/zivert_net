@@ -1,42 +1,18 @@
 import { connect } from "react-redux";
-import { Fragment } from "react";
-import { ActionCableConsumer } from "react-actioncable-provider";
 import { addGeoPoint, updateGeoPoint, removeGeoPoint } from "../../store/actions/geo_points";
+import BaseChannel from "./base_channel";
 
-class GeoPointsChannel extends React.Component {
+class GeoPointsChannel extends BaseChannel {
   constructor (props) {
     super(props);
 
-    this.actions = {
-      create: this.props.addGeoPoint,
-      update: this.props.updateGeoPoint,
-      delete: this.props.removeGeoPoint
-    }
+    const { addGeoPoint, updateGeoPoint, removeGeoPoint } = this.props;
 
-    this.handleReceived = this.handleReceived.bind(this);
-  }
-
-  handleReceived (action, { data: { attributes: geoPoint } }) {
-    this.actions[action](geoPoint);
-  }
-
-  render () {
-    return (
-      <Fragment>
-        <ActionCableConsumer
-          channel={{ channel: "GeoPoints::CreationChannel" }}
-          onReceived={({ geoPoint }) => this.handleReceived("create", geoPoint)}
-        />
-        <ActionCableConsumer
-          channel={{ channel: "GeoPoints::UpdationChannel" }}
-          onReceived={({ geoPoint }) => this.handleReceived("update", geoPoint)}
-        />
-        <ActionCableConsumer
-          channel={{ channel: "GeoPoints::DeletionChannel" }}
-          onReceived={({ geoPoint }) => this.handleReceived("delete", geoPoint)}
-        />
-      </Fragment>
-    )
+    this.channels = [
+      { name: "GeoPoints::CreationChannel", actionName: "create", onReceiveActions: [addGeoPoint] },
+      { name: "GeoPoints::UpdationChannel", actionName: "update", onReceiveActions: [updateGeoPoint] },
+      { name: "GeoPoints::DeletionChannel", actionName: "delete", onReceiveActions: [removeGeoPoint] }
+    ];
   }
 }
 

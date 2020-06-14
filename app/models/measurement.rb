@@ -2,7 +2,16 @@
 
 class Measurement < ApplicationRecord
   belongs_to :user
-  belongs_to :geo_point
+  belongs_to :geo_point, dependent: :destroy
+
+  after_create ->(measurement) { Measurements::CreationJob.perform_now(measurement) }
+  after_update ->(measurement) { Measurements::UpdationJob.perform_now(measurement) }
+  after_destroy(
+    lambda do |measurement|
+      Measurements::DeletionJob.perform_now(measurement)
+      measurement.geo_point.destroy if geo_point.measurements.empty?
+    end
+  )
 
   def json
     MeasurementSerializer.new(self).serializable_hash

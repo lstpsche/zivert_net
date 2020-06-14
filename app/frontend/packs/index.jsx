@@ -7,6 +7,8 @@ import FullPageLoader from "../javascript/components/full_page_loader";
 import CurrentUserDataLoader from "../javascript/components/data_loaders/current_user_data_loader";
 import GeoPointsDataLoader from "../javascript/components/data_loaders/geo_points_data_loader";
 import MeasurementsDataLoader from "../javascript/components/data_loaders/measurements_data_loader";
+import GeoPointsChannel from "../javascript/components/channels/geo_points_channel";
+import MeasurementsChannel from "../javascript/components/channels/measurements_channel";
 
 document.addEventListener("DOMContentLoaded", () => {
   render (
@@ -17,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <CurrentUserDataLoader />
         <GeoPointsDataLoader />
         <MeasurementsDataLoader />
+
+        <GeoPointsChannel />
+        <MeasurementsChannel />
 
         <App />
       </Provider>

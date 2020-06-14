@@ -2,6 +2,7 @@ import {
   SET_GEO_POINTS,
   ADD_GEO_POINT,
   UPDATE_GEO_POINT,
+  ADD_MEASUREMENT_TO_GEO_POINT,
   REMOVE_GEO_POINT,
   SELECT_GEO_POINT,
   UNSELECT_GEO_POINTS
@@ -20,6 +21,11 @@ export const addGeoPoint = ({ id, user_id, longitude, latitude, rad_value, comme
 export const updateGeoPoint = ({ id,  longitude, latitude, rad_value, comment }) => ({
   type: UPDATE_GEO_POINT,
   id, longitude, latitude, radValue: rad_value, comment
+})
+
+export const addMeasurementToGeoPoint = ({ id, measurementId }) => ({
+  type: ADD_MEASUREMENT_TO_GEO_POINT,
+  id, measurementId
 })
 
 export const removeGeoPoint = ({ id }) => ({
