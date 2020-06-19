@@ -5,7 +5,7 @@ class GeoPointInfo extends React.Component {
     // TODO: overall-value: add classes (one-digit | two-digit | three-digit) with needed font-size according to radValue digits count
 
     return (
-      <div className="geo-point-info">
+      <div id="geo-point-info">
         <div className="geo-point-info-row">
           <div className="overall">
             <div className="overall-value">{ radValue }</div>

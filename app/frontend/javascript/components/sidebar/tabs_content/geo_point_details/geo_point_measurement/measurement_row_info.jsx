@@ -11,7 +11,7 @@ class MeasurementRowInfo extends React.Component {
     if (firstName.length === 0 && lastName === 0)
       return nickname;
 
-    return `${firstName} ${lastName}`.trim() + `(@${nickname})`;
+    return `${firstName} ${lastName}`.trim() + ` (@${nickname})`;
   }
 
   isAuthor (measurementAuthorId) {
@@ -40,7 +40,9 @@ class MeasurementRowInfo extends React.Component {
 
     return (
       <div className="measurement-row-info">
-        <div className="measurement-value">{ value }</div>
+        <div className="measurement-value-container">
+          <span className="measurement-value">{ value }</span>
+        </div>
 
         <div className="measurement-details">
           <div className="measurement-author-info">{ this.authorFullName(user) }</div>

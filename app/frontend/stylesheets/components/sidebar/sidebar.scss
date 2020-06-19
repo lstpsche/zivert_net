@@ -32,11 +32,13 @@
       height: 100%;
 
       #geo-point-details-tab-content {
-        .geo-point-info {
+        #geo-point-info {
           background-color: white;
           border-bottom: 2px solid #868686;
           font-size: 13px;
           height: 90px;
+          position: relative;
+          z-index: 1;
 
           .geo-point-info-row {
             display: flex;
@@ -70,17 +72,90 @@
           .measurements-count {
             background-color: white;
             border: 2px solid #868686;
-            border-radius: 5px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
+            border-bottom-right-radius: 5px;
+            border-left-style: none;
             border-top-color: white;
-            left: 5px;
+            left: -2px;
             padding: 1px 5px;
             position: relative;
             text-align: center;
             top: 8px;
             white-space: nowrap;
             width: min-content;
+            z-index: 1;
+          }
+        }
+
+        #geo-point-measurements {
+          margin-top: -1px;
+
+          .measurement-connector-line {
+            border: 2px solid #868686;
+            border-right-style: none;
+            border-top-style: none;
+            height: 55px;
+            left: 15px;
+            position: relative;
+            width: 30px;
+            z-index: 0;
+          }
+
+          .measurement-row {
+            .measurement-row-info {
+              background-color: white;
+              border: 2px solid #868686;
+              border-right-style: none;
+              border-radius: 5px;
+              border-bottom-right-radius: 0;
+              border-top-right-radius: 0;
+              display: flex;
+              float: right;
+              height: min-content;
+              position: relative;
+              top: -20px;
+              width: 92%;
+              z-index: 1;
+
+              .measurement-value-container {
+                border: 2px solid #868686;
+                border-style: none solid none none;
+                font-size: 25px;
+                height: 100%;
+                line-height: 36px;
+                min-width: 40px;
+                padding: 0 5px;
+                width: min-content;
+
+                .measurement-value {
+
+                }
+              }
+
+              .measurement-details {
+                font-size: 11px;
+                padding: 1px 5px;
+                width: 100%;
+
+                .measurement-author-info {
+                  text-align: start;
+                }
+
+                .measurement-comment {
+                  // TODO: add styles after adding comments to measurements
+                }
+              }
+            }
+          }
+
+          .create-measurement-row {
+            .create-measurement-btn {
+              background-color: white;
+              border-radius: 20px;
+              height: 35px;
+              position: relative;
+              top: -18px;
+              width: 35px;
+            }
           }
         }
       }
