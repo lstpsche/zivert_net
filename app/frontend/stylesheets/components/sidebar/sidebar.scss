@@ -124,7 +124,7 @@
                 border: 2px solid #868686;
                 border-style: none solid none none;
                 font-size: 25px;
-                height: 100%;
+                height: auto;
                 line-height: 36px;
                 min-width: 40px;
                 padding: 0 5px;
@@ -152,6 +152,7 @@
 
               &.create-form {
                 .measurement-value-container {
+                  display: flex;
                   padding: 0;
 
                   .measurement-value {
@@ -177,6 +178,11 @@
                   margin-right: 3px;
                   margin-top: -3px;
                   width: 50px;
+
+                  &:disabled {
+                    pointer-events: none;
+                    color: #dcdcdc;
+                  }
 
                   &:hover {
                     color: #646464;

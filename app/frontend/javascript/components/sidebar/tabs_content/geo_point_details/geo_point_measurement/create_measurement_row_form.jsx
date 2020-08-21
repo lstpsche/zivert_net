@@ -1,6 +1,7 @@
 import fetchLink from "../../../../../helpers/fetch_link";
 import { AiOutlineSend } from "react-icons/ai";
 import { MdSend } from "react-icons/md";
+import TextareaAutosize from "react-autosize-textarea";
 
 class CreateMeasurementRowForm extends React.Component {
   constructor (props) {
@@ -16,12 +17,32 @@ class CreateMeasurementRowForm extends React.Component {
   }
 
   handleInputChange ({ target: { name, value } }) {
+    if (!this.isInputCorrect(name, value))
+      return;
+
     this.setState({ [name]: value });
   }
 
   handleSubmit () {
-    // TODO: add fields (value) presence validation here
     this.submitForm();
+  }
+
+  isInputCorrect (fieldName, value) {
+    if (fieldName === "value") {
+      if (value.length === 0)
+        return true;
+
+      if (value.length > 3 || !/^\d+$/.test(value))
+        return false;
+    }
+
+    return true;
+  }
+
+  isSendButtonDisabled () {
+    const { value } = this.state;
+
+    return value.length === 0;
   }
 
   submitForm () {
@@ -64,9 +85,8 @@ class CreateMeasurementRowForm extends React.Component {
         </div>
 
         <div className="measurement-details">
-          <div className="measurement-author-info"> Author name (current user name here) </div>
-          <input
-            type="text"
+          <TextareaAutosize
+            maxRows={3}
             name="comment"
             className="measurement-comment"
             placeholder="Any comment here (time, etc.)"
@@ -77,6 +97,7 @@ class CreateMeasurementRowForm extends React.Component {
 
         <button
           className="measurement-submit create"
+          disabled={this.isSendButtonDisabled()}
           onClick={this.handleSubmit}
         >
           <MdSend size="20px" />
