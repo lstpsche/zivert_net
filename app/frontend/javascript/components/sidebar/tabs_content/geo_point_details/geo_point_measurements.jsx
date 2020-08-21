@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import MeasurementRow from "./geo_point_measurement/measurement_row";
+import CreateMeasurementRow from "./geo_point_measurement/create_measurement_row";
 
 class GeoPointMeasurements extends React.Component {
   geoPointMeasurements () {
@@ -24,9 +25,12 @@ class GeoPointMeasurements extends React.Component {
   }
 
   render () {
+    const { geoPoint: { id: geoPointId } } = this.props;
+
     return (
       <div id="geo-point-measurements">
         { this.renderMeasurementsRows() }
+        <CreateMeasurementRow geoPointId={geoPointId} />
       </div>
     )
   }

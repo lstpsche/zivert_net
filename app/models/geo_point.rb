@@ -4,7 +4,7 @@ class GeoPoint < ApplicationRecord
   validates :latitude, :latitude, :rad_value, presence: true
 
   belongs_to :user
-  has_many :measurements
+  has_many :measurements, dependent: :destroy
 
   after_create :broadcast_creation, :create_initial_measurement
   after_update ->(geo_point) { GeoPoints::UpdationJob.perform_now(geo_point) }

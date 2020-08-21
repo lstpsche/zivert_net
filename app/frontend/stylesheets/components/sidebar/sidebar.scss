@@ -98,10 +98,14 @@
             position: relative;
             width: 30px;
             z-index: 0;
+
+            &.create {
+              border: none;
+            }
           }
 
-          .measurement-row {
-            .measurement-row-info {
+          .measurement-row-container {
+            .measurement-row {
               background-color: white;
               border: 2px solid #868686;
               border-right-style: none;
@@ -112,7 +116,7 @@
               float: right;
               height: min-content;
               position: relative;
-              top: -20px;
+              top: -21px;
               width: 92%;
               z-index: 1;
 
@@ -144,17 +148,70 @@
                   // TODO: add styles after adding comments to measurements
                 }
               }
+
+
+              &.create-form {
+                .measurement-value-container {
+                  padding: 0;
+
+                  .measurement-value {
+                    border: none;
+                    margin: 0;
+                    max-width: 35px;
+                    padding: 0 0 0 3px;
+                  }
+                }
+
+                .measurement-details {
+                  .measurement-comment {
+                    border: none;
+                    padding: 0;
+                    width: inherit;
+                  }
+                }
+
+                .measurement-submit {
+                  background-color: transparent;
+                  border: none;
+                  color: #868686;
+                  margin-right: 3px;
+                  margin-top: -3px;
+                  width: 50px;
+
+                  &:hover {
+                    color: #646464;
+                  }
+                }
+              }
             }
           }
 
-          .create-measurement-row {
-            .create-measurement-btn {
-              background-color: white;
-              border-radius: 20px;
-              height: 35px;
-              position: relative;
-              top: -18px;
-              width: 35px;
+          #create-measurement-row {
+            #create-measurement-btn-row {
+              .create-measurement-btn {
+                background-color: white;
+                border: 2px solid #868686;
+                border-radius: 20px;
+                color: #868686;
+                cursor: pointer;
+                height: 32px;
+                left: 15px;
+                padding: 1px;
+                position: relative;
+                transition: all .05s;
+                top: -19px;
+                width: 32px;
+
+                &:hover {
+                  box-shadow: inset 0 0 4px 1px;
+                  height: 36px;
+                  left: 13px;
+                  padding: 3px;
+                  top: -21px;
+                  transition: all .05s;
+                  width: 36px;
+                }
+              }
             }
           }
         }

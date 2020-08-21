@@ -5,7 +5,7 @@ class MeasurementRow extends React.Component {
     const { measurement } = this.props;
 
     return (
-      <div className="measurement-row">
+      <div className="measurement-row-container">
         <div className="measurement-connector-line" />
         <MeasurementRowInfo measurement={measurement} />
       </div>

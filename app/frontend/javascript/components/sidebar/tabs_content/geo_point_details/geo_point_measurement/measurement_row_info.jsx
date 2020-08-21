@@ -39,7 +39,7 @@ class MeasurementRowInfo extends React.Component {
     const user = this.measurementAuthor();
 
     return (
-      <div className="measurement-row-info">
+      <div className="measurement-row info">
         <div className="measurement-value-container">
           <span className="measurement-value">{ value }</span>
         </div>

@@ -4,9 +4,12 @@ FactoryBot.define do
   factory :geo_point do
     sequence(:id) { |i| i }
     sequence(:rad_value) { |i| 10 + i }
-    sequence(:latitude) { |_i| rand(100) }
-    sequence(:longitude) { |_i| rand(100) }
+    sequence(:latitude) { rand(100) }
+    sequence(:longitude) { rand(100) }
     sequence(:comment) { |i| "comment_#{i}" }
-    sequence(:user) { |_i| create(:user) }
+    # sequence(:user) { create(:user) }
+    association :user
+    association :measurement
+    # sequence(:measurements) { |i| [create(:measurement, geo_point_id: i), create(:measurement, geo_point_id: i)] }
   end
 end
