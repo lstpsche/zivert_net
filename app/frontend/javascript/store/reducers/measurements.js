@@ -4,6 +4,7 @@
 //   {
 //     id: measurementId,
 //     value: measurementValue,
+//     comment: measurementComment,
 //     userId: measurementUserId,
 //     geoPointId: measurementGeoPointId
 //   },
@@ -19,7 +20,7 @@ import {
 } from "../actionTypes/measurements";
 
 function measurements(state = [], action) {
-  const { type: actionType, id, value, userId, geoPointId } = action;
+  const { type: actionType, id, value, comment, userId, geoPointId } = action;
 
   switch(actionType) {
     case SET_MEASUREMENTS:
@@ -27,11 +28,11 @@ function measurements(state = [], action) {
     case ADD_MEASUREMENT:
       return [
         ...state,
-        { id, value, userId, geoPointId }
+        { id, value, comment, userId, geoPointId }
       ];
     case UPDATE_MEASUREMENT:
       return state.map(measurement =>
-        measurement.id === id ? { ...measurement, value } : measurement
+        measurement.id === id ? { ...measurement, value, comment } : measurement
       );
     case REMOVE_MEASUREMENT:
       return state.filter(({ id: measurementId }) => measurementId !== id)

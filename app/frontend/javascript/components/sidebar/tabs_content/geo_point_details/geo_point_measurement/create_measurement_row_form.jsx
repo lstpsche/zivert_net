@@ -31,7 +31,7 @@ class CreateMeasurementRowForm extends React.Component {
     fetchLink({
       link: "/api/v1/measurements",
       method: "POST",
-      body: JSON.stringify({ measurement: { value, geo_point_id: geoPointId } }),
+      body: JSON.stringify({ measurement: { value, geo_point_id: geoPointId, comment } }),
       onSuccess: ({ success, errors }) => {
         if (success) {
           onCreate();
@@ -69,7 +69,7 @@ class CreateMeasurementRowForm extends React.Component {
             type="text"
             name="comment"
             className="measurement-comment"
-            placeholder="Any comment here"
+            placeholder="Any comment here (time, etc.)"
             value={comment}
             onChange={this.handleInputChange}
           />

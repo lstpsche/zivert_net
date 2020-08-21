@@ -6,8 +6,7 @@ class Measurement < ApplicationRecord
 
   after_create ->(measurement) { Measurements::CreationJob.perform_now(measurement) }
   after_update ->(measurement) { Measurements::UpdationJob.perform_now(measurement) }
-  ## TODO: investigate why on destroing of measurement, geoPoint always deletes
-  before_destroy ->(measurement) { binding.pry; measurement.geo_point.destroy if geo_point.measurements.empty? }
+  before_destroy ->(measurement) { measurement.geo_point.destroy if geo_point.measurements.empty? }
   after_destroy ->(measurement) { Measurements::DeletionJob.perform_now(measurement) }
 
   def json

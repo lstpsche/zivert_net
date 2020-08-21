@@ -9,8 +9,8 @@ class MeasurementsDataLoader extends React.Component {
       link: "/api/v1/measurements",
       onSuccess: (response) => {
         this.props.setMeasurements(
-          response.measurements.map(({ data: { attributes: { id, user_id: userId, geo_point_id: geoPointId, value } } }) => (
-            { id, userId, geoPointId, value }
+          response.measurements.map(({ data: { attributes: { id, user_id: userId, geo_point_id: geoPointId, value, comment } } }) => (
+            { id, userId, geoPointId, value, comment }
           ))
         );
       },
