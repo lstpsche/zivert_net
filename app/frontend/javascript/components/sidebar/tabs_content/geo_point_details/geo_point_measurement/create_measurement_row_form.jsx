@@ -23,6 +23,11 @@ class CreateMeasurementRowForm extends React.Component {
     this.setState({ [name]: value });
   }
 
+  handleEsc (hideFormCallback, keyCode ) {
+    if (keyCode === 27)
+      hideFormCallback();
+  }
+
   handleSubmit () {
     this.submitForm();
   }
@@ -65,8 +70,13 @@ class CreateMeasurementRowForm extends React.Component {
   }
 
   componentDidMount () {
+    document.addEventListener("keydown", ({ keyCode }) => this.handleEsc(this.props.hideForm, keyCode));
     this.valueInput.focus();
   }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", ({ keyCode }) => this.handleEsc(this.props.hideForm, keyCode));
+  }l
 
   render () {
     const { value, comment } = this.state;
@@ -109,7 +119,8 @@ class CreateMeasurementRowForm extends React.Component {
 
 CreateMeasurementRowForm.propTypes = {
   geoPointId: PropTypes.number.isRequired,
-  onCreate: PropTypes.func
+  onCreate: PropTypes.func,
+  hideForm: PropTypes.func
 }
 
 export default CreateMeasurementRowForm;

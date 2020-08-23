@@ -46,6 +46,7 @@ class CreateMeasurementRow extends React.Component {
         { this.renderConnectorLine() }
         <CreateMeasurementRowForm
           onCreate={this.onCreate}
+          hideForm={this.hideForm}
           geoPointId={geoPointId}
         />
       </div>
