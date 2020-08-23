@@ -2,7 +2,7 @@ en:
   modals:
     about:
       title: About ZivertNet
-      body_html: "Created by Nikita Silivonchik.\nScientific director - Sergey Sergyenko.\nBSU, Faculty of Radiophysics and Computer Technology, 2020."
+      body_html: "Created by Nikita Silivonchik.\nMeasurements data by Darya Samardak.\nScientific director - Sergey Sergyenko.\nBSU, Faculty of Radiophysics and Computer Technology, 2020."
     creation:
       title: Create a new Geo Point
     fields:
