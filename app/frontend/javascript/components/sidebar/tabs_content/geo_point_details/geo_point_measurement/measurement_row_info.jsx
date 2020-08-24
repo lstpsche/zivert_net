@@ -6,10 +6,13 @@ class MeasurementRowInfo extends React.Component {
     super(props);
 
     this.state = {
-      showRemoveConfirmation: false
+      removeConfirmationShowed: false
     }
 
     this.handleRemoveClick = this.handleRemoveClick.bind(this);
+    this.showRemoveConfirmation = this.showRemoveConfirmation.bind(this);
+    this.hideRemoveConfirmation = this.hideRemoveConfirmation.bind(this);
+    this.measurementDetails = this.measurementDetails.bind(this);
   }
 
   measurementAuthor () {
@@ -19,7 +22,7 @@ class MeasurementRowInfo extends React.Component {
   }
 
   authorFullName ({ firstName = "", lastName = "", nickname }) {
-    if (firstName.length === 0 && lastName === 0)
+    if (firstName.length === 0 && lastName.length === 0)
       return nickname;
 
     return `${firstName} ${lastName}`.trim() + ` (@${nickname})`;
@@ -33,19 +36,32 @@ class MeasurementRowInfo extends React.Component {
 
   handleRemoveClick () {
     const { onRemoveCallback } = this.props;
-    const { showRemoveConfirmation } = this.state;
+    const { removeConfirmationShowed } = this.state;
 
-    if (showRemoveConfirmation)
+    if (removeConfirmationShowed)
       onRemoveCallback();
     else
-      this.setState({showRemoveConfirmation: true});
+      this.showRemoveConfirmation();
+  }
+
+  showRemoveConfirmation () {
+    this.setState({ removeConfirmationShowed: true }, () => {
+      document.addEventListener("click", this.hideRemoveConfirmation);
+    });
+  }
+
+  hideRemoveConfirmation (event) {
+    if (event === undefined || !this.measurementRow.contains(event.target))
+      this.setState({ removeConfirmationShowed: false }, () => {
+        document.removeEventListener("click", this.hideRemoveConfirmation)
+      });
   }
 
   renderActionButtons () {
-    const { measurement: { id: measurementId } } = this.props;
+    const { removeConfirmationShowed } = this.state;
 
     return (
-      <div className="measurement-action-buttons">
+      <div className={ "measurement-action-buttons" + (removeConfirmationShowed ? " remove-confirmation" : "") }>
         <BsX
           className="delete-button"
           size={15}
@@ -55,32 +71,44 @@ class MeasurementRowInfo extends React.Component {
     )
   }
 
-  // TODO: uncomment after implementing removal confirmation popup
-  // componentDidMount() {
-  //   const { showRemoveConfirmation } = this.state;
-  //
-  //   if (showRemoveConfirmation) {
-  //     document.addEventListener("click", this.hideRemoveConfirmation);
-  //   }
-  // }
-  //
-  // componentWillUnmount() {
-  //   document.removeEventListener("click", this.hideRemoveConfirmation);
-  // }
-
-  render () {
-    const { measurement: { userId, value, comment } } = this.props;
+  measurementDetails () {
     const user = this.measurementAuthor();
+    const { measurement: { comment } } = this.props;
 
     return (
-      <div className="measurement-row info">
+      <div>
+        <div className="measurement-author-info">{ this.authorFullName(user) }</div>
+        <div className="measurement-comment">{ comment }</div>
+      </div>
+    )
+  }
+
+  measurementRemoveConfirmation () {
+    return (
+      <div className="remove-confirmation">
+        <div className="remove-confirmation-text">
+          Click again to delete this measurement.
+        </div>
+      </div>
+    )
+  }
+
+  render () {
+    const { measurement: { userId, value } } = this.props;
+    const { removeConfirmationShowed } = this.state;
+
+    return (
+      <div ref={(el) => this.measurementRow = el} className="measurement-row info">
         <div className="measurement-value-container">
           <span className="measurement-value">{ value }</span>
         </div>
 
-        <div className="measurement-details">
-          <div className="measurement-author-info">{ this.authorFullName(user) }</div>
-          <div className="measurement-comment">{ comment }</div>
+        <div className={ "measurement-details" + (removeConfirmationShowed ? " remove-confirmation" : "") }>
+          {
+            removeConfirmationShowed
+            ? this.measurementRemoveConfirmation()
+            : this.measurementDetails()
+          }
         </div>
 
         {

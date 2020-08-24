@@ -126,16 +126,16 @@
                 line-height: 36px;
                 padding: 0 5px;
                 width: 56px;
-
-                .measurement-value {
-
-                }
               }
 
               .measurement-details {
                 font-size: 11px;
                 padding: 1px 5px;
                 width: inherit;
+
+                &.remove-confirmation {
+                  background-color: #f8d7da;
+                }
 
                 .measurement-author-info {
                   text-align: start;
@@ -144,13 +144,32 @@
                 .measurement-comment {
                   text-align: start;
                 }
+
+                .remove-confirmation {
+                  align-items: center;
+                  display: flex;
+                  justify-content: center;
+                  height: 100%;
+
+                  .remove-confirmation-text {
+                    font-size: 12px;
+                  }
+                }
               }
 
               .measurement-action-buttons {
+                border-radius: 0 2px 2px 0;
+
+                &.remove-confirmation {
+                  background-color: #f8d7da;
+                }
+
                 .delete-button {
-                  right: 1px;
+                  background: #ffffff;
+                  border-bottom-left-radius: 4px;
+                  border-top-right-radius: 2px;
                   position: relative;
-                  top: -4px;
+                  top: -5px;
                 }
               }
 
