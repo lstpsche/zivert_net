@@ -15,9 +15,9 @@ export const addMeasurement = ({ attributes: { id, value, comment, user_id, geo_
   id, value, comment, userId: user_id, geoPointId: geo_point_id
 })
 
-export const updateMeasurement = ({ id, value }) => ({
+export const updateMeasurement = ({ id, value, comment }) => ({
   type: UPDATE_MEASUREMENT,
-  id, value
+  id, value, comment
 })
 
 export const removeMeasurement = ({ id }) => ({

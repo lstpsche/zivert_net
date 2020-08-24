@@ -146,6 +146,13 @@
                 }
               }
 
+              .measurement-action-buttons {
+                .delete-button {
+                  right: 1px;
+                  position: relative;
+                  top: -4px;
+                }
+              }
 
               &.create-form {
                 .measurement-value-container {

@@ -28,7 +28,7 @@ class GeoPointMarker extends React.Component {
       },
       onFailure: (error) => {
         // TODO: add errors handling with alertify or smth
-        console.log("Internal server error.")
+        console.log("Internal server error.");
         console.log(error);
       }
     });

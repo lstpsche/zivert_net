@@ -19,6 +19,10 @@ module Api
         render_json_response(success: build_measurement.save)
       end
 
+      def destroy
+        render_json_response(success: measurement.destroy)
+      end
+
       private
 
       def render_json_response(success:)

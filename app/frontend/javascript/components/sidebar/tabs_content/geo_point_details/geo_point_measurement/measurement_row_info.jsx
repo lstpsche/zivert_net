@@ -1,6 +1,17 @@
 import { connect } from "react-redux";
+import { BsX } from "react-icons/bs";
 
 class MeasurementRowInfo extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showRemoveConfirmation: false
+    }
+
+    this.handleRemoveClick = this.handleRemoveClick.bind(this);
+  }
+
   measurementAuthor () {
     const { users, measurement: { userId } } = this.props;
 
@@ -20,19 +31,42 @@ class MeasurementRowInfo extends React.Component {
     return (isAdmin || currentUserId === measurementAuthorId)
   }
 
+  handleRemoveClick () {
+    const { onRemoveCallback } = this.props;
+    const { showRemoveConfirmation } = this.state;
+
+    if (showRemoveConfirmation)
+      onRemoveCallback();
+    else
+      this.setState({showRemoveConfirmation: true});
+  }
+
   renderActionButtons () {
+    const { measurement: { id: measurementId } } = this.props;
+
     return (
       <div className="measurement-action-buttons">
-        <div className="delete-button">
-          {/* fa-icon with cross here */}
-        </div>
-
-        <div className="edit-button">
-          {/* fa-icon with pen here */}
-        </div>
+        <BsX
+          className="delete-button"
+          size={15}
+          onClick={this.handleRemoveClick}
+        />
       </div>
     )
   }
+
+  // TODO: uncomment after implementing removal confirmation popup
+  // componentDidMount() {
+  //   const { showRemoveConfirmation } = this.state;
+  //
+  //   if (showRemoveConfirmation) {
+  //     document.addEventListener("click", this.hideRemoveConfirmation);
+  //   }
+  // }
+  //
+  // componentWillUnmount() {
+  //   document.removeEventListener("click", this.hideRemoveConfirmation);
+  // }
 
   render () {
     const { measurement: { userId, value, comment } } = this.props;
@@ -60,7 +94,8 @@ class MeasurementRowInfo extends React.Component {
 }
 
 MeasurementRowInfo.propTypes = {
-  measurement: PropTypes.object.isRequired
+  measurement: PropTypes.object.isRequired,
+  onRemoveCallback: PropTypes.func
 }
 
 const mapStateToProps = ({ currentUser: { id, admin }, users }) => ({ currentUserId: id, isAdmin: admin, users });

@@ -35,7 +35,7 @@ function measurements(state = [], action) {
         measurement.id === id ? { ...measurement, value, comment } : measurement
       );
     case REMOVE_MEASUREMENT:
-      return state.filter(({ id: measurementId }) => measurementId !== id)
+      return state.filter(({ id: measurementId }) => measurementId !== parseInt(id))
     default:
       return state;
   }
