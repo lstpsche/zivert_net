@@ -5,6 +5,8 @@ describe Measurement, type: :model do
 
   let(:measurement) { build_stubbed(:measurement) }
 
+  before { allow(Measurements::CreationJob).to receive(:perform_now) }
+
   describe 'callbacks' do
     describe 'after_create' do
       subject { create(:measurement) }
@@ -17,11 +19,9 @@ describe Measurement, type: :model do
     end
 
     describe 'after_update' do
-      subject { geo_point.update(value: rand(100)) }
+      subject { measurement.update(value: rand(100)) }
 
-      let!(:measurement) { create(:measurement) }
-
-      before { allow(Measurements::CreationJob).to receive(:perform_now) }
+      let(:measurement) { create(:measurement) }
 
       it 'calls measurements updation job' do
         expect(Measurements::UpdationJob).to receive(:perform_now)
@@ -34,12 +34,9 @@ describe Measurement, type: :model do
       subject { measurement.destroy }
 
       let!(:measurement) { create(:measurement, geo_point: geo_point) }
-      let(:geo_point) { instance_double(GeoPoint, measurements: geo_point_measurements) }
+      let(:geo_point) { create(:geo_point, measurements: geo_point_measurements) }
 
-      before do
-        allow(Measurements::CreationJob).to receive(:perform_now)
-        allow(Measurements::DeletionJob).to receive(:perform_now)
-      end
+      before { allow(Measurements::DeletionJob).to receive(:perform_now) }
 
       context 'when geo point has no more measurements' do
         let(:geo_point_measurements) { [] }
@@ -60,7 +57,7 @@ describe Measurement, type: :model do
       end
 
       context 'when geo point has more measurements' do
-        let(:geo_point_measurements) { [instance_double(Measurement), instance_double(Measurement)] }
+        let(:geo_point_measurements) { [create(:measurement), create(:measurement)] }
 
         it 'calls measurements deletion job' do
           expect(Measurements::DeletionJob).to receive(:perform_now)

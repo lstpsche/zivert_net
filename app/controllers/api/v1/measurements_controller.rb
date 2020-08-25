@@ -4,6 +4,7 @@ module Api
   module V1
     class MeasurementsController < ApplicationController
       before_action :authenticate_user!, except: %i[index show]
+      before_action :check_authorship!, only: %i[destroy]
 
       def index
         measurements = Measurement.all.map(&:json)
@@ -24,6 +25,10 @@ module Api
       end
 
       private
+
+      def check_authorship!
+        raise Authentication::NotPermitted unless current_user.id == measurement.user_id
+      end
 
       def render_json_response(success:)
         render json: { success: success, errors: measurement.errors&.messages }.to_json

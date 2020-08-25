@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :user do
-    sequence(:id) { |i| i }
     sequence(:username) { |i| "name_#{i}" }
     sequence(:nickname) { |i| "Name_#{i}" }
     sequence(:password) { |i| "password_#{i}" }

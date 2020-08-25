@@ -1,4 +1,4 @@
-# frozen_string_literal
+# frozen_string_literal: true
 
 describe Measurements::DeletionJob, type: :job do
   describe '#perform' do

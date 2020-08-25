@@ -256,9 +256,6 @@ describe Api::V1::GeoPointsController, type: :controller do
       allow(I18n).to receive(:t).with('errors.record_not_found').and_return('not found error')
     end
 
-    # sign_in(user)
-    # allow(GeoPoint).to receive(:find).with(geo_point_id.to_s).and_return(geo_point)
-
     context 'when user authenticated' do
       before { sign_in(user) }
 
