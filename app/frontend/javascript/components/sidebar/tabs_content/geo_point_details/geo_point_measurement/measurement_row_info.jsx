@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { BsX } from "react-icons/bs";
+import EllipsisWithTooltip from 'react-ellipsis-with-tooltip'
 
 class MeasurementRowInfo extends React.Component {
   constructor(props) {
@@ -78,7 +79,9 @@ class MeasurementRowInfo extends React.Component {
     return (
       <div>
         <div className="measurement-author-info">{ this.authorFullName(user) }</div>
-        <div className="measurement-comment">{ comment }</div>
+        <EllipsisWithTooltip placement="bottom">
+          <div className="measurement-comment">{ comment }</div>
+        </EllipsisWithTooltip>
       </div>
     )
   }

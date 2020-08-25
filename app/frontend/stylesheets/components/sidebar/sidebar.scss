@@ -124,13 +124,14 @@
                 font-size: 25px;
                 height: auto;
                 line-height: 36px;
+                min-width: 56px;
                 padding: 0 5px;
                 width: 56px;
               }
 
               .measurement-details {
                 font-size: 11px;
-                padding: 1px 5px;
+                padding: 1px 15px 1px 5px;
                 width: inherit;
 
                 &.remove-confirmation {
@@ -142,7 +143,11 @@
                 }
 
                 .measurement-comment {
+                  overflow: hidden;
                   text-align: start;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  width: 95%;
                 }
 
                 .remove-confirmation {
@@ -159,6 +164,9 @@
 
               .measurement-action-buttons {
                 border-radius: 0 2px 2px 0;
+                position: absolute;
+                right: 0;
+                top: 0;
 
                 &.remove-confirmation {
                   background-color: #f8d7da;
