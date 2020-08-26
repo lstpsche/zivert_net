@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { showGeoPointCreationModal } from "../../../store/actions/modals";
 import { unselectGeoPoints } from "../../../store/actions/geo_points";
+import { hideSidebar } from "../../../store/actions/sidebar";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
@@ -28,6 +29,7 @@ class MapBase extends React.Component {
 
   handleMapSnglClick () {
     this.props.unselectGeoPoints();
+    this.props.hideSidebar();
   }
 
   render () {
@@ -79,7 +81,8 @@ const mapStateToProps = ({ currentUser: { signedIn }, mainMap: { layers } }) => 
 
 const mapDispatchToProps = dispatch => ({
   showCreationModal: ({ lat: latitude, lng: longitude }) => dispatch(showGeoPointCreationModal({ latitude, longitude })),
-  unselectGeoPoints: () => dispatch(unselectGeoPoints())
+  unselectGeoPoints: () => dispatch(unselectGeoPoints()),
+  hideSidebar: () => dispatch(hideSidebar())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBase);
