@@ -13,6 +13,7 @@ class MeasurementRowInfo extends React.Component {
     this.handleRemoveClick = this.handleRemoveClick.bind(this);
     this.showRemoveConfirmation = this.showRemoveConfirmation.bind(this);
     this.hideRemoveConfirmation = this.hideRemoveConfirmation.bind(this);
+    this.removeRemovalConfirmationEventListener = this.removeRemovalConfirmationEventListener.bind(this);
     this.measurementDetails = this.measurementDetails.bind(this);
   }
 
@@ -39,9 +40,10 @@ class MeasurementRowInfo extends React.Component {
     const { onRemoveCallback } = this.props;
     const { removeConfirmationShowed } = this.state;
 
-    if (removeConfirmationShowed)
+    if (removeConfirmationShowed) {
+      this.removeRemovalConfirmationEventListener();
       onRemoveCallback();
-    else
+    } else
       this.showRemoveConfirmation();
   }
 
@@ -54,8 +56,13 @@ class MeasurementRowInfo extends React.Component {
   hideRemoveConfirmation (event) {
     if (event === undefined || !this.measurementRow.contains(event.target))
       this.setState({ removeConfirmationShowed: false }, () => {
-        document.removeEventListener("click", this.hideRemoveConfirmation)
+        this.removeRemovalConfirmationEventListener();
       });
+  }
+
+  // TODO: rethink and rewrite listeners logic for the whole app. Better store listeners somewhere and enable/disable them with needed params when needed.
+  removeRemovalConfirmationEventListener () {
+    document.removeEventListener("click", this.hideRemoveConfirmation);
   }
 
   renderActionButtons () {
