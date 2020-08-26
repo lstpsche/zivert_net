@@ -49,7 +49,7 @@ module Api
       def geo_point_params
         return nil unless params.fetch(:geoPoint, false)
 
-        params.require(:geoPoint).permit(:latitude, :longitude, :rad_value, :comment)
+        params.require(:geoPoint).permit(:latitude, :longitude, :rad_value)
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_21_225019) do
+ActiveRecord::Schema.define(version: 2020_08_26_213356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2020_08_21_225019) do
     t.float "rad_value", default: 0.0, null: false
     t.float "latitude", default: 0.0, null: false
     t.float "longitude", default: 0.0, null: false
-    t.string "comment", default: "", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_geo_points_on_user_id"
   end

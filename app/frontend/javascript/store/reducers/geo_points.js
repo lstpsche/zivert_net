@@ -6,7 +6,6 @@
 //     longitude: geoPointWidth,
 //     latitude: geoPointHeight,
 //     radValue: geoPointRadValue,
-//     comment: geoPointComment,
 //     selected: geoPointSelectedBool,
 //     measurements: [measurementId1, measurementId2, ...]
 //   },
@@ -25,25 +24,25 @@ import {
 } from "../actionTypes/geo_points";
 
 function geoPoints(state = [], action) {
-  const { type: actionType, id, userId, longitude, latitude, radValue, comment, measurements, measurementId } = action;
+  const { type: actionType, id, userId, longitude, latitude, radValue, measurements, measurementId } = action;
 
   switch(actionType) {
     case SET_GEO_POINTS:
-      return action.geoPoints.map(({ data: { attributes: { id, user_id: userId, longitude, latitude, rad_value: radValue, comment}, relationships } }) => {
+      return action.geoPoints.map(({ data: { attributes: { id, user_id: userId, longitude, latitude, rad_value: radValue}, relationships } }) => {
         const measurements = relationships.measurements.data.map(m => m.id);
 
-        return { id, userId, longitude, latitude, radValue, comment, measurements };
+        return { id, userId, longitude, latitude, radValue, measurements };
       });
 
     case ADD_GEO_POINT:
       return [
         ...state,
-        { id, userId, longitude, latitude, radValue, comment, measurements }
+        { id, userId, longitude, latitude, radValue, measurements }
       ];
 
     case UPDATE_GEO_POINT:
       return state.map(geoPoint =>
-        geoPoint.id === id ? { ...geoPoint, longitude, latitude, radValue, comment } : geo_point
+        geoPoint.id === id ? { ...geoPoint, longitude, latitude, radValue } : geoPoint
       );
 
     case ADD_MEASUREMENT_TO_GEO_POINT:

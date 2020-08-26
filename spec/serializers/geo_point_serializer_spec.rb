@@ -17,7 +17,6 @@ describe GeoPointSerializer do
       expect(attributes[:longitude]).to eq(geo_point.longitude)
       expect(attributes[:latitude]).to eq(geo_point.latitude)
       expect(attributes[:rad_value]).to eq(geo_point.rad_value)
-      expect(attributes[:comment]).to eq(geo_point.comment)
 
       measurements = relationships[:measurements][:data]
       expect(measurements.first).to eq(id: geo_point.measurements.first.id.to_s, type: :measurement)
