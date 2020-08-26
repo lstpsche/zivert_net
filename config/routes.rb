@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :current_user, only: :index
+      resources :users, only: :index
       resources :geo_points, except: %i[new edit]
+      resources :measurements, except: %i[new edit]
     end
   end
 

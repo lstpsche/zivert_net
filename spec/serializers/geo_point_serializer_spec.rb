@@ -1,20 +1,26 @@
 # frozen_string_literal: true
 
 describe GeoPointSerializer do
-  let(:geo_point) { create(:geo_point) }
+  let(:geo_point) { create(:geo_point, measurements: measurements) }
+  let(:measurements) { [create(:measurement), create(:measurement)] }
 
   describe 'attributes' do
     subject { described_class.new(geo_point).serializable_hash }
 
-    it 'serializes user', :aggregate_failures do
-      result_json = subject[:data][:attributes]
+    it 'serializes geo point', :aggregate_failures do
+      result_json = subject[:data]
+      attributes = result_json[:attributes]
+      relationships = result_json[:relationships]
 
-      expect(result_json[:id]).to eq(geo_point.id)
-      expect(result_json[:user_id]).to eq(geo_point.user_id)
-      expect(result_json[:longitude]).to eq(geo_point.longitude)
-      expect(result_json[:latitude]).to eq(geo_point.latitude)
-      expect(result_json[:rad_value]).to eq(geo_point.rad_value)
-      expect(result_json[:comment]).to eq(geo_point.comment)
+      expect(attributes[:id]).to eq(geo_point.id)
+      expect(attributes[:user_id]).to eq(geo_point.user_id)
+      expect(attributes[:longitude]).to eq(geo_point.longitude)
+      expect(attributes[:latitude]).to eq(geo_point.latitude)
+      expect(attributes[:rad_value]).to eq(geo_point.rad_value)
+      expect(attributes[:comment]).to eq(geo_point.comment)
+
+      measurements = relationships[:measurements][:data]
+      expect(measurements.first).to eq(id: geo_point.measurements.first.id.to_s, type: :measurement)
     end
   end
 end

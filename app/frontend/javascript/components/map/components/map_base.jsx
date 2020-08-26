@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { showGeoPointCreationModal } from "../../../store/actions/modals";
+import { unselectGeoPoints } from "../../../store/actions/geo_points";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
@@ -9,6 +10,7 @@ class MapBase extends React.Component {
   constructor (props) {
     super(props);
 
+    this.handleMapSnglClick = this.handleMapSnglClick.bind(this);
     this.handleMapDblClick = this.handleMapDblClick.bind(this);
   }
 
@@ -24,6 +26,10 @@ class MapBase extends React.Component {
     this.props.showCreationModal(latlng);
   }
 
+  handleMapSnglClick () {
+    this.props.unselectGeoPoints();
+  }
+
   render () {
     const { center, zoom, regularMapSelected, dimmedLayerSelected, geoPointsLayerSelected } = this.props;
 
@@ -32,6 +38,7 @@ class MapBase extends React.Component {
         id="main-map"
         center={center}
         zoom={zoom}
+        onClick={this.handleMapSnglClick}
         doubleClickZoom={false}
         ondblclick={this.handleMapDblClick}
       >
@@ -71,7 +78,8 @@ const mapStateToProps = ({ currentUser: { signedIn }, mainMap: { layers } }) => 
 });
 
 const mapDispatchToProps = dispatch => ({
-  showCreationModal: ({ lat: latitude, lng: longitude }) => dispatch(showGeoPointCreationModal({ latitude, longitude }))
+  showCreationModal: ({ lat: latitude, lng: longitude }) => dispatch(showGeoPointCreationModal({ latitude, longitude })),
+  unselectGeoPoints: () => dispatch(unselectGeoPoints())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBase);

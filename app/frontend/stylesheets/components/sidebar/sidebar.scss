@@ -3,9 +3,257 @@
   max-height: 900px;
   transition: max-height .3s, width .3s;
 
+  .sidebar-pane {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   &.collapsed {
     max-height: 140px; // 124px - to fit 3 icons
     transition: max-height .3s .25s, width .3s;
-    width: 43px;
+    width: 42px;
+  }
+
+  .sidebar-content {
+    #map-settings-tab {
+      #map-settings-tab-content {
+        .map-setting-checkbox {
+          user-select: none;
+        }
+
+        .map-setting-radio {
+          user-select: none;
+        }
+      }
+    }
+
+    #geo-point-details-tab {
+      background-color: #e2e2e2;
+      height: 100%;
+
+      #geo-point-details-tab-content {
+        #geo-point-info {
+          background-color: white;
+          border-bottom: 2px solid #868686;
+          font-size: 13px;
+          height: 90px;
+          position: relative;
+          z-index: 1;
+
+          .geo-point-info-row {
+            display: flex;
+            flex-direction: row;
+
+            .overall {
+              align-self: flex-start;
+              width: 65px;
+
+              .overall-value {
+                background-color: #f8f7f7;
+                border-bottom-right-radius: 5px;
+                box-shadow: inset -6px -6px 8px -6px #9c9b9b;
+                font-size: 40px;
+                text-align: center;
+              }
+            }
+
+            .geo-point-coordinates {
+              align-self: flex-start;
+              margin-top: 5px;
+              margin-left: 10px;
+              text-align: left;
+
+              .coordinate-label {
+                font-weight: 600;
+              }
+            }
+          }
+
+          .measurements-count {
+            background-color: white;
+            border: 2px solid #868686;
+            border-bottom-right-radius: 5px;
+            border-left-style: none;
+            border-top-color: white;
+            left: -2px;
+            padding: 1px 5px;
+            position: relative;
+            text-align: center;
+            top: 8px;
+            white-space: nowrap;
+            width: min-content;
+            z-index: 1;
+          }
+        }
+
+        #geo-point-measurements {
+          margin-top: -1px;
+
+          .measurement-connector-line {
+            border: 2px solid #868686;
+            border-right-style: none;
+            border-top-style: none;
+            height: 55px;
+            left: 15px;
+            position: relative;
+            width: 150px;
+            z-index: 0;
+
+            &.create {
+              border: none;
+            }
+          }
+
+          .measurement-row-container {
+            .measurement-row {
+              background-color: white;
+              border: 2px solid #868686;
+              border-radius: 5px;
+              display: flex;
+              float: right;
+              height: min-content;
+              margin-right: 17px;
+              position: relative;
+              top: -21px;
+              width: 88%;
+              z-index: 1;
+
+              .measurement-value-container {
+                border: 2px solid #868686;
+                border-style: none solid none none;
+                font-size: 25px;
+                height: auto;
+                line-height: 36px;
+                min-width: 56px;
+                padding: 0 5px;
+                width: 56px;
+              }
+
+              .measurement-details {
+                font-size: 11px;
+                padding: 1px 15px 1px 5px;
+                width: inherit;
+
+                &.remove-confirmation {
+                  background-color: #f8d7da;
+                }
+
+                .measurement-author-info {
+                  text-align: start;
+                }
+
+                .measurement-comment {
+                  overflow: hidden;
+                  text-align: start;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  width: 95%;
+                }
+
+                .remove-confirmation {
+                  align-items: center;
+                  display: flex;
+                  justify-content: center;
+                  height: 100%;
+
+                  .remove-confirmation-text {
+                    font-size: 12px;
+                  }
+                }
+              }
+
+              .measurement-action-buttons {
+                border-radius: 0 2px 2px 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+
+                &.remove-confirmation {
+                  background-color: #f8d7da;
+                }
+
+                .delete-button {
+                  background: #ffffff;
+                  border-bottom-left-radius: 4px;
+                  border-top-right-radius: 2px;
+                  position: relative;
+                  top: -5px;
+                }
+              }
+
+              &.create-form {
+                .measurement-value-container {
+                  display: flex;
+                  padding: 0;
+
+                  .measurement-value {
+                    border: none;
+                    margin: 0 0 0 3px;
+                    max-width: 50px;
+                    padding: 0 3px 0 0;
+                    text-align: center;
+                  }
+                }
+
+                .measurement-details {
+                  .measurement-comment {
+                    border: none;
+                    padding: 2px 0 2px 0;
+                    width: inherit;
+                  }
+                }
+
+                .measurement-submit {
+                  background-color: transparent;
+                  border: none;
+                  color: #868686;
+                  margin-right: 3px;
+                  margin-top: -3px;
+                  width: 50px;
+
+                  &:disabled {
+                    pointer-events: none;
+                    color: #dcdcdc;
+                  }
+
+                  &:hover {
+                    color: #646464;
+                  }
+                }
+              }
+            }
+          }
+
+          #create-measurement-row {
+            #create-measurement-btn-row {
+              .create-measurement-btn {
+                background-color: white;
+                border: 2px solid #868686;
+                border-radius: 20px;
+                color: #868686;
+                cursor: pointer;
+                height: 32px;
+                left: 15px;
+                padding: 1px;
+                position: relative;
+                transition: all .05s;
+                top: -19px;
+                width: 32px;
+
+                &:hover {
+                  box-shadow: inset 0 0 4px 1px;
+                  height: 36px;
+                  left: 13px;
+                  padding: 3px;
+                  top: -21px;
+                  transition: all .05s;
+                  width: 36px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

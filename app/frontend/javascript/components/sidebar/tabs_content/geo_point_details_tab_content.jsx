@@ -1,11 +1,42 @@
+import { connect } from "react-redux";
+import GeoPointInfo from "./geo_point_details/geo_point_info";
+import GeoPointMeasurements from "./geo_point_details/geo_point_measurements";
+
 class GeoPointDetailsTabContent extends React.Component {
+  selectedGeoPoint () {
+    return this.props.geoPoints.find(geoPoint => geoPoint.selected)
+  }
+
+  renderPlaceholder () {
+    return (
+      <p>Pick a point</p>
+    )
+  }
+
+  renderInformation (geoPoint) {
+    return (
+      <div id="geo-point-information">
+        <GeoPointInfo geoPoint={geoPoint} />
+        <GeoPointMeasurements geoPoint={geoPoint} />
+      </div>
+    )
+  }
+
   render () {
+    const geoPoint = this.selectedGeoPoint();
+
     return (
       <div id="geo-point-details-tab-content">
-        Pick a point
+        {
+          geoPoint
+          ? this.renderInformation(geoPoint)
+          : this.renderPlaceholder()
+        }
       </div>
     )
   }
 }
 
-export default GeoPointDetailsTabContent;
+const mapStateToProps = ({ geoPoints }) => ({ geoPoints });
+
+export default connect(mapStateToProps)(GeoPointDetailsTabContent);

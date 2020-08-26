@@ -10,7 +10,7 @@ class FullPageLoader extends React.Component {
   }
 
   render () {
-    const { blocked } = this.props;
+    const { blocked, blockMessage } = this.props;
 
     return (
       <BlockUi
@@ -19,12 +19,13 @@ class FullPageLoader extends React.Component {
         className={"full-page-cover " + this.blockClassName()}
         blocking={blocked}
         loader={<Loader />}
+        message={<div className="loader-message">{ blockMessage }</div>}
         keepInView
       />
     )
   }
 }
 
-const mapStateToProps = ({ blocking: { fullPage } }) => ({ blocked: fullPage });
+const mapStateToProps = ({ blocking: { fullPage: { state, blockMessage } } }) => ({ blocked: state, blockMessage });
 
 export default connect(mapStateToProps)(FullPageLoader);
