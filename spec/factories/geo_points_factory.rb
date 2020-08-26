@@ -5,7 +5,6 @@ FactoryBot.define do
     sequence(:rad_value) { |i| 10 + i }
     sequence(:latitude) { rand(100) }
     sequence(:longitude) { rand(100) }
-    sequence(:comment) { |i| "comment_#{i}" }
     association :user
   end
 end

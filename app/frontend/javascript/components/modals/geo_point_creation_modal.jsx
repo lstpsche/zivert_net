@@ -13,8 +13,7 @@ class GeoPointCreationModal extends React.Component {
     this.state = {
       latitude,
       longitude,
-      radValue: "",
-      comment: ""
+      radValue: ""
     }
 
     this.createGeoPoint = this.createGeoPoint.bind(this);
@@ -26,12 +25,12 @@ class GeoPointCreationModal extends React.Component {
   }
 
   createGeoPoint ({ onCreateFailure = () => {} }) {
-    const { latitude, longitude, radValue, comment } = this.state;
+    const { latitude, longitude, radValue } = this.state;
 
     fetchLink({
       link: "/api/v1/geo_points",
       method: "POST",
-      body: JSON.stringify({ geoPoint: { latitude, longitude, rad_value: radValue, comment } }),
+      body: JSON.stringify({ geoPoint: { latitude, longitude, rad_value: radValue } }),
       onSuccess: ({ success, errors }) => {
         if (success) {
           this.props.hideModal();
@@ -95,7 +94,7 @@ class GeoPointCreationModal extends React.Component {
     const { radValue } = this.state;
 
     return (
-      <InputGroup className="mb-3">
+      <InputGroup>
         { this.renderInputPrepend("rad-value") }
         <FormControl
           placeholder={I18n.t("modals.fields.placeholders.rad-value")}
@@ -110,31 +109,11 @@ class GeoPointCreationModal extends React.Component {
     )
   }
 
-  renderGeoPointCommentInputField () {
-    const { comment } = this.state;
-
-    return (
-      <InputGroup>
-        { this.renderInputPrepend("geo-point-comment") }
-        <FormControl
-          placeholder={I18n.t("modals.fields.placeholders.geo-point-comment")}
-          aria-label="geo-point-comment"
-          aria-describedby="geo-point-comment-addon"
-          autoComplete="off"
-          name="comment"
-          value={comment}
-          onChange={this.handleInputChange}
-        />
-      </InputGroup>
-    )
-  }
-
   renderModalBody () {
     return (
       <div id="geo-point-creation-modal-body">
         { this.renderLatitudeLongitude() }
         { this.renderRadValueInputField() }
-        { this.renderGeoPointCommentInputField() }
       </div>
     )
   }

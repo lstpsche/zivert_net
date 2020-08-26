@@ -13,18 +13,18 @@ export const setGeoPoints = (geoPoints) => ({
   geoPoints
 })
 
-export const addGeoPoint = ({ attributes: { id, user_id, longitude, latitude, rad_value, comment }, relationships }) => {
+export const addGeoPoint = ({ attributes: { id, user_id, longitude, latitude, rad_value }, relationships }) => {
   const measurements = relationships.measurements.data.map(m => m.id);
 
   return {
     type: ADD_GEO_POINT,
-    id, userId: user_id, longitude, latitude, radValue: rad_value, comment, measurements
+    id, userId: user_id, longitude, latitude, radValue: rad_value, measurements
   }
 }
 
-export const updateGeoPoint = ({ id,  longitude, latitude, rad_value, comment }) => ({
+export const updateGeoPoint = ({ id,  longitude, latitude, rad_value }) => ({
   type: UPDATE_GEO_POINT,
-  id, longitude, latitude, radValue: rad_value, comment
+  id, longitude, latitude, radValue: rad_value
 })
 
 export const addMeasurementToGeoPoint = ({ id, measurementId }) => ({
