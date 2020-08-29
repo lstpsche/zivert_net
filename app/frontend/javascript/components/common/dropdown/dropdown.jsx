@@ -10,6 +10,7 @@ class Dropdown extends React.Component {
     this.hideMenu = this.hideMenu.bind(this);
     this.showMenu = this.showMenu.bind(this);
 
+    this.renderMenu = this.renderMenu.bind(this);
     this.renderItems = this.renderItems.bind(this);
   }
 
@@ -47,9 +48,23 @@ class Dropdown extends React.Component {
     return menu;
   }
 
-  render () {
-    const { header, items } = this.props;
+  renderMenu () {
+    const { items } = this.props;
     const { showMenu } = this.state;
+
+    return (
+      showMenu
+        ? (
+          <div className="dropdown-menu show">
+            {this.renderItems(items)}
+          </div>
+        )
+        : null
+    )
+  }
+
+  render () {
+    const { header } = this.props;
 
     return (
       <div
@@ -64,15 +79,7 @@ class Dropdown extends React.Component {
           { header.title }
         </button>
 
-        {
-          showMenu
-            ? (
-              <div className="dropdown-menu show">
-                { this.renderItems(items) }
-              </div>
-            )
-            : null
-        }
+        { this.renderMenu() }
       </div>
     )
   }
