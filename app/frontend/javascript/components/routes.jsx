@@ -5,6 +5,7 @@ import Home from "./home";
 import SignIn from "./authorization/sign_in";
 import SignUp from "./authorization/sign_up";
 import MapIndex from "./map/map_index";
+import ProfileSettingsEdit from "./users/profile_settings_edit";
 
 class Routes extends React.Component {
   removeTrailingSlashes () {
@@ -22,6 +23,7 @@ class Routes extends React.Component {
         { this.removeTrailingSlashes() }
         <Route path="/" exact component={MapIndex} />
         <Route path="/map" exact component={MapIndex} />
+        <Route path="/users/edit" exact component={ProfileSettingsEdit} />
         <Redirect from="/sign_in" to="/" />
         <Redirect from="/sign_up" to="/" />
         <Route path="/" component={NotFound} />

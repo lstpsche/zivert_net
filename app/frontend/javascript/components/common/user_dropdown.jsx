@@ -35,6 +35,11 @@ class UserDropdown extends React.Component {
   renderItemsList () {
     return [
       {
+        title: I18n.t("devise.registrations.edit"),
+        link: "/users/edit",
+        method: "GET"
+      },
+      {
         title: I18n.t("devise.sessions.sign_out"),
         link: "/users/sign_out",
         method: "DELETE",
