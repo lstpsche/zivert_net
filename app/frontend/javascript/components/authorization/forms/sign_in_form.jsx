@@ -1,8 +1,8 @@
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import FormBase from "./form_base";
+import AuthFormBase from "./auth_form_base";
 
-class SignInForm extends FormBase {
+class SignInForm extends AuthFormBase {
   constructor (props) {
     super(props);
 
