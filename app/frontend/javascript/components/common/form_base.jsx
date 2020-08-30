@@ -1,4 +1,4 @@
-import {Alert, Button, Form} from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 class FormBase extends React.Component {
@@ -46,18 +46,26 @@ class FormBase extends React.Component {
     return password.length >= this.minPasswordLength;
   }
 
-  renderInput (fieldName, options = {
-    required: false,
-    label: "sample label",
-    type: "text"
-  }) {
+  renderLabel ({ required, label }) {
+    return (
+      <Form.Label className={required ? "required" : null}>
+        { I18n.t(label) }
+      </Form.Label>
+    )
+  }
+
+  // options = {
+  //   required: false,
+  //   label: "path.to.label",
+  //   type: "text"
+  // }
+  renderInput (fieldName, options) {
     const { [fieldName]: value } = this.state;
 
     return (
       <Form.Group controlId={"form" + this.capitalize(fieldName)}>
-        <Form.Label className={options.required ? "required" : null}>
-          { I18n.t(options.label) }
-        </Form.Label>
+        { this.renderLabel(options) }
+
         <Form.Control
           ref={el => this[fieldName] = el}
           required={options.required}
@@ -71,21 +79,21 @@ class FormBase extends React.Component {
     )
   }
 
-  renderValidatableInput (fieldName, options = {
-    required: false,
-    label: "sample label",
-    type: "text",
-    valid: true,
-    invalidFeedback: () => null
-  }) {
+  // options = {
+  //   required: false,
+  //   label: "path.to.label",
+  //   type: "text",
+  //   valid: true,
+  //   invalidFeedback: () => null
+  // }
+  renderValidatableInput (fieldName, options) {
     const {[fieldName]: value, formValidated } = this.state;
     const fieldValid = options.valid === undefined ? true : options.valid
 
     return (
       <Form.Group controlId={"form" + this.capitalize(fieldName)}>
-        <Form.Label className={options.required ? "required" : null}>
-          {I18n.t(options.label)}
-        </Form.Label>
+        { this.renderLabel(options) }
+
         <Form.Control
           ref={el => this[fieldName] = el}
           required={options.required}

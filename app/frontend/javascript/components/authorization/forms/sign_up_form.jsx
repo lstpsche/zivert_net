@@ -1,5 +1,4 @@
 import { Row, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import AuthFormBase from "./auth_form_base";
 
 class SignUpForm extends AuthFormBase {
@@ -17,22 +16,11 @@ class SignUpForm extends AuthFormBase {
       error: ""
     }
 
-    this.isPasswordsMatch = this.isPasswordsMatch.bind(this);
-    this.isPasswordLengthValid = this.isPasswordLengthValid.bind(this);
-
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onFailure = this.onFailure.bind(this);
-
-    this.renderAlert = this.renderAlert.bind(this);
-    this.renderUsernameField = this.renderUsernameField.bind(this);
-    this.renderPasswordField = this.renderPasswordField.bind(this);
-    this.renderPasswordInvalidFeedback = this.renderPasswordInvalidFeedback.bind(this);
-    this.renderPasswordConfirmationInvalidFeedback = this.renderPasswordConfirmationInvalidFeedback.bind(this);
-
-    this.toggleAlert = this.toggleAlert.bind(this);
   }
 
   handleSubmit () {
@@ -57,38 +45,34 @@ class SignUpForm extends AuthFormBase {
     this.toggleAlert(true);
   }
 
-  renderFirstLastNameField () {
-    const { firstName, lastName } = this.props;
+  renderFirstNameField () {
+    return this.renderInput(
+      "firstName",
+      {
+        required: false,
+        label: "auth.fields.sign_up.labels.first_name"
+      }
+    )
+  }
 
+  renderLastNameField () {
+    return this.renderInput(
+      "lastName",
+      {
+        required: false,
+        label: "auth.fields.sign_up.labels.last_name"
+      }
+    )
+  }
+
+  renderFirstLastNameFieldsRow () {
     return (
       <Row className="first-last-name-row">
         <Col className="first-name-col">
-          <Form.Group controlId="formFirstName">
-            <Form.Label>
-              { I18n.t("auth.fields.sign_up.labels.first_name") }
-            </Form.Label>
-            <Form.Control
-              type="firstName"
-              name="firstName"
-              value={firstName}
-              onChange={this.handleInputChange}
-              onKeyPress={this.handleKeyPress}
-            />
-          </Form.Group>
+          { this.renderFirstNameField() }
         </Col>
         <Col className="last-name-col">
-          <Form.Group controlId="formLastName">
-            <Form.Label>
-              { I18n.t("auth.fields.sign_up.labels.last_name") }
-            </Form.Label>
-            <Form.Control
-              type="lastName"
-              name="lastName"
-              value={lastName}
-              onChange={this.handleInputChange}
-              onKeyPress={this.handleKeyPress}
-            />
-          </Form.Group>
+          { this.renderLastNameField() }
         </Col>
       </Row>
     )
@@ -130,6 +114,18 @@ class SignUpForm extends AuthFormBase {
     )
   }
 
+  renderActions () {
+    return this.renderFormActions({
+      additionalButtons: [{
+        linkTo: "/sign_in",
+        id: "already-registered-link",
+        className: "secondary-link bold",
+        text: "auth.buttons.already_registered"
+      }],
+      submitLabel: "auth.buttons.sign_up"
+    })
+  }
+
   render () {
     const { formValidated, error } = this.state;
 
@@ -143,23 +139,13 @@ class SignUpForm extends AuthFormBase {
         { this.renderAlert(error) }
 
         <div className="form-inputs">
-          { this.renderFirstLastNameField() }
+          { this.renderFirstLastNameFieldsRow() }
           { this.renderUsernameField("sign_up") }
           { this.renderPasswordField("sign_up", this.renderPasswordInvalidFeedback()) }
           { this.renderPasswordConfirmationField() }
         </div>
 
-        {
-          this.renderFormActions({
-            additionalButtons: [{
-              linkTo: "/sign_in",
-              id: "already-registered-link",
-              className: "secondary-link bold",
-              text: "auth.buttons.already_registered"
-            }],
-            submitLabel: "auth.buttons.sign_up"
-          })
-        }
+        { this.renderActions() }
       </Form>
     )
   }

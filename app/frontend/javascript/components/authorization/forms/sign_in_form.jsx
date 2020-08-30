@@ -43,6 +43,18 @@ class SignInForm extends AuthFormBase {
     this.toggleAlert(true);
   }
 
+  renderActions () {
+    return this.renderFormActions({
+      additionalButtons: [{
+        linkTo: "/sign_up",
+        id: "create-account-link",
+        className: "secondary-link bold",
+        text: "auth.buttons.create_account"
+      }],
+      submitLabel: "auth.buttons.sign_in"
+    })
+  }
+
   render () {
     const { formValidated } = this.state;
 
@@ -60,17 +72,7 @@ class SignInForm extends AuthFormBase {
           { this.renderPasswordField("sign_in") }
         </div>
 
-        {
-          this.renderFormActions({
-            additionalButtons: [{
-              linkTo: "/sign_up",
-              id: "create-account-link",
-              className: "secondary-link bold",
-              text: "auth.buttons.create_account"
-            }],
-            submitLabel: "auth.buttons.sign_in"
-          })
-        }
+        { this.renderActions() }
       </Form>
     )
   }
