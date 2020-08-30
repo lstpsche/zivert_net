@@ -1,8 +1,8 @@
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import FormBase from "./form_base";
+import AuthFormBase from "./auth_form_base";
 
-class SignInForm extends FormBase {
+class SignInForm extends AuthFormBase {
   constructor (props) {
     super(props);
 
@@ -13,19 +13,11 @@ class SignInForm extends FormBase {
       showAlert: false
     }
 
-    this.isPasswordLengthValid = this.isPasswordLengthValid.bind(this);
-
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
-    this.renderAlert = this.renderAlert.bind(this);
-    this.renderUsernameField = this.renderUsernameField.bind(this);
-    this.renderPasswordField = this.renderPasswordField.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onFailure = this.onFailure.bind(this);
-
-    this.toggleAlert = this.toggleAlert.bind(this);
   }
 
   handleSubmit (event) {
@@ -51,22 +43,16 @@ class SignInForm extends FormBase {
     this.toggleAlert(true);
   }
 
-  renderFormActions () {
-    return (
-      <div className="form-actions">
-        <Link
-          to="/sign_up"
-          id="create-account-link"
-          className="secondary-link bold"
-        >
-          { I18n.t("auth.buttons.create_account") }
-        </Link>
-
-        <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
-          { I18n.t("auth.buttons.sign_in") }
-        </Button>
-      </div>
-    )
+  renderActions () {
+    return this.renderFormActions({
+      additionalButtons: [{
+        linkTo: "/sign_up",
+        id: "create-account-link",
+        className: "secondary-link bold",
+        text: "auth.buttons.create_account"
+      }],
+      submitLabel: "auth.buttons.sign_in"
+    })
   }
 
   render () {
@@ -86,7 +72,7 @@ class SignInForm extends FormBase {
           { this.renderPasswordField("sign_in") }
         </div>
 
-        { this.renderFormActions() }
+        { this.renderActions() }
       </Form>
     )
   }

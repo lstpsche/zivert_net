@@ -1,16 +1,10 @@
 import Dropdown from "./dropdown/dropdown";
 
-class UserDropdown extends React.Component {
-  constructor (props) {
-    super(props);
-
-    this.onSignOut = this.onSignOut.bind(this);
-  }
-
+class UserDropdown extends Dropdown {
   dropdownTitle () {
     const { user: { firstName, lastName, nickname } } = this.props;
 
-    var fullName = [firstName, lastName].join(" ");
+    const fullName = [firstName, lastName].join(" ");
 
     if (fullName === " ")
       return nickname;
@@ -32,29 +26,21 @@ class UserDropdown extends React.Component {
     )
   }
 
-  renderItemsList () {
+  itemsList () {
     return [
       {
-        title: I18n.t("devise.registrations.edit"),
-        link: "/users/edit",
-        method: "GET"
+        title: I18n.t("settings.profile.dropdown_title"),
+        link: "/settings/profile",
+        method: "GET",
+        onClickCallback: this.hideMenu
       },
       {
         title: I18n.t("devise.sessions.sign_out"),
         link: "/users/sign_out",
         method: "DELETE",
-        onClickCallback: this.onSignOut
+        onSuccessCallback: this.onSignOut
       }
     ];
-  }
-
-  render () {
-    return (
-      <Dropdown
-        header={this.renderHeader()}
-        items={this.renderItemsList()}
-      />
-    )
   }
 }
 

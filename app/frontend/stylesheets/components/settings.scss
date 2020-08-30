@@ -1,0 +1,12 @@
+#profile-settings-form {
+  #formCurrentPassword {
+    &.is-valid {
+      border-color: #ced4da;
+
+      &:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.05rem rgba(0, 123, 255, 0.25);
+      }
+    }
+  }
+}

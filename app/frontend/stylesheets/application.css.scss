@@ -25,13 +25,14 @@
 @import "loaders.css/loaders.min.css";
 
 // components
+@import "./components/auth.scss";
 @import "./components/block_ui.scss";
 @import "./components/common.scss";
 @import "./components/dropdown.scss";
 @import "./components/map/map.scss";
 @import "./components/modals/modal.scss";
 @import "./components/navbar.scss";
-@import "./components/auth.scss";
+@import "./components/settings.scss";
 @import "./components/sidebar/sidebar.scss";
 
 :focus {

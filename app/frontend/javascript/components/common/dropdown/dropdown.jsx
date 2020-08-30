@@ -9,9 +9,6 @@ class Dropdown extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.hideMenu = this.hideMenu.bind(this);
     this.showMenu = this.showMenu.bind(this);
-
-    this.renderMenu = this.renderMenu.bind(this);
-    this.renderItems = this.renderItems.bind(this);
   }
 
   handleClick () {
@@ -36,10 +33,22 @@ class Dropdown extends React.Component {
     });
   }
 
-  renderItems (items) {
-    var menu = [];
+  renderHeader () {
+    return {
+      title: "Dropdown title",
+      className: "",
+      id: ""
+    }
+  }
 
-    items.forEach((item, index) => {
+  itemsList () {
+    return [{}];
+  }
+
+  renderItems () {
+    let menu = [];
+
+    this.itemsList().forEach((item, index) => {
       menu.push(
         <DropdownItem key={index} item={item} />
       )
@@ -49,14 +58,16 @@ class Dropdown extends React.Component {
   }
 
   renderMenu () {
-    const { items } = this.props;
     const { showMenu } = this.state;
 
     return (
       showMenu
         ? (
-          <div className="dropdown-menu show">
-            {this.renderItems(items)}
+          <div
+            className="dropdown-menu show"
+            onClick={() => this.hideMenu()}
+          >
+            { this.renderItems() }
           </div>
         )
         : null
@@ -64,7 +75,7 @@ class Dropdown extends React.Component {
   }
 
   render () {
-    const { header } = this.props;
+    const header = this.renderHeader();
 
     return (
       <div
@@ -85,30 +96,19 @@ class Dropdown extends React.Component {
   }
 }
 
-Dropdown.propTypes = {
-  header: PropTypes.object,
-  // {
-  //   title: PropTypes.string,
-  //   className: PropTypes.string,
-  //   id: PropTypes.string
-  // },
-  items: PropTypes.array
-  // [{
-  //   title: PropTypes.string,
-  //   link: PropTypes.string,
-  //   method: PropTypes.string,
-  //   className: PropTypes.string,
-  //   onClickCallback: PropTypes.func
-  // }]
-}
-
-Dropdown.defaultProps = {
-  header: {
-    title: "Dropdown title",
-    className: "",
-    id: ""
-  },
-  items: [{}]
-}
+// Dropdown.propTypes = {
+//   header: {
+//     title: PropTypes.string,
+//     className: PropTypes.string,
+//     id: PropTypes.string
+//   },
+//   items: [{
+//     title: PropTypes.string,
+//     link: PropTypes.string,
+//     method: PropTypes.string,
+//     className: PropTypes.string,
+//     onClickCallback: PropTypes.func
+//   }]
+// }
 
 export default Dropdown;

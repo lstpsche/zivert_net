@@ -6,6 +6,7 @@ class SignIn extends React.Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleSubmit ({ username, password, failureCallback }) {
