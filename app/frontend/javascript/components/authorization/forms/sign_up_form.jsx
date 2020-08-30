@@ -130,24 +130,6 @@ class SignUpForm extends AuthFormBase {
     )
   }
 
-  renderFormActions () {
-    return (
-      <div className="form-actions">
-        <Link
-          to="/sign_in"
-          id="already-registered-link"
-          className="secondary-link bold"
-        >
-          { I18n.t("auth.buttons.already_registered") }
-        </Link>
-
-        <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
-          { I18n.t("auth.buttons.sign_up") }
-        </Button>
-      </div>
-    )
-  }
-
   render () {
     const { formValidated, error } = this.state;
 
@@ -167,7 +149,17 @@ class SignUpForm extends AuthFormBase {
           { this.renderPasswordConfirmationField() }
         </div>
 
-        { this.renderFormActions() }
+        {
+          this.renderFormActions({
+            additionalButtons: [{
+              linkTo: "/sign_in",
+              id: "already-registered-link",
+              className: "secondary-link bold",
+              text: "auth.buttons.already_registered"
+            }],
+            submitLabel: "auth.buttons.sign_up"
+          })
+        }
       </Form>
     )
   }

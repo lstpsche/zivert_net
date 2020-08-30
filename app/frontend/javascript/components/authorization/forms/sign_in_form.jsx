@@ -13,19 +13,11 @@ class SignInForm extends AuthFormBase {
       showAlert: false
     }
 
-    this.isPasswordLengthValid = this.isPasswordLengthValid.bind(this);
-
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
-    this.renderAlert = this.renderAlert.bind(this);
-    this.renderUsernameField = this.renderUsernameField.bind(this);
-    this.renderPasswordField = this.renderPasswordField.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onFailure = this.onFailure.bind(this);
-
-    this.toggleAlert = this.toggleAlert.bind(this);
   }
 
   handleSubmit (event) {
@@ -51,24 +43,6 @@ class SignInForm extends AuthFormBase {
     this.toggleAlert(true);
   }
 
-  renderFormActions () {
-    return (
-      <div className="form-actions">
-        <Link
-          to="/sign_up"
-          id="create-account-link"
-          className="secondary-link bold"
-        >
-          { I18n.t("auth.buttons.create_account") }
-        </Link>
-
-        <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
-          { I18n.t("auth.buttons.sign_in") }
-        </Button>
-      </div>
-    )
-  }
-
   render () {
     const { formValidated } = this.state;
 
@@ -86,7 +60,17 @@ class SignInForm extends AuthFormBase {
           { this.renderPasswordField("sign_in") }
         </div>
 
-        { this.renderFormActions() }
+        {
+          this.renderFormActions({
+            additionalButtons: [{
+              linkTo: "/sign_up",
+              id: "create-account-link",
+              className: "secondary-link bold",
+              text: "auth.buttons.create_account"
+            }],
+            submitLabel: "auth.buttons.sign_in"
+          })
+        }
       </Form>
     )
   }

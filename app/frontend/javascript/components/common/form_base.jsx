@@ -1,4 +1,5 @@
-import { Alert, Form } from "react-bootstrap";
+import {Alert, Button, Form} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class FormBase extends React.Component {
   capitalize (string) {
@@ -45,7 +46,11 @@ class FormBase extends React.Component {
     return password.length >= this.minPasswordLength;
   }
 
-  renderInput (fieldName, options) {
+  renderInput (fieldName, options = {
+    required: false,
+    label: "sample label",
+    type: "text"
+  }) {
     const { [fieldName]: value } = this.state;
 
     return (
@@ -66,8 +71,15 @@ class FormBase extends React.Component {
     )
   }
 
-  renderValidatableInput (fieldName, options) {
+  renderValidatableInput (fieldName, options = {
+    required: false,
+    label: "sample label",
+    type: "text",
+    valid: true,
+    invalidFeedback: () => null
+  }) {
     const {[fieldName]: value, formValidated } = this.state;
+    const fieldValid = options.valid === undefined ? true : options.valid
 
     return (
       <Form.Group controlId={"form" + this.capitalize(fieldName)}>
@@ -82,12 +94,48 @@ class FormBase extends React.Component {
           value={value}
           onChange={this.handleInputChange}
           onKeyPress={this.handleKeyPress}
-          isValid={formValidated && options.valid}
-          isInvalid={formValidated && !options.valid}
+          isValid={formValidated && fieldValid}
+          isInvalid={formValidated && !fieldValid}
         />
 
         { options.invalidFeedback }
       </Form.Group>
+    )
+  }
+
+  renderFormActions (options = {
+    additionalButtons: [],
+    submitLabel: "Submit"
+  }) {
+    return (
+      <div className="form-actions">
+        {
+          options.additionalButtons && options.additionalButtons.length
+            ? this.renderFormButtons(options.additionalButtons)
+            : null
+        }
+
+        <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
+          { I18n.t(options.submitLabel) }
+        </Button>
+      </div>
+    )
+  }
+
+  renderFormButtons (buttons) {
+    return (
+      buttons.map(({ linkTo, id, className, text }) => {
+        return (
+          <Link
+            key={id + "-key"}
+            to={linkTo}
+            id={id}
+            className={className}
+          >
+            { I18n.t(text) }
+          </Link>
+        )
+      })
     )
   }
 }
