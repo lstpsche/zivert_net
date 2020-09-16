@@ -4,6 +4,7 @@ en:
     cant_be_blank: can't be blank
     not_permitted: Not permitted to complete action.
     not_logged_in: Not logged in.
+    password_not_valid: Password incorrect.
     record_not_found: Record can't be found
     internal_server_error: Internal server error. Please, try again later.
     username_not_unique: This username is already registered.
