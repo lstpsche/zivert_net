@@ -6,17 +6,30 @@ module Api
       class RegistrationsController < Devise::RegistrationsController
         respond_to :json
 
+        rescue_from Authentication::PasswordNotValid, with: :render_password_not_valid
         rescue_from Authentication::UsernameNotUnique, with: :render_username_not_unique
 
+        before_action :verify_password!, only: :update
         before_action :check_username_uniqueness!, only: %i[create update]
         before_action :configure_permitted_parameters
 
         private
 
+        def verify_password!
+          password = params[:registration][:user][:current_password]
+          return true if current_user.valid_password?(password)
+
+          raise Authentication::PasswordNotValid
+        end
+
         def check_username_uniqueness!
           return true if User.username_unique?(params[:user][:username])
 
           raise Authentication::UsernameNotUnique
+        end
+
+        def render_password_not_valid
+          render json: { error: I18n.t('errors.password_not_valid') }
         end
 
         def render_username_not_unique
