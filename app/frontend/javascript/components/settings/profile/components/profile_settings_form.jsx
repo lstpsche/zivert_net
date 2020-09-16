@@ -41,6 +41,7 @@ class ProfileSettingsForm extends FormBase {
   onFailure ({ error }) {
     this.setState({
       formValidated: false,
+      currentPassword: "",
       error
     });
 
