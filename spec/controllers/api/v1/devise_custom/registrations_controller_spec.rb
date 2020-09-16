@@ -51,9 +51,9 @@ describe Api::V1::DeviseCustom::RegistrationsController, type: :controller do
   describe 'private#respond_with' do
     subject { put(:update, params: params) }
 
-    let(:user) { create(:user) }
-    let(:new_user) { create(:user) }
-    let(:params) { { user: { username: new_user.username } } }
+    let(:user) { create(:user, username: 'unique_username') }
+    let(:new_username) { 'new_unique_username' }
+    let(:params) { { user: { username: new_username } } }
 
     let(:serialized_user) do
       {
@@ -64,7 +64,7 @@ describe Api::V1::DeviseCustom::RegistrationsController, type: :controller do
             id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
-            username: new_user.username,
+            username: new_username,
             nickname: user.nickname,
             admin: user.admin
           }

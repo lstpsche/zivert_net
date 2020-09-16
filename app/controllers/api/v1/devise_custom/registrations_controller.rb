@@ -6,7 +6,9 @@ module Api
       class RegistrationsController < Devise::RegistrationsController
         respond_to :json
 
-        before_action :check_username_uniqueness!, only: :create
+        rescue_from Authentication::UsernameNotUnique, with: :render_username_not_unique
+
+        before_action :check_username_uniqueness!, only: %i[create update]
         before_action :configure_permitted_parameters
 
         private
@@ -14,6 +16,10 @@ module Api
         def check_username_uniqueness!
           return true if User.username_unique?(params[:user][:username])
 
+          raise Authentication::UsernameNotUnique
+        end
+
+        def render_username_not_unique
           render json: { error: I18n.t('errors.username_not_unique') }
         end
 
