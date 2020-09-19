@@ -5,6 +5,14 @@ en:
         geo_point_details: GeoPoint Details
         map_settings: Map Settings
         user_measurements_history: My Measurements
+      geo_point_details:
+        placeholder: Pick a point
+        labels:
+          latitude: 'latitude: '
+          longitude: 'longitude: '
+          measurements: Measurements
+          overall: Overall
+          rad_value: 'radiation value: '
       map_settings:
         labels:
           dimmer: Dim map
