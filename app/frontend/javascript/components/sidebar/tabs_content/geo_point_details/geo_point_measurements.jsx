@@ -24,13 +24,20 @@ class GeoPointMeasurements extends React.Component {
     )
   }
 
-  render () {
-    const { geoPoint: { id: geoPointId } } = this.props;
+  renderCreateMeasurementRow () {
+    const { userSignedIn, geoPoint: { id: geoPointId } } = this.props;
 
+    if (!userSignedIn)
+      return null;
+
+    return <CreateMeasurementRow geoPointId={geoPointId} />
+  }
+
+  render () {
     return (
       <div id="geo-point-measurements">
         { this.renderMeasurementsRows() }
-        <CreateMeasurementRow geoPointId={geoPointId} />
+        { this.renderCreateMeasurementRow() }
       </div>
     )
   }
@@ -40,6 +47,9 @@ GeoPointMeasurements.propTypes = {
   geoPoint: PropTypes.object.isRequired
 }
 
-const mapStateToProps = ({ measurements }) => ({ measurements });
+const mapStateToProps = ({ measurements, currentUser: { signedIn } }) => ({
+  measurements,
+  userSignedIn: signedIn
+});
 
 export default connect(mapStateToProps)(GeoPointMeasurements);
