@@ -7,7 +7,7 @@ class SettingsIndex extends React.Component {
     super(props);
 
     this.tabsList = {
-      profile: { title: "Profile", component: ProfileSettingsPage }
+      profile: { title: I18n.t("settings.tabs.profile"), component: ProfileSettingsPage }
     };
 
     this.onTabSelect = this.onTabSelect.bind(this);

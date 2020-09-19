@@ -9,6 +9,7 @@ class GeoPointMarker extends React.Component {
     super(props);
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.markerText = this.markerText.bind(this);
   }
 
   onMarkerClick () {
@@ -18,12 +19,18 @@ class GeoPointMarker extends React.Component {
     showGeoPointSidebar();
   }
 
+  markerText () {
+    const { radValue } = this.props;
+
+    return (Math.round((radValue + Number.EPSILON) * 10) / 10).toString();
+  }
+
   render () {
-    const { latitude, longitude, radValue } = this.props;
+    const { latitude, longitude } = this.props;
 
     return (
       <Marker
-        icon={<MarkerIcon text={radValue.toString()} />}
+        icon={<MarkerIcon text={this.markerText()} />}
         position={[latitude.toString(), longitude.toString()]}
         riseOnHover={true}
         onClick={this.onMarkerClick}

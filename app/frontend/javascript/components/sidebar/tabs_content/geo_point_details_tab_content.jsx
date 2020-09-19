@@ -9,7 +9,7 @@ class GeoPointDetailsTabContent extends React.Component {
 
   renderPlaceholder () {
     return (
-      <p>Pick a point</p>
+      <p>{ I18n.t("sidebar.tabs.geo_point_details.placeholder") }</p>
     )
   }
 

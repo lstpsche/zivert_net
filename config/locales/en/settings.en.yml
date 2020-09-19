@@ -1,5 +1,7 @@
 en:
   settings:
+    tabs:
+      profile: Profile
     profile:
       buttons:
         submit: Submit
