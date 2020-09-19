@@ -23,7 +23,8 @@ module Api
         end
 
         def check_username_uniqueness!
-          return true if User.username_unique?(params[:user][:username])
+          params_username = params[:user][:username]
+          return true if current_user.username == params_username || User.username_unique?(params_username)
 
           raise Authentication::UsernameNotUnique
         end
