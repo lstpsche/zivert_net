@@ -74,26 +74,12 @@ describe Api::V1::DeviseCustom::RegistrationsController, type: :controller do
         }
       }
     end
+    let(:user) { create(:user, username: current_username) }
 
-    before { allow(User).to receive(:username_unique?).and_return(unique) }
+    before { allow(controller).to receive(:current_user).with(no_args).and_return(user) }
 
-    context 'when username is not unique' do
-      let(:unique) { false }
-      let(:error) { double(:error) }
-      let(:expected_response) { { error: error }.to_json }
-
-      before { allow(I18n).to receive(:t).with('errors.username_not_unique').and_return(error) }
-
-      it { is_expected.to have_http_status(:ok) }
-
-      it 'renders json with error' do
-        subject
-        expect(response.body).to eq(expected_response)
-      end
-    end
-
-    context 'when username is unique' do
-      let(:unique) { true }
+    context 'when params username equals current_user username' do
+      let(:current_username) { 'current_username' }
 
       it 'renders json with new user' do
         subject
@@ -103,6 +89,41 @@ describe Api::V1::DeviseCustom::RegistrationsController, type: :controller do
           'username' => 'sample_username',
           'nickname' => 'Sample_Username'
         )
+      end
+    end
+
+    context 'when params username is not equal current_user username' do
+      let(:current_username) { 'another_username' }
+
+      before { allow(User).to receive(:username_unique?).and_return(unique) }
+
+      context 'when username is not unique' do
+        let(:unique) { false }
+        let(:error) { double(:error) }
+        let(:expected_response) { { error: error }.to_json }
+
+        before { allow(I18n).to receive(:t).with('errors.username_not_unique').and_return(error) }
+
+        it { is_expected.to have_http_status(:ok) }
+
+        it 'renders json with error' do
+          subject
+          expect(response.body).to eq(expected_response)
+        end
+      end
+
+      context 'when username is unique' do
+        let(:unique) { true }
+
+        it 'renders json with new user' do
+          subject
+          expect(JSON.parse(response.body)['user']['data']['attributes']).to include(
+            'first_name' => '',
+            'last_name' => '',
+            'username' => 'sample_username',
+            'nickname' => 'Sample_Username'
+          )
+        end
       end
     end
   end
