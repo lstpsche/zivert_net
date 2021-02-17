@@ -11,7 +11,9 @@ describe GeoPoints::DeletionJob, type: :job do
     before { allow(ActionCable).to receive(:server).with(no_args).and_return(action_cable_server) }
 
     it 'broadcasts geo point to deletion channel' do
-      expect(action_cable_server).to receive(:broadcast).with('geo_points_deletion_channel', geoPoint: geo_point_json)
+      expect(action_cable_server).to receive(:broadcast)
+        .with('geo_points_channel', action: 'delete', geoPoint: geo_point_json)
+
       subject
     end
   end

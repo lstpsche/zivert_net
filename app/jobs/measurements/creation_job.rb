@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 module Measurements
-  class CreationJob < ApplicationJob
-    queue_as :urgent
-
+  class CreationJob < BaseJob
     def perform(measurement)
       MeasurementsCore::GeoPointValueCalculationService.new(measurement.geo_point).calculate
 
-      ActionCable.server.broadcast('measurements_creation_channel', measurement: measurement.json)
+      super('create', measurement)
     end
   end
 end

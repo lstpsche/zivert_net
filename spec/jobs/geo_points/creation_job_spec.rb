@@ -11,7 +11,9 @@ describe GeoPoints::CreationJob, type: :job do
     before { allow(ActionCable).to receive(:server).with(no_args).and_return(action_cable_server) }
 
     it 'broadcasts geo point to creation channel' do
-      expect(action_cable_server).to receive(:broadcast).with('geo_points_creation_channel', geoPoint: geo_point_json)
+      expect(action_cable_server).to receive(:broadcast)
+        .with('geo_points_channel', action: 'create', geoPoint: geo_point_json)
+
       subject
     end
   end

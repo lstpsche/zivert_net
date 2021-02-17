@@ -12,7 +12,8 @@ describe Measurements::UpdationJob, type: :job do
 
     it 'broadcasts measurement to creation channel' do
       expect(action_cable_server).to receive(:broadcast)
-        .with('measurements_updation_channel', measurement: measurement_json)
+        .with('measurements_channel', action: 'update', measurement: measurement_json)
+
       subject
     end
   end

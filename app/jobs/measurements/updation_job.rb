@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module Measurements
-  class UpdationJob < ApplicationJob
-    queue_as :urgent
-
+  class UpdationJob < BaseJob
     def perform(measurement)
-      ActionCable.server.broadcast('measurements_updation_channel', measurement: measurement.json)
+      super('update', measurement)
     end
   end
 end
