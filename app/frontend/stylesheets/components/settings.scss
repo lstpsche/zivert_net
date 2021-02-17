@@ -4,6 +4,14 @@
   display: flex;
   padding-top: 25px;
 
+  .settings-tabs {
+    .tab {
+      &.active {
+        pointer-events: none;
+      }
+    }
+  }
+
   .tab-panel {
     display: none;
     width: 100%;
