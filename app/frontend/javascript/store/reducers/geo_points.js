@@ -53,7 +53,7 @@ function geoPoints(state = [], action) {
       });
 
     case REMOVE_GEO_POINT:
-      return state.filter(({ id: geoPointId }) => geoPointId !== id);
+      return state.filter(({ id: geoPointId }) => geoPointId !== parseInt(id));
 
     case SELECT_GEO_POINT:
       return state.map(geoPoint =>
@@ -62,6 +62,7 @@ function geoPoints(state = [], action) {
 
     case UNSELECT_GEO_POINTS:
       return state.map(geoPoint => ({ ...geoPoint, selected: false }));
+
     default:
       return state;
   }

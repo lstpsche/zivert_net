@@ -17,7 +17,7 @@ describe Measurements::CreationJob, type: :job do
 
       allow(ActionCable).to receive(:server).with(no_args).and_return(action_cable_server)
       allow(action_cable_server).to receive(:broadcast)
-        .with('measurements_creation_channel', measurement: measurement_json)
+        .with('measurements_channel', action: 'create', measurement: measurement_json)
     end
 
     it 'call geo point value calculation service' do
@@ -28,7 +28,7 @@ describe Measurements::CreationJob, type: :job do
 
     it 'broadcasts measurement to creation channel' do
       expect(action_cable_server).to receive(:broadcast)
-        .with('measurements_creation_channel', measurement: measurement_json)
+        .with('measurements_channel', action: 'create', measurement: measurement_json)
 
       subject
     end

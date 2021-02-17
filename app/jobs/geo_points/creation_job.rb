@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module GeoPoints
-  class CreationJob < ApplicationJob
-    queue_as :urgent
-
+  class CreationJob < BaseJob
     def perform(geo_point)
-      ActionCable.server.broadcast('geo_points_creation_channel', geoPoint: geo_point.json)
+      super('create', geo_point)
     end
   end
 end

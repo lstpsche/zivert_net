@@ -12,7 +12,8 @@ describe Measurements::DeletionJob, type: :job do
 
     it 'broadcasts measurement to creation channel' do
       expect(action_cable_server).to receive(:broadcast)
-        .with('measurements_deletion_channel', measurement: measurement_json)
+        .with('measurements_channel', action: 'delete', measurement: measurement_json)
+
       subject
     end
   end

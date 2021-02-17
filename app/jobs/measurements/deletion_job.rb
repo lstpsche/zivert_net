@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module Measurements
-  class DeletionJob < ApplicationJob
-    queue_as :urgent
-
+  class DeletionJob < BaseJob
     def perform(measurement)
-      ActionCable.server.broadcast('measurements_deletion_channel', measurement: measurement.json)
+      super('delete', measurement)
     end
   end
 end

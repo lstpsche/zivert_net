@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module GeoPoints
-  class DeletionJob < ApplicationJob
-    queue_as :urgent
-
+  class DeletionJob < BaseJob
     def perform(geo_point)
-      ActionCable.server.broadcast('geo_points_deletion_channel', geoPoint: geo_point.json)
+      super('delete', geo_point)
     end
   end
 end

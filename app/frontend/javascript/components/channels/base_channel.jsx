@@ -3,27 +3,22 @@ import { Fragment } from "react";
 
 class BaseChannel extends React.Component {
   handleReceived (actions, data) {
-    actions.forEach(action => action(data));
+    actions[data.action].forEach(callback => callback(data));
   }
 
-  renderConsumers (channels) {
+  renderConsumers (channel) {
     return (
-      channels.map (channel => {
-        return (
-          <ActionCableConsumer
-            key={"channel-" + channel.name}
-            channel={{ channel: channel.name }}
-            onReceived={(data) => this.handleReceived(channel.onReceiveActions, data)}
-          />
-        )
-      })
+      <ActionCableConsumer
+        channel={{ channel: channel.name }}
+        onReceived={(data) => this.handleReceived(channel.onReceiveActions, data)}
+      />
     )
   }
 
   render () {
     return (
       <Fragment>
-        { this.renderConsumers(this.channels) }
+        { this.renderConsumers(this.channel) }
       </Fragment>
     )
   }

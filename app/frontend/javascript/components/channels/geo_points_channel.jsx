@@ -8,11 +8,14 @@ class GeoPointsChannel extends BaseChannel {
 
     const { addGeoPoint, updateGeoPoint, removeGeoPoint } = this.props;
 
-    this.channels = [
-      { name: "GeoPoints::CreationChannel", actionName: "create", onReceiveActions: [addGeoPoint] },
-      { name: "GeoPoints::UpdationChannel", actionName: "update", onReceiveActions: [updateGeoPoint] },
-      { name: "GeoPoints::DeletionChannel", actionName: "delete", onReceiveActions: [removeGeoPoint] }
-    ];
+    this.channel = {
+      name: "GeoPointsChannel",
+      onReceiveActions: {
+        create: [addGeoPoint],
+        update: [updateGeoPoint],
+        delete: [removeGeoPoint]
+      }
+    };
   }
 }
 

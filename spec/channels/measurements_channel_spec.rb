@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Measurements::CreationChannel, type: :channel do
+describe MeasurementsChannel, type: :channel do
   describe '#subscribed' do
     subject { subscribe }
 
