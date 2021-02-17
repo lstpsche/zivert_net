@@ -13,7 +13,8 @@ class CreateMeasurementRowForm extends React.Component {
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   handleInputChange ({ target: { name, value } }) {
@@ -23,13 +24,12 @@ class CreateMeasurementRowForm extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleEsc (hideFormCallback, keyCode ) {
+  handleKeyPress ({ keyCode }) {
     if (keyCode === 27)
-      hideFormCallback();
-  }
+      this.props.hideForm();
 
-  handleSubmit () {
-    this.submitForm();
+    if (keyCode === 13)
+      this.submitForm();
   }
 
   isInputCorrect (fieldName, value) {
@@ -70,13 +70,13 @@ class CreateMeasurementRowForm extends React.Component {
   }
 
   componentDidMount () {
-    document.addEventListener("keydown", ({ keyCode }) => this.handleEsc(this.props.hideForm, keyCode));
+    document.addEventListener("keydown", this.handleKeyPress);
     this.valueInput.focus();
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", ({ keyCode }) => this.handleEsc(this.props.hideForm, keyCode));
-  }l
+    document.removeEventListener("keydown", this.handleKeyPress);
+  }
 
   render () {
     const { value, comment } = this.state;
@@ -108,7 +108,7 @@ class CreateMeasurementRowForm extends React.Component {
         <button
           className="measurement-submit create"
           disabled={this.isSendButtonDisabled()}
-          onClick={this.handleSubmit}
+          onClick={this.submitForm}
         >
           <MdSend size="20px" />
         </button>

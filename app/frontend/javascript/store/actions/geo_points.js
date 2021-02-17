@@ -22,7 +22,7 @@ export const addGeoPoint = ({ attributes: { id, user_id, longitude, latitude, ra
   }
 }
 
-export const updateGeoPoint = ({ id,  longitude, latitude, rad_value }) => ({
+export const updateGeoPoint = ({ attributes: { id, longitude, latitude, rad_value } }) => ({
   type: UPDATE_GEO_POINT,
   id, longitude, latitude, radValue: rad_value
 })
