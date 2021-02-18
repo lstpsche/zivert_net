@@ -8,11 +8,11 @@ en:
       geo_point_details:
         placeholder: Pick a point
         labels:
-          latitude: 'latitude: '
-          longitude: 'longitude: '
+          latitude: 'Latitude: '
+          longitude: 'Longitude: '
           measurements: Measurements
           overall: Overall
-          rad_value: 'radiation value: '
+          rad_value: 'Radiation value: '
       map_settings:
         labels:
           dimmer: Dim map
