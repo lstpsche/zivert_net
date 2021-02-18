@@ -6,6 +6,7 @@ import SignIn from "./authorization/sign_in";
 import SignUp from "./authorization/sign_up";
 import MapIndex from "./map/map_index";
 import SettingsIndex from "./settings/settings_index";
+import AdminPanelIndex from "./admin_panel/admin_panel_index";
 
 class Routes extends React.Component {
   removeTrailingSlashes () {
@@ -22,6 +23,7 @@ class Routes extends React.Component {
       <Switch>
         { this.removeTrailingSlashes() }
         <Route path="/" exact component={MapIndex} />
+        <Route path="/admin_panel" exact component={AdminPanelIndex} />
         <Route path="/map" exact component={MapIndex} />
         <Route path="/settings/:tab?" exact component={SettingsIndex} />
         <Redirect from="/sign_in" to="/" />
