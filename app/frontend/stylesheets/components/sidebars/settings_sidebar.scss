@@ -31,6 +31,7 @@
       &.active {
         border-left: 2px solid orange;
         padding-left: 14px;    // needed to prevent text moving right when border shows up
+        pointer-events: none;
       }
     }
   }
