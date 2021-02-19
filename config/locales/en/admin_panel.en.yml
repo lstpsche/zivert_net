@@ -1,3 +1,7 @@
 en:
   admin_panel:
+    title: Admin Panel
+    tabs:
+      users:
+        title: Users
     user_dropdown_title: Admin panel

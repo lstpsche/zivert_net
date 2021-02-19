@@ -39,7 +39,7 @@ class UserDropdown extends Dropdown {
     if (admin)
       return {
         title: I18n.t("admin_panel.user_dropdown_title"),
-        link: "/admin_panel",
+        link: "/admin_panel/users",
         method: "GET",
         onClickCallback: this.hideMenu
       }

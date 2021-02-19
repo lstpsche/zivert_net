@@ -1,16 +1,8 @@
-@import "settings_sidebar/settings_sidebar.scss";
+@import "sidebars/settings_sidebar.scss";
 
 .settings-index {
   display: flex;
   padding-top: 25px;
-
-  .settings-tabs {
-    .tab {
-      &.active {
-        pointer-events: none;
-      }
-    }
-  }
 
   .tab-panel {
     display: none;

@@ -1,5 +1,5 @@
 import SettingsProfileForm from "./components/profile_settings_form";
-import fetchLink from "../../../helpers/fetch_link";
+import fetchLink from "../../../../helpers/fetch_link";
 
 class ProfileSettingsPage extends React.Component {
   constructor (props) {

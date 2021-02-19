@@ -1,4 +1,4 @@
-import FormBase from "../../../common/form_base";
+import FormBase from "../../../../common/form_base";
 import { Form } from "react-bootstrap";
 import { connect } from "react-redux";
 
