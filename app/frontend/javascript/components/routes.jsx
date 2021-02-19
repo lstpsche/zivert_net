@@ -23,7 +23,7 @@ class Routes extends React.Component {
       <Switch>
         { this.removeTrailingSlashes() }
         <Route path="/" exact component={MapIndex} />
-        <Route path="/admin_panel" exact component={AdminPanelIndex} />
+        <Route path="/admin_panel/:tab?" exact component={AdminPanelIndex} />
         <Route path="/map" exact component={MapIndex} />
         <Route path="/settings/:tab?" exact component={SettingsIndex} />
         <Redirect from="/sign_in" to="/" />

@@ -1,17 +1,17 @@
 import TabsBase from "../common/tabs_base";
 
-class SettingsTabs extends TabsBase {
+class AdminPanelTabs extends TabsBase {
   constructor(props) {
     super(props);
 
-    this.pageName = "settings";
+    this.pageName = "admin-panel";
   }
 }
 
-SettingsTabs.propTypes = {
+AdminPanelTabs.propTypes = {
   onTabSelect: PropTypes.func.isRequired,
   selectedTab: PropTypes.string,
   tabsList: PropTypes.object.isRequired
 }
 
-export default SettingsTabs;
+export default AdminPanelTabs;

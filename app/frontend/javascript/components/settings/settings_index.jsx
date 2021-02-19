@@ -8,15 +8,21 @@ class SettingsIndex extends React.Component {
     this.tabsList = {
       profile: { title: I18n.t("settings.tabs.profile"), component: ProfileSettingsPage }
     };
+
+    this.onTabSelect = this.onTabSelect.bind(this);
   }
 
-  selectedTabIndex () {
-    return Object.keys(this.tabsList).findIndex((el) => el === this.props.match.params.tab);
+  onTabSelect (tabsList, tabIndex) {
+    const tabName = Object.keys(tabsList)[tabIndex];
+
+    this.props.history.push("/settings/" + tabName);
   }
 
   render () {
+    const { tab: selectedTab } = this.props.match.params;
+
     return (
-      <SettingsTabs selectedTabIndex={this.selectedTabIndex()} tabsList={this.tabsList}/>
+      <SettingsTabs onTabSelect={this.onTabSelect} selectedTab={selectedTab} tabsList={this.tabsList} />
     )
   }
 }
