@@ -18,10 +18,13 @@ function sidebar(state = {}, action) {
   switch(actionType) {
     case SHOW_SIDEBAR:
       return { ...state, collapsed, selectedTabId };
+
     case HIDE_SIDEBAR:
       return { ...state, collapsed };
+
     case SET_SIDEBAR_STATE:
       return { ...state, collapsed, selectedTabId };
+
     default:
       return state;
   }
