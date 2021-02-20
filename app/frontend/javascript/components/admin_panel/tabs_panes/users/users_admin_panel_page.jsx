@@ -1,9 +1,16 @@
+import { connect } from "react-redux";
+import UsersTable from "./users_table/users_table";
+
 class UsersAdminPanelPage extends React.Component {
   render () {
+    const { users } = this.props;
+
     return (
-      <h4>Users table here</h4>
+      <UsersTable users={users} />
     )
   }
 }
 
-export default UsersAdminPanelPage;
+const mapStateToProps = ({ users }) => ({ users });
+
+export default connect(mapStateToProps)(UsersAdminPanelPage);

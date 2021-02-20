@@ -96,7 +96,7 @@ class Navbar extends React.Component {
       </nav>
     )
   }
-};
+}
 
 const mapStateToProps = ({ currentUser }) => ({ currentUser });
 
