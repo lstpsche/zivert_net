@@ -10,6 +10,7 @@ import GeoPointsDataLoader from "../javascript/components/data_loaders/geo_point
 import MeasurementsDataLoader from "../javascript/components/data_loaders/measurements_data_loader";
 import GeoPointsChannel from "../javascript/components/channels/geo_points_channel";
 import MeasurementsChannel from "../javascript/components/channels/measurements_channel";
+import UsersChannel from "../javascript/components/channels/users_channel";
 
 document.addEventListener("DOMContentLoaded", () => {
   render (
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <GeoPointsDataLoader />
         <MeasurementsDataLoader />
 
+        <UsersChannel />
         <GeoPointsChannel />
         <MeasurementsChannel />
 
