@@ -14,7 +14,7 @@ class UsersDataLoader extends React.Component {
           ))
         )
       },
-      onFailure: (errors) => {
+      onFailure: (error) => {
         // TODO: add parsing of internal server errors
         throw new Error(error);
       },
