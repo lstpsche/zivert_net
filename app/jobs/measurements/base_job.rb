@@ -2,8 +2,6 @@
 
 module Measurements
   class BaseJob < ApplicationJob
-    queue_as :urgent
-
     def perform(action, measurement)
       MeasurementsCore::GeoPointValueCalculationService.new(measurement.geo_point).calculate
 

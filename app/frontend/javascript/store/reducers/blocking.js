@@ -8,6 +8,7 @@ function blocking(state = {}, action) {
   switch(actionType) {
     case SET_FULL_PAGE_BLOCK:
       return { fullPage, blockMessage };
+
     default:
       return state;
   }

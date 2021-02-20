@@ -25,17 +25,21 @@ function measurements(state = [], action) {
   switch(actionType) {
     case SET_MEASUREMENTS:
       return action.measurements;
+
     case ADD_MEASUREMENT:
       return [
         ...state,
         { id, value, comment, userId, geoPointId }
       ];
+
     case UPDATE_MEASUREMENT:
       return state.map(measurement =>
         measurement.id === id ? { ...measurement, value, comment } : measurement
       );
+
     case REMOVE_MEASUREMENT:
       return state.filter(({ id: measurementId }) => measurementId !== parseInt(id))
+
     default:
       return state;
   }

@@ -19,8 +19,10 @@ function currentUser(state = { signedIn: undefined }, action) {
   switch(actionType) {
     case SET_CURRENT_USER:
       return { id, firstName, lastName, username, nickname, signedIn, admin };
+
     case REMOVE_CURRENT_USER:
       return {};
+
     default:
       return state;
   }

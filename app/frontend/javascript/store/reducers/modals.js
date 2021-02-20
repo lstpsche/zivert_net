@@ -25,12 +25,16 @@ function modals(state = {}, action) {
   switch(actionType) {
     case SHOW_GEO_POINT_CREATION_MODAL:
       return { ...state, geoPointCreation: { show: true, latitude, longitude } };
+
     case HIDE_GEO_POINT_CREATION_MODAL:
       return { ...state, geoPointCreation: { show: false } };
+
     case SHOW_ABOUT_MODAL:
       return { ...state, about: { show: true } };
+
     case HIDE_ABOUT_MODAL:
       return { ...state, about: { show: false } };
+
     default:
       return state;
   }
