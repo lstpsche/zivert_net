@@ -1,12 +1,12 @@
 class UserTableRow extends React.Component {
   render () {
-    const { user: { id, first_name, last_name, username, nickname } } = this.props;
+    const { user: { id, firstName, lastName, username, nickname } } = this.props;
 
     return (
       <tr className="user-table-row">
         <td>{ id }</td>
-        <td>{ first_name }</td>
-        <td>{ last_name }</td>
+        <td>{ firstName }</td>
+        <td>{ lastName }</td>
         <td>{ username }</td>
         <td>{ nickname }</td>
       </tr>
