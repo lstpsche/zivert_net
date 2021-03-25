@@ -58,12 +58,27 @@ class OverlaysLayersSelection extends React.Component {
     )
   }
 
+  renderHeatmapCheck () {
+    return (
+      <Form.Check
+        type="checkbox"
+        className="map-setting-checkbox"
+        label={ I18n.t("sidebar.tabs.map_settings.labels.heatmap") }
+        id="heatmap-layer-checkbox"
+        name="heatmap"
+        onChange={this.onOverlayChange}
+        checked={this.isChecked("heatmap")}
+      />
+    )
+  }
+
   render () {
     return (
       <Form className="overlays-layers-selection">
         { this.renderLabel() }
         { this.renderDimmerCheck() }
         { this.renderGeoPointsCheck() }
+        { this.renderHeatmapCheck() }
       </Form>
     )
   }

@@ -17,6 +17,7 @@ en:
         labels:
           dimmer: Dim map
           geo_points: Geo Points
+          heatmap: Heatmap
           regular_map: Regular map
         sections:
           base_map: Base map

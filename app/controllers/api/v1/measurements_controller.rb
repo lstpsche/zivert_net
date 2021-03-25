@@ -27,6 +27,8 @@ module Api
       private
 
       def check_authorship!
+        return true if current_user.admin?
+
         raise Authentication::NotPermitted unless current_user.id == measurement.user_id
       end
 

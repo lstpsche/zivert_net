@@ -6,6 +6,7 @@ import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
 import GeoPointsLayer from "./map_layers/overlays/geo_points_layer";
+import CustomHeatmapLayer from "./map_layers/overlays/heatmap_layer";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -33,7 +34,7 @@ class MapBase extends React.Component {
   }
 
   render () {
-    const { center, zoom, regularMapSelected, dimmedLayerSelected, geoPointsLayerSelected } = this.props;
+    const { center, zoom, regularMapSelected, dimmedLayerSelected, geoPointsLayerSelected, heatmapLayerSelected } = this.props;
 
     return (
       <MapLeaflet
@@ -56,6 +57,10 @@ class MapBase extends React.Component {
           <LayersControl.Overlay checked={geoPointsLayerSelected} name={I18n.t("map.layers.overlay.geo_points")}>
             <GeoPointsLayer />
           </LayersControl.Overlay>
+
+          <LayersControl.Overlay checked={heatmapLayerSelected} name={I18n.t("map.layers.overlay.heatmap")}>
+            <CustomHeatmapLayer />
+          </LayersControl.Overlay>
         </LayersControl>
       </MapLeaflet>
     )
@@ -76,7 +81,8 @@ const mapStateToProps = ({ currentUser: { signedIn }, mainMap: { layers } }) => 
   signedIn,
   regularMapSelected: layers.base.regularMap.selected,
   dimmedLayerSelected: layers.overlays.dimmer.selected,
-  geoPointsLayerSelected: layers.overlays.geoPoints.selected
+  geoPointsLayerSelected: layers.overlays.geoPoints.selected,
+  heatmapLayerSelected: layers.overlays.heatmap.selected
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -19,7 +19,8 @@ const defaultStoreValue = {
       },
       overlays: {
         dimmer: { selected: false },
-        geoPoints: { selected: true }
+        geoPoints: { selected: true },
+        heatmap: { selected: false }
       }
     }
   },

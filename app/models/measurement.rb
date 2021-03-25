@@ -6,7 +6,7 @@ class Measurement < ApplicationRecord
 
   after_create :broadcast_creation
   after_update :broadcast_updation
-  after_destroy :broadcast_deletion, :delete_geo_point
+  after_destroy :delete_geo_point
 
   class << self
     def create_initial(geo_point:)
@@ -21,6 +21,10 @@ class Measurement < ApplicationRecord
   private
 
   def delete_geo_point
-    geo_point.destroy if geo_point.measurements.empty?
+    if geo_point.measurements.empty?
+      geo_point.destroy
+    else
+      broadcast_deletion
+    end
   end
 end
