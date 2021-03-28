@@ -4,7 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
-  has_many :geo_points
   has_many :measurements
 
   after_create :broadcast_creation

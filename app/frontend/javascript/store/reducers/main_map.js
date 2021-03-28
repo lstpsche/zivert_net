@@ -15,7 +15,7 @@
 //       dimmer: {
 //         selected: boolean
 //       },
-//       geoPoints: {
+//       measurements: {
 //         selected: boolean
 //       }
 //     }
@@ -37,14 +37,14 @@ function mainMap(state = {}, action) {
       return { ...state, block };
 
     case SET_BASE_LAYER:
-      var base = state.layers.base;
+      let base = state.layers.base;
       Object.keys(base).map(name =>
-        base[name].selected = (name === layerName) ? true : false
+        base[name].selected = (name === layerName)
       );
       return { ...state, layers: { ...state.layers, base } };
 
     case SET_OVERLAY_LAYER:
-      var overlays = {
+      let overlays = {
         ...state.layers.overlays,
         [layerName]: { selected }
       };

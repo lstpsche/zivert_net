@@ -4,7 +4,10 @@ import { Sidebar as SidebarLib, Tab } from "react-leaflet-sidetabs";
 import { FaChevronRight, FaMapMarkerAlt, FaLayerGroup } from "react-icons/fa";
 import { MdHistory } from "react-icons/md";
 import UserMeasurementsHistoryTabContent from "./tabs_content/user_measurements_history_tab_content";
-import GeoPointDetailsTabContent from "./tabs_content/geo_point_details_tab_content";
+
+// TODO: refactor during ZN-70
+// import GeoPointDetailsTabContent from "./tabs_content/geo_point_details_tab_content";
+
 import MapSettingsTabContent from "./tabs_content/map_settings_tab_content";
 
 class Sidebar extends React.Component {
@@ -30,18 +33,19 @@ class Sidebar extends React.Component {
     )
   }
 
-  renderGeoPointDetailsTab () {
-    return (
-      <Tab
-        id="geo-point-details-tab"
-        header={ I18n.t("sidebar.tabs.headers.geo_point_details") }
-        icon={<FaMapMarkerAlt />}
-        anchor="top"
-      >
-        <GeoPointDetailsTabContent />
-      </Tab>
-    )
-  }
+  // TODO: refactor during ZN-70
+  // renderGeoPointDetailsTab () {
+  //   return (
+  //     <Tab
+  //       id="geo-point-details-tab"
+  //       header={ I18n.t("sidebar.tabs.headers.geo_point_details") }
+  //       icon={<FaMapMarkerAlt />}
+  //       anchor="top"
+  //     >
+  //       <GeoPointDetailsTabContent />
+  //     </Tab>
+  //   )
+  // }
 
   renderMapSettingsTab () {
     return (
@@ -67,7 +71,8 @@ class Sidebar extends React.Component {
         closeIcon={<FaChevronRight />}
       >
         { this.renderUserMeasurementsHistoryTab() }
-        { this.renderGeoPointDetailsTab() }
+        {/*TODO: refactor during ZN-70*/}
+        {/*{ this.renderGeoPointDetailsTab() }*/}
         { this.renderMapSettingsTab() }
       </SidebarLib>
     )

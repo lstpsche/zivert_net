@@ -62,11 +62,11 @@ class MapSettingsTabContent extends React.Component {
         <Form.Check
           type="checkbox"
           className="map-setting-checkbox"
-          label={ I18n.t("sidebar.tabs.map_settings.labels.geo_points") }
-          id="geo-points-layer-checkbox"
-          name="geoPoints"
+          label={ I18n.t("sidebar.tabs.map_settings.labels.measurements") }
+          id="measurements-layer-checkbox"
+          name="measurements"
           onChange={this.onOverlayChange}
-          checked={this.isChecked("geoPoints")}
+          checked={this.isChecked("measurements")}
         />
       </Form>
     )

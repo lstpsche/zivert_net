@@ -2,11 +2,9 @@ import { createStore } from "redux";
 import reducers from "./reducers/index";
 
 const defaultStoreValue = {
-  geoPoints: [],
   measurements: [],
   users: [],
   modals: {
-    geoPointCreation: { show: false },
     about: { show: false }
   },
   currentUser: { signedIn: undefined, admin: false },
@@ -19,7 +17,7 @@ const defaultStoreValue = {
       },
       overlays: {
         dimmer: { selected: false },
-        geoPoints: { selected: true }
+        measurements: { selected: true }
       }
     }
   },

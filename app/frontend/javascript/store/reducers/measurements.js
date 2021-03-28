@@ -3,10 +3,11 @@
 // measurements: [
 //   {
 //     id: measurementId,
+//     latitude: latitudeValue,
+//     longitude: longitudeValue,
 //     value: measurementValue,
 //     comment: measurementComment,
-//     userId: measurementUserId,
-//     geoPointId: measurementGeoPointId
+//     userId: measurementUserId
 //   },
 //   ...
 // ]
@@ -20,7 +21,7 @@ import {
 } from "../actionTypes/measurements";
 
 function measurements(state = [], action) {
-  const { type: actionType, id, value, comment, userId, geoPointId } = action;
+  const { type: actionType, id, latitude, longitude, value, comment, userId } = action;
 
   switch(actionType) {
     case SET_MEASUREMENTS:
@@ -29,12 +30,12 @@ function measurements(state = [], action) {
     case ADD_MEASUREMENT:
       return [
         ...state,
-        { id, value, comment, userId, geoPointId }
+        { id, latitude, longitude, value, comment, userId }
       ];
 
     case UPDATE_MEASUREMENT:
       return state.map(measurement =>
-        measurement.id === id ? { ...measurement, value, comment } : measurement
+        measurement.id === id ? { ...measurement, latitude, longitude, value, comment } : measurement
       );
 
     case REMOVE_MEASUREMENT:
