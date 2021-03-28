@@ -1,11 +1,13 @@
 import { connect } from "react-redux";
-import { showGeoPointCreationModal } from "../../../store/actions/modals";
-import { unselectGeoPoints } from "../../../store/actions/geo_points";
+
+// TODO: refactor during ZN-70
+// import { unselectGeoPoints } from "../../../store/actions/geo_points";
+
 import { hideSidebar } from "../../../store/actions/sidebar";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
-import GeoPointsLayer from "./map_layers/overlays/geo_points_layer";
+import MeasurementsLayer from "./map_layers/overlays/measurements_layer";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -23,17 +25,16 @@ class MapBase extends React.Component {
 
     if (targetClasses.includes("marker-icon"))
       return;
-
-    this.props.showCreationModal(latlng);
   }
 
   handleMapSnglClick () {
-    this.props.unselectGeoPoints();
+    // TODO: refactor during ZN-70
+    // this.props.unselectGeoPoints();
     this.props.hideSidebar();
   }
 
   render () {
-    const { center, zoom, regularMapSelected, dimmedLayerSelected, geoPointsLayerSelected } = this.props;
+    const { center, zoom, regularMapSelected, dimmedLayerSelected, measurementsLayerSelected } = this.props;
 
     return (
       <MapLeaflet
@@ -53,8 +54,8 @@ class MapBase extends React.Component {
             <DimmedLayer />
           </LayersControl.Overlay>
 
-          <LayersControl.Overlay checked={geoPointsLayerSelected} name={I18n.t("map.layers.overlay.geo_points")}>
-            <GeoPointsLayer />
+          <LayersControl.Overlay checked={measurementsLayerSelected} name={I18n.t("map.layers.overlay.measurements")}>
+            <MeasurementsLayer />
           </LayersControl.Overlay>
         </LayersControl>
       </MapLeaflet>
@@ -76,12 +77,11 @@ const mapStateToProps = ({ currentUser: { signedIn }, mainMap: { layers } }) => 
   signedIn,
   regularMapSelected: layers.base.regularMap.selected,
   dimmedLayerSelected: layers.overlays.dimmer.selected,
-  geoPointsLayerSelected: layers.overlays.geoPoints.selected
+  measurementsLayerSelected: layers.overlays.measurements.selected
 });
 
 const mapDispatchToProps = dispatch => ({
-  showCreationModal: ({ lat: latitude, lng: longitude }) => dispatch(showGeoPointCreationModal({ latitude, longitude })),
-  unselectGeoPoints: () => dispatch(unselectGeoPoints()),
+  // unselectGeoPoints: () => dispatch(unselectGeoPoints()),
   hideSidebar: () => dispatch(hideSidebar())
 });
 

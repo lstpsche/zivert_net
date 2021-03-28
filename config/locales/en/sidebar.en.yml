@@ -16,7 +16,7 @@ en:
       map_settings:
         labels:
           dimmer: Dim map
-          geo_points: Geo Points
+          measurements: Measurements
           regular_map: Regular map
         sections:
           base_map: Base map

@@ -15,7 +15,7 @@ en:
         longitude: Longitude
         rad-value: Input radiation value
     buttons:
-      create_geo_point: Create Geo Point
-      creating_geo_point: Creating...
+      create: Create
+      creating: Creating...
     errors:
       default: Didn't create new Geo Point. Check fields presence.

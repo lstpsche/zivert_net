@@ -2,11 +2,10 @@ import { connect } from "react-redux";
 import Loader from "../common/loader";
 import Sidebar from "../sidebar/sidebar";
 import MapBase from "./components/map_base";
-import GeoPointCreationModal from "../modals/geo_point_creation_modal";
 
 class MapIndex extends React.Component {
   render () {
-    const { mapBlock: { state: mapBlocked, blockMessage }, showCreationModal, pointLatitude, pointLongitude } = this.props;
+    const { mapBlock: { state: mapBlocked, blockMessage } } = this.props;
 
     return (
       <div className="container map">
@@ -21,23 +20,14 @@ class MapIndex extends React.Component {
         >
           <MapBase />
           <Sidebar />
-
-          {
-            showCreationModal
-            ? <GeoPointCreationModal latitude={pointLatitude} longitude={pointLongitude} />
-            : ""
-          }
         </BlockUi>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ modals: { geoPointCreation: { show, latitude, longitude } }, mainMap: { block } }) => ({
-  mapBlock: block,
-  showCreationModal: show,
-  pointLatitude: latitude,
-  pointLongitude: longitude
+const mapStateToProps = ({ mainMap: { block } }) => ({
+  mapBlock: block
 });
 
 export default connect(mapStateToProps)(MapIndex);

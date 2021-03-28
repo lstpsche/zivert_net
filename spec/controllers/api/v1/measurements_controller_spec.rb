@@ -20,12 +20,6 @@ describe Api::V1::MeasurementsController, type: :controller do
     end
 
     it { is_expected.to have_http_status(:ok) }
-
-    it 'renders json with geo points' do
-      subject
-
-      expect(response.body).to eq(expected_result)
-    end
   end
 
   describe 'GET SHOW' do
@@ -33,7 +27,7 @@ describe Api::V1::MeasurementsController, type: :controller do
 
     before { sign_in(user) }
 
-    context 'when geo point was found' do
+    context 'when measurement was found' do
       let(:measurement_id) { rand(100) }
       let(:measurement) { instance_double(Measurement, json: serialized_measurement) }
       let(:serialized_measurement) { double(:serialized_hash) }
@@ -43,14 +37,14 @@ describe Api::V1::MeasurementsController, type: :controller do
 
       it { is_expected.to have_http_status(:ok) }
 
-      it 'renders json with given geo point' do
+      it 'renders json with given measurement' do
         subject
 
         expect(response.body).to eq(expected_result)
       end
     end
 
-    context 'when geo point was not found' do
+    context 'when measurement was not found' do
       let(:measurement_id) { rand(100) }
       let(:expected_result) { { error: 'not found error' }.to_json }
 
@@ -61,7 +55,7 @@ describe Api::V1::MeasurementsController, type: :controller do
 
       it { is_expected.to have_http_status(:bad_request) }
 
-      it 'renders json with given geo point' do
+      it 'renders json with given measurement' do
         subject
 
         expect(response.body).to eq(expected_result)
