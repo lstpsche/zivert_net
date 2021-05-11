@@ -19,18 +19,20 @@
 //         selected: boolean
 //       }
 //     }
-//   }
+//   },
+//   mainMapRef: Map leafletElement
 // }
 //
 
 import {
   SET_MAIN_MAP_BLOCK,
   SET_BASE_LAYER,
-  SET_OVERLAY_LAYER
+  SET_OVERLAY_LAYER,
+  SET_MAIN_MAP_REF
 } from "../actionTypes/main_map";
 
 function mainMap(state = {}, action) {
-  const { type: actionType, block, layerName, selected } = action;
+  const { type: actionType, block, layerName, selected, ref } = action;
 
   switch(actionType) {
     case SET_MAIN_MAP_BLOCK:
@@ -49,6 +51,9 @@ function mainMap(state = {}, action) {
         [layerName]: { selected }
       };
       return { ...state, layers: { ...state.layers, overlays } };
+
+    case SET_MAIN_MAP_REF:
+      return { ...state, ref }
 
     default:
       return state;

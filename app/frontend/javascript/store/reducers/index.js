@@ -6,6 +6,7 @@ import users from "./users";
 import blocking from "./blocking";
 import mainMap from "./main_map";
 import sidebar from "./sidebar";
+import userActions from "./user_actions";
 
 export default combineReducers({
   measurements,
@@ -14,5 +15,6 @@ export default combineReducers({
   users,
   blocking,
   mainMap,
-  sidebar
+  sidebar,
+  userActions
 });

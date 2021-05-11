@@ -19,11 +19,22 @@ const defaultStoreValue = {
         dimmer: { selected: false },
         measurements: { selected: true }
       }
-    }
+    },
+    ref: undefined
   },
   sidebar: {
     collapsed: true,
-    selectedTabId: "user-measurements-history-tab"
+    selectedTabId: ""
+  },
+  userActions: {
+    measurementCreation: {
+      state: false,
+      data: {
+        value: "",
+        latitude: "",
+        longitude: ""
+      }
+    }
   }
 }
 

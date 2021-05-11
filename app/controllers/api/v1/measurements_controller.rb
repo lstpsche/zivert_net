@@ -45,7 +45,7 @@ module Api
       def measurement_params
         return nil unless params.fetch(:measurement, false)
 
-        params.require(:measurement).permit(:value, :comment)
+        params.require(:measurement).permit(:value, :comment, :latitude, :longitude)
       end
     end
   end

@@ -1,0 +1,48 @@
+#sidebar {
+  .sidebar-content {
+    #measurement-creation-tab {
+      //background-color: #e2e2e2;
+      height: 100%;
+
+      #map-settings-tab-content {
+        margin: 20px 15px 0;
+
+        #coordinates-block {
+          margin-top: 25px;
+        }
+
+        #rad-value-block {
+          margin-top: 30px;
+        }
+
+        #measurement-create {
+          background-color: transparent;
+          border: 1px solid #6c757d;
+          border-radius: 0.25rem;
+          color: #6c757d;
+          cursor: pointer;
+          display: inline-block;
+          margin-top: 10px;
+          padding: 0.375rem 0.75rem;
+          text-align: center;
+          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+          vertical-align: middle;
+          width: 100%;
+
+          &:not(:disabled):active, &:not(:disabled):hover {
+            color: #fff;
+            background-color: #6c757d;
+            border-color: #6c757d
+          }
+
+          &:disabled {
+            background-color: #e3e6e8;
+            border-color: #a7aeb3;
+            color: #a7aeb3;
+            cursor: default;
+          }
+        }
+      }
+    }
+  }
+}
