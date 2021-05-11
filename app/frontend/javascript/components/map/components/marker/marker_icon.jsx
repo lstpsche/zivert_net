@@ -1,9 +1,9 @@
 class MarkerIcon extends React.Component {
   render () {
-    const { text } = this.props;
+    const { text, className } = this.props;
 
     return (
-      <div className="marker-icon">
+      <div className={"marker-icon " + className}>
         {text}
       </div>
     )
@@ -11,11 +11,13 @@ class MarkerIcon extends React.Component {
 }
 
 MarkerIcon.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string,
+  className: PropTypes.string
 }
 
 MarkerIcon.defaultProps = {
-  text: ''
+  text: "",
+  className: ""
 }
 
 export default MarkerIcon;

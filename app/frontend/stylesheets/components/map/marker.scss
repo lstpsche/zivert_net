@@ -1,15 +1,36 @@
 .marker-icon {
   align-items: center;
-  background-color: #ffd12b;
   border-radius: 32px;
-  box-shadow: inset 0 0 2px 3px #ffaa00, 0 0 7px 1px #FFA10A;
-  color: #4a4a4a;
   display: flex;
   font-size: 12px;
   font-weight: 600;
   justify-content: center;
   height: 29px;
   width: 29px;
+
+  &.default {
+    background-color: #f5e180;
+    box-shadow: inset 0 0 2px 3px #e6bd6b, 0 0 7px 1px #fba418;
+    color: #4a4a4a;
+  }
+
+  &.warning {
+    background-color: #ffd402;
+    box-shadow: inset 0 0 2px 3px #efaf31, 0 0 7px 1px #ff9d00;
+    color: #4a4a4a;
+  }
+
+  &.danger {
+    background-color: #f58d23;
+    box-shadow: inset 0 0 4px 5px #de7c30, 0 0 7px 1px #ef650c;
+    color: #3a3939;
+  }
+
+  &.critical {
+    background-color: #ef1717;
+    box-shadow: inset 0 0 5px 5px #cc4825, 0 0 7px 1px #a20505;
+    color: #ffefb4;
+  }
 }
 
 // !important is needed here because library sets default marker-icon styles dynamically on each element
