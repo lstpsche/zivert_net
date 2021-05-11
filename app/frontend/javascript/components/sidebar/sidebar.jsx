@@ -141,7 +141,7 @@ const mapDispatchToProps = dispatch => ({
   hideSidebar: () => dispatch(hideSidebar()),
   enableMeasurementCreation: () => dispatch(enableMeasurementCreation()),
   disableMeasurementCreation: () => dispatch(disableMeasurementCreation()),
-  setMeasurementCreationData: ({ latitude, longitude }) => dispatch(setMeasurementCreationData({ latitude, longitude }))
+  setMeasurementCreationData: ({ value, latitude, longitude }) => dispatch(setMeasurementCreationData({ value, latitude, longitude }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

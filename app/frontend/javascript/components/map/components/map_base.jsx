@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { hideSidebar } from "../../../store/actions/sidebar";
 import { setMainMapRef } from "../../../store/actions/main_map";
-import { disableMeasurementCreation } from "../../../store/actions/user_actions";
+import { disableMeasurementCreation, setMeasurementCreationData } from "../../../store/actions/user_actions";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
@@ -103,7 +103,8 @@ const mapDispatchToProps = dispatch => ({
     if (mapElement !== null)
       dispatch(setMainMapRef({ref: mapElement.leafletElement}))
   },
-  disableMeasurementCreation: () => dispatch(disableMeasurementCreation())
+  disableMeasurementCreation: () => dispatch(disableMeasurementCreation()),
+  setMeasurementCreationData: ({ value, latitude, longitude }) => dispatch(setMeasurementCreationData({ value, latitude, longitude }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBase);

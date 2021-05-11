@@ -6,13 +6,14 @@ import { connect } from "react-redux";
 
 import Marker from "react-leaflet-enhanced-marker";
 import MarkerIcon from "./marker/marker_icon";
+import generateMarkerClassName from "../../../helpers/generate_marker_class_name";
 
 class MeasurementMarker extends React.Component {
   constructor (props) {
     super(props);
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
-    this.markerText = this.markerText.bind(this);
+    this.markerValue = this.markerValue.bind(this);
   }
 
   onMarkerClick () {
@@ -23,22 +24,23 @@ class MeasurementMarker extends React.Component {
     // showGeoPointSidebar();
   }
 
-  markerText () {
+  markerValue () {
     const { value } = this.props;
 
     if (value === undefined || _.isString(value))
       return value;
-    return (Math.round((value + Number.EPSILON) * 10) / 10).toString();
+    return (Math.round((value + Number.EPSILON) * 10) / 10);
   }
 
   render () {
     const { latitude, longitude, draggable, onMarkerDrag } = this.props;
+    const value = this.markerValue();
 
     return (
       <Marker
         ref={el => this.marker = el}
         draggable={draggable}
-        icon={<MarkerIcon text={this.markerText()} />}
+        icon={<MarkerIcon text={value?.toString()} className={generateMarkerClassName(value)} />}
         position={[latitude, longitude]}
         riseOnHover={true}
         onClick={this.onMarkerClick}
