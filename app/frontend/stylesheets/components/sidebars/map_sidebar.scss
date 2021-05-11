@@ -1,0 +1,28 @@
+#sidebar {
+  top: 67px;
+  max-height: 900px;
+  transition: max-height .3s, width .3s;
+
+  .sidebar-tabs {
+    ul {
+      li.disabled {
+        pointer-events: none;
+      }
+    }
+  }
+
+  .sidebar-pane {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.collapsed {
+    max-height: 140px; // 124px - to fit 3 icons
+    transition: max-height .3s .25s, width .3s;
+    width: 42px;
+  }
+}
+
+@import "./map_sidebar_tabs/geo_point_details_tab";
+@import "./map_sidebar_tabs/map_settings_tab";
+@import "./map_sidebar_tabs/measurement_creation_tab";

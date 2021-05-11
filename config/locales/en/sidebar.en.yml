@@ -4,6 +4,7 @@ en:
       headers:
         geo_point_details: GeoPoint Details
         map_settings: Map Settings
+        measurement_creation: Add Measurement
         user_measurements_history: My Measurements
       geo_point_details:
         placeholder: Pick a point
@@ -21,3 +22,9 @@ en:
         sections:
           base_map: Base map
           overlay_layers: Overlay layers
+      measurement_creation:
+        labels:
+          latitude: Latitude
+          longitude: Longitude
+          note_html: Drag a marker on the map to the place you want to add measurement from
+          radiation_value: Radiation value

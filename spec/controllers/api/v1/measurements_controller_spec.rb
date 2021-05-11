@@ -66,9 +66,11 @@ describe Api::V1::MeasurementsController, type: :controller do
   describe 'POST create' do
     subject { post(:create, params: params) }
 
-    let(:params) { { measurement: { value: value, comment: comment } } }
+    let(:params) { { measurement: { value: value, comment: comment, latitude: latitude, longitude: longitude } } }
     let(:value) { rand(100) }
     let(:comment) { 'some comment' }
+    let(:latitude) { '53.213212' }
+    let(:longitude) { '27.123123' }
 
     let(:measurement) { instance_double(Measurement, user_id: user.id, save: saved) }
     let(:user_measurements) { double(:user_measurements, build: measurement) }
@@ -76,6 +78,7 @@ describe Api::V1::MeasurementsController, type: :controller do
 
     before do
       sign_in(user)
+
       allow(controller).to receive(:current_user).with(no_args).and_return(stubbed_user)
     end
 

@@ -1,0 +1,15 @@
+#sidebar {
+  .sidebar-content {
+    #map-settings-tab {
+      #map-settings-tab-content {
+        .map-setting-checkbox {
+          user-select: none;
+        }
+
+        .map-setting-radio {
+          user-select: none;
+        }
+      }
+    }
+  }
+}

@@ -1,13 +1,12 @@
 import { connect } from "react-redux";
-
-// TODO: refactor during ZN-70
-// import { unselectGeoPoints } from "../../../store/actions/geo_points";
-
 import { hideSidebar } from "../../../store/actions/sidebar";
+import { setMainMapRef } from "../../../store/actions/main_map";
+import { disableMeasurementCreation } from "../../../store/actions/user_actions";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
 import MeasurementsLayer from "./map_layers/overlays/measurements_layer";
+import MeasurementCreationLayer from "./map_layers/overlays/measurement_creation_layer";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -28,17 +27,26 @@ class MapBase extends React.Component {
   }
 
   handleMapSnglClick () {
-    // TODO: refactor during ZN-70
-    // this.props.unselectGeoPoints();
-    this.props.hideSidebar();
+    const { hideSidebar, disableMeasurementCreation, setMeasurementCreationData } = this.props;
+
+    hideSidebar();
+    disableMeasurementCreation();
+    setMeasurementCreationData({ value: "", latitude: "", longitude: "" });
   }
 
   render () {
-    const { center, zoom, regularMapSelected, dimmedLayerSelected, measurementsLayerSelected } = this.props;
+    const { center, zoom, regularMapSelected, setMainMapRef, measurementCreationEnabled } = this.props;
+    let { dimmedLayerSelected, measurementsLayerSelected } = this.props;
+
+    if (measurementCreationEnabled) {
+      dimmedLayerSelected = true
+      measurementsLayerSelected = false
+    }
 
     return (
       <MapLeaflet
         id="main-map"
+        ref={el => setMainMapRef(el)}
         center={center}
         zoom={zoom}
         onClick={this.handleMapSnglClick}
@@ -57,6 +65,10 @@ class MapBase extends React.Component {
           <LayersControl.Overlay checked={measurementsLayerSelected} name={I18n.t("map.layers.overlay.measurements")}>
             <MeasurementsLayer />
           </LayersControl.Overlay>
+
+          <LayersControl.Overlay checked={measurementCreationEnabled} name={I18n.t("map.layers.overlay.measurements")}>
+            <MeasurementCreationLayer />
+          </LayersControl.Overlay>
         </LayersControl>
       </MapLeaflet>
     )
@@ -73,16 +85,25 @@ MapBase.defaultProps = {
   zoom: 12  // Zoomed to fully show the whole Minsk city
 }
 
-const mapStateToProps = ({ currentUser: { signedIn }, mainMap: { layers } }) => ({
+const mapStateToProps = ({
+  currentUser: { signedIn },
+  mainMap: { layers },
+  userActions: { measurementCreation: { state: measurementCreationEnabled } }
+}) => ({
   signedIn,
   regularMapSelected: layers.base.regularMap.selected,
   dimmedLayerSelected: layers.overlays.dimmer.selected,
-  measurementsLayerSelected: layers.overlays.measurements.selected
+  measurementsLayerSelected: layers.overlays.measurements.selected,
+  measurementCreationEnabled
 });
 
 const mapDispatchToProps = dispatch => ({
-  // unselectGeoPoints: () => dispatch(unselectGeoPoints()),
-  hideSidebar: () => dispatch(hideSidebar())
+  hideSidebar: () => dispatch(hideSidebar()),
+  setMainMapRef: (mapElement) => {
+    if (mapElement !== null)
+      dispatch(setMainMapRef({ref: mapElement.leafletElement}))
+  },
+  disableMeasurementCreation: () => dispatch(disableMeasurementCreation())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBase);

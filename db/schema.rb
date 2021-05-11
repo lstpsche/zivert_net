@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_220820) do
+ActiveRecord::Schema.define(version: 2021_04_16_193735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2021_03_25_220820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "comment", default: "", null: false
-    t.float "latitude", default: 0.0, null: false
-    t.float "longitude", default: 0.0, null: false
+    t.string "latitude", default: "0.0", null: false
+    t.string "longitude", default: "0.0", null: false
     t.index ["user_id"], name: "index_measurements_on_user_id"
   end
 
