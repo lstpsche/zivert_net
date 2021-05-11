@@ -79,7 +79,7 @@ class MeasurementCreationTabContent extends React.Component {
     return (
       <InputGroup>
         <InputGroup.Prepend>
-          <InputGroup.Text id={"value-addon"}>
+          <InputGroup.Text id="value-prepend">
             { I18n.t("sidebar.tabs.measurement_creation.labels.radiation_value") }
           </InputGroup.Text>
         </InputGroup.Prepend>
@@ -89,6 +89,12 @@ class MeasurementCreationTabContent extends React.Component {
           value={value}
           onChange={this.handleValueChange}
         />
+
+        <InputGroup.Append>
+          <InputGroup.Text id="value-append">
+            { I18n.t("sidebar.tabs.measurement_creation.labels.mcrh") }
+          </InputGroup.Text>
+        </InputGroup.Append>
       </InputGroup>
     )
   }
