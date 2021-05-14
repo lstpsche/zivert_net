@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { showSidebar, hideSidebar } from "../../store/actions/sidebar";
+import { showSidebar, hideSidebar, clearSidebarData } from "../../store/actions/sidebar";
 import {
   enableMeasurementCreation,
   disableMeasurementCreation,
@@ -8,12 +8,9 @@ import {
 import { Sidebar as SidebarLib, Tab } from "react-leaflet-sidetabs";
 import { FaChevronRight, FaMapMarkerAlt, FaPlusCircle, FaMapMarkedAlt, FaLayerGroup } from "react-icons/fa";
 import UserMeasurementsHistoryTabContent from "./tabs_content/user_measurements_history_tab_content";
-
-// TODO: refactor during ZN-67
-// import GeoPointDetailsTabContent from "./tabs_content/geo_point_details_tab_content";
-
 import MapSettingsTabContent from "./tabs_content/map_settings_tab_content";
 import MeasurementCreationTabContent from "./tabs_content/measurement_creation_tab_content";
+import MeasurementsClusterDetailsTabContent from "./tabs_content/measurements_cluster_details_tab_content";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -24,11 +21,10 @@ class Sidebar extends React.Component {
   }
 
   onSidebarClose () {
-    const { hideSidebar, disableMeasurementCreation, setMeasurementCreationData } = this.props;
+    const { hideSidebar, clearSidebarData } = this.props;
 
     hideSidebar();
-    disableMeasurementCreation();
-    setMeasurementCreationData({ value: "", latitude: "", longitude: "" });
+    clearSidebarData();
   }
 
   renderUserMeasurementsHistoryTab () {
@@ -63,19 +59,18 @@ class Sidebar extends React.Component {
     )
   }
 
-  // TODO: refactor during ZN-67
-  // renderGeoPointDetailsTab () {
-  //   return (
-  //     <Tab
-  //       id="geo-point-details-tab"
-  //       header={ I18n.t("sidebar.tabs.headers.geo_point_details") }
-  //       icon={<FaMapMarkerAlt />}
-  //       anchor="top"
-  //     >
-  //       <GeoPointDetailsTabContent />
-  //     </Tab>
-  //   )
-  // }
+  renderMeasurementsClusterDetailsTab () {
+    return (
+      <Tab
+        id="measurements-cluster-details-tab"
+        header={ I18n.t("sidebar.tabs.headers.measurements_cluster_details") }
+        icon={<FaMapMarkerAlt />}
+        anchor="top"
+      >
+        <MeasurementsClusterDetailsTabContent />
+      </Tab>
+    )
+  }
 
   renderMapSettingsTab () {
     return (
@@ -98,11 +93,20 @@ class Sidebar extends React.Component {
     enableMeasurementCreation();
   }
 
+  onMeasurementCreationTabUnselected () {
+    const { disableMeasurementCreation, setMeasurementCreationData } = this.props;
+
+    disableMeasurementCreation();
+    setMeasurementCreationData({ value: "", latitude: "", longitude: "" });
+  }
+
   componentDidUpdate (_prevProps, _prevState, _snapshot) {
     const { selectedTabId, sidebarCollapsed } = this.props;
 
     if (selectedTabId === "measurement-creation-tab" && !sidebarCollapsed)
       this.onMeasurementCreationTabSelected();
+    else
+      this.onMeasurementCreationTabUnselected();
   }
 
   render () {
@@ -116,8 +120,7 @@ class Sidebar extends React.Component {
         closeIcon={<FaChevronRight />}
       >
         { this.renderUserMeasurementsHistoryTab() }
-        {/*TODO: refactor during ZN-67*/}
-        {/*{ this.renderGeoPointDetailsTab() }*/}
+        { this.renderMeasurementsClusterDetailsTab() }
         { this.renderMeasurementCreationTab() }
         { this.renderMapSettingsTab() }
       </SidebarLib>
@@ -139,6 +142,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   showSidebar: (selectedTabId) => dispatch(showSidebar({ selectedTabId })),
   hideSidebar: () => dispatch(hideSidebar()),
+  clearSidebarData: () => dispatch(clearSidebarData()),
   enableMeasurementCreation: () => dispatch(enableMeasurementCreation()),
   disableMeasurementCreation: () => dispatch(disableMeasurementCreation()),
   setMeasurementCreationData: ({ value, latitude, longitude }) => dispatch(setMeasurementCreationData({ value, latitude, longitude }))
