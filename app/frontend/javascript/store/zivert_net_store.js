@@ -24,7 +24,11 @@ const defaultStoreValue = {
   },
   sidebar: {
     collapsed: true,
-    selectedTabId: ""
+    selectedTabId: "",
+    data: {
+      cluster: undefined,
+      clusterMeasurements: []
+    }
   },
   userActions: {
     measurementCreation: {

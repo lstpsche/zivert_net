@@ -2,18 +2,18 @@ en:
   sidebar:
     tabs:
       headers:
-        geo_point_details: GeoPoint Details
+        measurements_cluster_details: Measurements Cluster
         map_settings: Map Settings
         measurement_creation: Add Measurement
         user_measurements_history: My Measurements
-      geo_point_details:
-        placeholder: Pick a point
+      measurements_cluster_details:
+        placeholder: Pick a cluster to show
         labels:
           latitude: 'Latitude: '
           longitude: 'Longitude: '
           measurements: Measurements
           overall: Overall
-          rad_value: 'Radiation value: '
+          rad_value: 'Precise radiation value: '
       map_settings:
         labels:
           dimmer: Dim map

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { hideSidebar } from "../../../store/actions/sidebar";
+import { clearSidebarData, hideSidebar } from "../../../store/actions/sidebar";
 import { setMainMapRef } from "../../../store/actions/main_map";
 import { disableMeasurementCreation, setMeasurementCreationData } from "../../../store/actions/user_actions";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
@@ -27,9 +27,10 @@ class MapBase extends React.Component {
   }
 
   handleMapSnglClick () {
-    const { hideSidebar, disableMeasurementCreation, setMeasurementCreationData } = this.props;
+    const { clearSidebarData, hideSidebar, disableMeasurementCreation, setMeasurementCreationData } = this.props;
 
     hideSidebar();
+    clearSidebarData();
     disableMeasurementCreation();
     setMeasurementCreationData({ value: "", latitude: "", longitude: "" });
   }
@@ -99,6 +100,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   hideSidebar: () => dispatch(hideSidebar()),
+  clearSidebarData: () => dispatch(clearSidebarData()),
   setMainMapRef: (mapElement) => {
     if (mapElement !== null)
       dispatch(setMainMapRef({ref: mapElement.leafletElement}))

@@ -1,7 +1,12 @@
 function truncate (number, signsCount = 0) {
-  let factor = 10 ** signsCount;
+  const factor = 10 ** signsCount;
 
-  return Math.round(number * factor) / factor;
+  const result = Math.round(number * factor) / factor;
+
+  if (isNaN(result))
+    return "";
+  else
+    return result;
 }
 
 export default truncate;
