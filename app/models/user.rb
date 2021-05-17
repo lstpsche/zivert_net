@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable
 
   has_many :measurements
+  has_one :map_settings, dependent: :destroy
 
   after_create :broadcast_creation
   after_update :broadcast_updation
