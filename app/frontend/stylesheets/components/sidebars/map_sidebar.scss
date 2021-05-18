@@ -3,6 +3,19 @@
   max-height: 900px;
   transition: max-height .3s, width .3s;
 
+  .sidebar-close {
+    display: none;
+  }
+
+  .sidebar-header {
+    background-color: transparent;
+    color: #383838;
+    font-size: 20pt;
+    font-weight: 600;
+    height: 70px;
+    padding: 15px 25px 15px 25px;
+  }
+
   .sidebar-tabs {
     ul {
       li.disabled {
@@ -23,7 +36,6 @@
   }
 }
 
-@import "./map_sidebar_tabs/geo_point_details_tab";
 @import "./map_sidebar_tabs/measurements_cluster_details_tab";
 @import "./map_sidebar_tabs/measurement_creation_tab";
 @import "./map_sidebar_tabs/map_settings_tab";

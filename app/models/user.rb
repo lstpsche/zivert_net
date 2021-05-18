@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :measurements
   has_one :map_settings, dependent: :destroy
 
-  after_create :broadcast_creation
+  after_create :create_map_settings, :broadcast_creation
   after_update :broadcast_updation
   after_destroy :broadcast_deletion
 

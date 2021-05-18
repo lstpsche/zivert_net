@@ -11,9 +11,7 @@ describe MapSettings, type: :model do
 
       let(:defaults) { { units: 'urh' } }
 
-      before do
-        allow(YAML).to receive(:load_file).with("#{Rails.root}/config/defaults/map_settings.yml").and_return(defaults)
-      end
+      before { allow(described_class).to receive(:defaults).with(no_args).and_return(defaults) }
 
       it 'assigns default values' do
         map_settings = subject
@@ -21,5 +19,17 @@ describe MapSettings, type: :model do
         expect(map_settings.units).to eq(defaults[:units])
       end
     end
+  end
+
+  describe '.defaults' do
+    subject { described_class.defaults }
+
+    let(:defaults) { { units: 'urh' } }
+
+    before do
+      allow(YAML).to receive(:load_file).with("#{Rails.root}/config/defaults/map_settings.yml").and_return(defaults)
+    end
+
+    it { is_expected.to eq(defaults) }
   end
 end

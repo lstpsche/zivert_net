@@ -6,7 +6,7 @@ const defaultArgs = {
 }
 
 function fetchLink (args) {
-  if (args.method === "GET" || args.method === undefined)
+  if (args.method?.toLowerCase() === "get" || args.method === undefined)
     return fetchGet(args);
   else
     return fetchWithBody(args);

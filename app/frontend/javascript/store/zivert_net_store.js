@@ -20,6 +20,14 @@ const defaultStoreValue = {
         measurements: { selected: true }
       }
     },
+    settings: {
+      id: undefined,
+      user_id: undefined,
+      units: undefined
+    },
+    settingsOptions: {
+      units: []
+    },
     ref: undefined
   },
   sidebar: {

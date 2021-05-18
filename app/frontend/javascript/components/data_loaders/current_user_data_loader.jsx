@@ -5,11 +5,13 @@ import fetchLink from "../../helpers/fetch_link";
 
 class CurrentUserDataLoader extends React.Component {
   fetchCurrentUser () {
+    const { setCurrentUser, setFullPageBlock } = this.props;
+
     fetchLink({
       link: "/api/v1/current_user",
       onSuccess: ({ signed_in, user = { data: { attributes: {} }} }) => {
-        this.props.setCurrentUser({ signed_in, ...user.data.attributes });
-        this.props.setFullPageBlock(false);
+        setCurrentUser({ signed_in, ...user.data.attributes });
+        setFullPageBlock(false);
       },
       errorMessage: I18n.t("errors.not_logged_in")
       // TODO: Add alertify call from onFailure: () => {...}
@@ -21,7 +23,7 @@ class CurrentUserDataLoader extends React.Component {
   }
 
   render () {
-    return null
+    return null;
   }
 }
 
