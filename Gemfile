@@ -13,7 +13,7 @@ gem 'fast_jsonapi'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'pry-rails'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 gem 'react-rails'
 gem 'responders'
 gem 'slim-rails'
