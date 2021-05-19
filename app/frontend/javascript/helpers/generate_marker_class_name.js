@@ -6,11 +6,11 @@ const valueThresholds = {
   default: "default"
 }
 
-function generateMarkerClassName (value) {
-  if (value === "" || value === undefined)
+function generateMarkerClassName (valueUrh) {
+  if (valueUrh === "" || valueUrh === undefined)
     return valueThresholds["default"];
 
-  const threshold = Object.keys(valueThresholds).find(threshold => value < threshold);
+  const threshold = Object.keys(valueThresholds).find(threshold => valueUrh < threshold);
 
   return valueThresholds[threshold] || valueThresholds["overhead"];
 }

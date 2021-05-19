@@ -11,6 +11,7 @@ import UserMeasurementsHistoryTabContent from "./tabs_content/user_measurements_
 import MapSettingsTabContent from "./tabs_content/map_settings_tab_content";
 import MeasurementCreationTabContent from "./tabs_content/measurement_creation_tab_content";
 import MeasurementsClusterDetailsTabContent from "./tabs_content/measurements_cluster_details_tab_content";
+import fetchLink from "../../helpers/fetch_link";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -100,13 +101,37 @@ class Sidebar extends React.Component {
     setMeasurementCreationData({ value: "", latitude: "", longitude: "" });
   }
 
-  componentDidUpdate (_prevProps, _prevState, _snapshot) {
+  onMapSettingsTabUnselected () {
+    const { mapSettings: { id, units } } = this.props;
+
+    fetchLink({
+      link: "/api/v1/map_settings/" + id,
+      method: "PUT",
+      body: JSON.stringify({
+        map_settings: { units }
+      }),
+      onFailure: (error) => {
+        // TODO: add parsing of internal server errors
+        throw new Error(error);
+      }
+    });
+  }
+
+  componentDidUpdate (prevProps, _prevState, _snapshot) {
     const { selectedTabId, sidebarCollapsed } = this.props;
 
     if (selectedTabId === "measurement-creation-tab" && !sidebarCollapsed)
       this.onMeasurementCreationTabSelected();
     else
-      this.onMeasurementCreationTabUnselected();
+      switch(prevProps.selectedTabId) {
+        case "measurement-creation-tab":
+          this.onMeasurementCreationTabUnselected();
+          break;
+
+        case "map-settings-tab":
+          this.onMapSettingsTabUnselected();
+          break;
+      }
   }
 
   render () {
@@ -117,7 +142,6 @@ class Sidebar extends React.Component {
         id="sidebar" position="right"
         collapsed={sidebarCollapsed} selected={selectedTabId}
         onOpen={showSidebar} onClose={this.onSidebarClose}
-        closeIcon={<FaChevronRight />}
       >
         { this.renderUserMeasurementsHistoryTab() }
         { this.renderMeasurementsClusterDetailsTab() }
@@ -131,12 +155,13 @@ class Sidebar extends React.Component {
 const mapStateToProps = ({
   sidebar: { collapsed: sidebarCollapsed, selectedTabId },
   currentUser: { signedIn: userSignedIn },
-  mainMap: { ref: mainMapRef }
+  mainMap: { ref: mainMapRef, settings: mapSettings }
 }) => ({
   sidebarCollapsed,
   selectedTabId,
   userSignedIn,
-  mainMapRef
+  mainMapRef,
+  mapSettings
 });
 
 const mapDispatchToProps = dispatch => ({

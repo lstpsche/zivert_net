@@ -1,6 +1,7 @@
 import Marker from "react-leaflet-enhanced-marker";
 import MarkerIcon from "./marker/marker_icon";
 import generateMarkerClassName from "../../../helpers/generate_marker_class_name";
+import roundValue from "../../../helpers/round_value";
 
 class MeasurementMarker extends React.Component {
   constructor (props) {
@@ -10,23 +11,27 @@ class MeasurementMarker extends React.Component {
   }
 
   markerValue () {
-    const { value } = this.props;
+    const { valueUnits } = this.props;
+    const { ["value_" +  valueUnits]: value } = this.props;
 
     if (value === undefined || _.isString(value))
       return value;
-    return (Math.round((value + Number.EPSILON) * 10) / 10);
+
+    return roundValue(value, 2);
   }
 
   render () {
-    const { id, latitude, longitude, draggable, onMarkerDrag } = this.props;
-    const value = this.markerValue();
+    const { id, value_urh, value_ush, latitude, longitude, draggable, onMarkerDrag } = this.props;
+    const text = this.markerValue();
 
     return (
       <Marker
         ref={el => this.marker = el}
         measurementId={id}
+        measurementValue_urh={value_urh}
+        measurementValue_ush={value_ush}
         draggable={draggable}
-        icon={<MarkerIcon text={value?.toString()} className={generateMarkerClassName(value)} />}
+        icon={<MarkerIcon text={text?.toString()} className={generateMarkerClassName(value_urh)} />}
         position={[latitude, longitude]}
         riseOnHover={true}
         onDrag={() => onMarkerDrag(this.marker.markerRef.leafletElement)}
@@ -39,7 +44,9 @@ MeasurementMarker.propTypes = {
   id: PropTypes.number,
   latitude: PropTypes.string.isRequired,
   longitude: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  value_urh: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  value_ush: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  valueUnits: PropTypes.string,
   draggable: PropTypes.bool,
   onMarkerDrag: PropTypes.func
 }

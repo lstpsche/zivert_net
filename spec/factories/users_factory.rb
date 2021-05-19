@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :user do
+  factory User do
     sequence(:username) { |i| "name_#{i}" }
     sequence(:nickname) { |i| "Name_#{i}" }
     sequence(:password) { |i| "password_#{i}" }

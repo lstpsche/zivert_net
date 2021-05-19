@@ -1,46 +1,51 @@
 import { connect } from "react-redux";
 import MeasurementMarker from "../../measurement_marker";
-import { setMeasurementCreationData } from "../../../../../store/actions/user_actions";
+import { setMeasurementCreationCoordinates } from "../../../../../store/actions/user_actions";
 
 class MeasurementCreationLayer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      centerLat: "",
+      centerLng: ""
+    }
 
     this.renderMarker = this.renderMarker.bind(this);
     this.onMarkerDrag = this.onMarkerDrag.bind(this);
   }
 
   renderMarker () {
-    const { mainMapRef, latitude, longitude, measurementCreationState } = this.props;
-
-    let defaultLat;
-    let defaultLng;
-
-    if (measurementCreationState === true) {
-      const centerCoors = mainMapRef.getCenter();
-
-      defaultLat = centerCoors.lat.toString();
-      defaultLng = centerCoors.lng.toString();
-    } else {
-      defaultLat = undefined;
-      defaultLng = undefined;
-    }
+    const { centerLat, centerLng } = this.state;
 
     return (
       <MeasurementMarker
         draggable={true}
         onMarkerDrag={this.onMarkerDrag}
-        latitude={defaultLat || latitude || ""}
-        longitude={defaultLng || longitude || ""}
+        latitude={centerLat}
+        longitude={centerLng}
       />
     )
   }
 
   onMarkerDrag (leafletMarker) {
-    const { setMeasurementCreationData, value } = this.props;
+    const { setMeasurementCreationCoordinates } = this.props;
     const { lat, lng } = leafletMarker.getLatLng();
 
-    setMeasurementCreationData({ value, latitude: lat.toString(), longitude: lng.toString() });
+    setMeasurementCreationCoordinates({ latitude: lat.toString(), longitude: lng.toString() });
+  }
+
+  componentDidUpdate(prevProps, _prevState, _snapshot) {
+    const { measurementCreationState, mainMapRef, setMeasurementCreationCoordinates } = this.props;
+
+    if (!prevProps.measurementCreationState && measurementCreationState) {
+      let { lat, lng } = mainMapRef.getCenter();
+      lat = lat.toString();
+      lng = lng.toString();
+
+      this.setState({ centerLat: lat, centerLng: lng });
+      setMeasurementCreationCoordinates({ latitude: lat, longitude: lng });
+    }
   }
 
   render () {
@@ -50,15 +55,14 @@ class MeasurementCreationLayer extends React.Component {
 
 const mapStateToProps = ({
   mainMap: { ref: mainMapRef },
-  userActions: { measurementCreation: { state: measurementCreationState, data: { value, latitude, longitude } } }
+  userActions: { measurementCreation: { state: measurementCreationState } }
 }) => ({
   mainMapRef,
-  measurementCreationState,
-  value, latitude, longitude
+  measurementCreationState
 });
 
 const mapDispatchToProps = dispatch => ({
-  setMeasurementCreationData: ({ value, latitude, longitude }) => dispatch(setMeasurementCreationData({ value, latitude, longitude }))
+  setMeasurementCreationCoordinates: ({ value, latitude, longitude }) => dispatch(setMeasurementCreationCoordinates({ value, latitude, longitude }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeasurementCreationLayer);

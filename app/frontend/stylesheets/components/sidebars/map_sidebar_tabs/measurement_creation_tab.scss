@@ -1,10 +1,9 @@
 #sidebar {
   .sidebar-content {
     #measurement-creation-tab {
-      //background-color: #e2e2e2;
       height: 100%;
 
-      #map-settings-tab-content {
+      #measurement-creation-tab-content {
         margin: 20px 15px 0;
 
         #coordinates-block {
@@ -13,6 +12,17 @@
 
         #rad-value-block {
           margin-top: 30px;
+
+          #value-append-units-select {
+            border-radius: 0 0.25rem 0.25rem 0;
+            padding-left: 5px;
+            padding-right: 0;
+
+            &:focus {
+              border: 1px solid #ced4da;
+              box-shadow: none;
+            }
+          }
         }
 
         #measurement-create {

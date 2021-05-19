@@ -15,17 +15,29 @@ en:
           overall: Overall
           rad_value: 'Precise radiation value: '
       map_settings:
-        labels:
-          dimmer: Dim map
-          measurements: Measurements
-          regular_map: Regular map
-        sections:
-          base_map: Base map
-          overlay_layers: Overlay layers
+        base_map:
+          header: Base map
+          labels:
+            regular_map: Regular map
+        overlay_layers:
+          header: Overlay layers
+          labels:
+            dimmer: Dim map
+            measurements: Measurements
+        map_settings:
+          header: Settings
+          labels:
+            units: Radiation Units
+          options:
+            urh: Roentgen (µR/h)
+            ush: Sievert (µSv/h)
       measurement_creation:
         labels:
           latitude: Latitude
           longitude: Longitude
           note_html: Drag a marker on the map to the place you want to add measurement from
           radiation_value: Radiation value
-          mcrh: μR/h
+        appends:
+          units:
+            urh: μR/h
+            ush: μSv/h

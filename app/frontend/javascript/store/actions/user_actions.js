@@ -1,7 +1,8 @@
 import {
   ENABLE_MEASUREMENT_CREATION,
   DISABLE_MEASUREMENT_CREATION,
-  SET_MEASUREMENT_CREATION_DATA
+  SET_MEASUREMENT_CREATION_DATA,
+  SET_MEASUREMENT_CREATION_COORDINATES
 } from "../actionTypes/user_actions";
 
 export const enableMeasurementCreation = () => ({
@@ -15,4 +16,9 @@ export const disableMeasurementCreation = () => ({
 export const setMeasurementCreationData = ({ value, latitude, longitude }) => ({
   type: SET_MEASUREMENT_CREATION_DATA,
   value, latitude, longitude
+});
+
+export const setMeasurementCreationCoordinates = ({ latitude, longitude }) => ({
+  type: SET_MEASUREMENT_CREATION_COORDINATES,
+  latitude, longitude
 });

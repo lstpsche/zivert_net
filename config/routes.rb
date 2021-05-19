@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :current_user, only: :index
       resources :measurements, except: %i[new edit]
       resources :users, only: :index
+      resources :map_settings, only: %i[index update]
     end
   end
 

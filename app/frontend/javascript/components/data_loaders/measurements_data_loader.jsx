@@ -5,12 +5,14 @@ import fetchLink from "../../helpers/fetch_link";
 
 class MeasurementsDataLoader extends React.Component {
   fetchMeasurements () {
+    const { setMeasurements, setFullPageBlock } = this.props;
+
     fetchLink({
       link: "/api/v1/measurements",
       onSuccess: (response) => {
-        this.props.setMeasurements(
-          response.measurements.map(({ data: { attributes: { id, longitude, latitude, value, comment, user_id: userId } } }) => (
-            { id, longitude, latitude, value, comment, userId }
+        setMeasurements(
+          response.measurements.map(({ data: { attributes: { id, longitude, latitude, value_urh, value_ush, user_id: userId } } }) => (
+            { id, longitude, latitude, value_urh, value_ush, userId }
           ))
         );
       },
@@ -18,7 +20,7 @@ class MeasurementsDataLoader extends React.Component {
         // TODO: add parsing of internal server errors
         throw new Error(error);
       },
-      onComplete: () => this.props.setFullPageBlock(false)
+      onComplete: () => setFullPageBlock(false)
     })
   }
 
@@ -28,7 +30,7 @@ class MeasurementsDataLoader extends React.Component {
   }
 
   render () {
-    return null
+    return null;
   }
 }
 

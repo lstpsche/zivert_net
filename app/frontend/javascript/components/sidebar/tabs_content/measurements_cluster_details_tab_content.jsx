@@ -10,9 +10,11 @@ class MeasurementsClusterDetailsTabContent extends React.Component {
   }
 
   renderInformation (measurementsCluster, measurements) {
+    const { valueUnits } = this.props;
+
     return (
       <div id="measurements-cluster-information">
-        <MeasurementsClusterInfo measurementsCluster={measurementsCluster} measurements={measurements} />
+        <MeasurementsClusterInfo measurementsCluster={measurementsCluster} measurements={measurements} valueUnits={valueUnits} />
         <MeasurementsClusterMeasurements measurements={measurements} />
       </div>
     )
@@ -42,11 +44,13 @@ class MeasurementsClusterDetailsTabContent extends React.Component {
 
 const mapStateToProps = ({
   measurements,
-  sidebar: { data: { cluster: measurementsCluster, clusterMeasurements: clusterMeasurementsIds } }
+  sidebar: { data: { cluster: measurementsCluster, clusterMeasurements: clusterMeasurementsIds } },
+  mainMap: { settings: { units: valueUnits } }
 }) => ({
   measurements,
   measurementsCluster,
-  clusterMeasurementsIds
+  clusterMeasurementsIds,
+  valueUnits
 });
 
 export default connect(mapStateToProps)(MeasurementsClusterDetailsTabContent);

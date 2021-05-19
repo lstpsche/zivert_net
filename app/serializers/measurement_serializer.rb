@@ -3,5 +3,5 @@
 class MeasurementSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :id, :latitude, :longitude, :value, :comment, :user_id
+  attributes :id, :latitude, :longitude, :value_urh, :value_ush, :user_id
 end
