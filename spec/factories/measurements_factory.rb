@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory Measurement do
-    sequence(:value) { rand(100) }
+    sequence(:value_urh) { rand(100) }
+    sequence(:value_ush) { rand(100) }
     sequence(:latitude) { rand(100) }
     sequence(:longitude) { rand(100) }
     association :user

@@ -37,4 +37,7 @@ en:
           longitude: Longitude
           note_html: Drag a marker on the map to the place you want to add measurement from
           radiation_value: Radiation value
-          mcrh: μR/h
+        appends:
+          units:
+            urh: μR/h
+            ush: μSv/h

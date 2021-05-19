@@ -1,5 +1,6 @@
 import truncate from "../../../../helpers/truncate";
-import countClusterValue from "../../../../helpers/count_cluster_value";
+import { countClusterValue } from "../../../../helpers/count_cluster_value";
+import roundValue from "../../../../helpers/round_value";
 
 class MeasurementsClusterInfo extends React.Component {
   constructor(props) {
@@ -9,14 +10,14 @@ class MeasurementsClusterInfo extends React.Component {
   }
 
   clusterValue () {
-    const { measurements } = this.props;
-    const measurementsValues = measurements.map(measurement => measurement.value);
+    const { measurements, valueUnits } = this.props;
+    const measurementsValues = measurements.map(measurement => measurement["value_" + valueUnits]);
 
     return countClusterValue(measurementsValues)
   }
 
   overallValue () {
-    return Math.round(this.clusterValue());
+    return roundValue(this.clusterValue(), 2);
   }
 
   renderInfoOverall () {
@@ -93,7 +94,8 @@ class MeasurementsClusterInfo extends React.Component {
 
 MeasurementsClusterInfo.propTypes = {
   measurementsCluster: PropTypes.object,
-  measurements: PropTypes.array.isRequired
+  measurements: PropTypes.array.isRequired,
+  valueUnits: PropTypes.string.isRequired
 }
 
 export default MeasurementsClusterInfo;

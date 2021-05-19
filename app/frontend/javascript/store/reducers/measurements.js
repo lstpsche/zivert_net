@@ -21,7 +21,7 @@ import {
 } from "../actionTypes/measurements";
 
 function measurements(state = [], action) {
-  const { type: actionType, id, latitude, longitude, value, comment, userId } = action;
+  const { type: actionType, id, latitude, longitude, value_urh, value_ush, userId } = action;
 
   switch(actionType) {
     case SET_MEASUREMENTS:
@@ -30,12 +30,12 @@ function measurements(state = [], action) {
     case ADD_MEASUREMENT:
       return [
         ...state,
-        { id, latitude, longitude, value, comment, userId }
+        { id, latitude, longitude, value_urh, value_ush, userId }
       ];
 
     case UPDATE_MEASUREMENT:
       return state.map(measurement =>
-        measurement.id === id ? { ...measurement, latitude, longitude, value, comment } : measurement
+        measurement.id === id ? { ...measurement, latitude, longitude, value_urh, value_ush } : measurement
       );
 
     case REMOVE_MEASUREMENT:

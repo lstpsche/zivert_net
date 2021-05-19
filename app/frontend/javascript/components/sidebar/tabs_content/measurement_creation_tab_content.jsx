@@ -9,11 +9,13 @@ class MeasurementCreationTabContent extends React.Component {
     super(props);
 
     this.state = {
-      value: ""
+      value: "",
+      units: this.props.defaultUnits
     }
 
     this.handleValueChange = this.handleValueChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.onUnitsChange = this.onUnitsChange.bind(this);
   }
 
   handleValueChange ({ target: { value } }) {
@@ -28,6 +30,10 @@ class MeasurementCreationTabContent extends React.Component {
 
     closeSidebar();
     setMeasurementCreationData({ value: "", latitude: "", longitude: "" });
+  }
+
+  onUnitsChange ({ target: { value } }) {
+    this.setState({ units: value });
   }
 
   renderNote () {
@@ -90,13 +96,35 @@ class MeasurementCreationTabContent extends React.Component {
           onChange={this.handleValueChange}
         />
 
-        <InputGroup.Append>
-          <InputGroup.Text id="value-append">
-            { I18n.t("sidebar.tabs.measurement_creation.labels.mcrh") }
-          </InputGroup.Text>
-        </InputGroup.Append>
+        { this.renderValueAppend() }
       </InputGroup>
     )
+  }
+
+  renderValueAppend () {
+    const { units } = this.state;
+
+    return (
+      <InputGroup.Append>
+        <FormControl
+          as="select"
+          id="value-append-units-select"
+          name="units"
+          value={units}
+          onChange={this.onUnitsChange}
+        >
+          { this.renderUnitsOptions() }
+        </FormControl>
+      </InputGroup.Append>
+    )
+  }
+
+  renderUnitsOptions () {
+    const { unitsOptions } = this.props;
+
+    return unitsOptions.map(unitOption => {
+      return <option key={unitOption + "-option-key"} value={unitOption}>{ I18n.t('sidebar.tabs.measurement_creation.appends.units.' + unitOption) }</option>
+    })
   }
 
   isSendButtonDisabled () {
@@ -107,12 +135,12 @@ class MeasurementCreationTabContent extends React.Component {
 
   submitForm () {
     const { latitude, longitude } = this.props;
-    const { value } = this.state;
+    const { value, units } = this.state;
 
     fetchLink({
       link: "/api/v1/measurements",
       method: "POST",
-      body: JSON.stringify({ measurement: { latitude, longitude, value } }),
+      body: JSON.stringify({ measurement: { latitude, longitude, ["value_" + units]: value } }),
       onSuccess: ({ success, errors }) => {
         if (success) {
           this.onMeasurementCreate();
@@ -137,6 +165,11 @@ class MeasurementCreationTabContent extends React.Component {
     )
   }
 
+  componentDidUpdate(prevProps, _prevState, _snapshot) {
+    if (this.props.measurementCreationState && !prevProps.measurementCreationState)
+      this.setState({ value: "", units: this.props.defaultUnits })
+  }
+
   render () {
     const { selectedTabId, measurementCreationState } = this.props;
 
@@ -145,7 +178,7 @@ class MeasurementCreationTabContent extends React.Component {
     }
 
     return (
-      <div id="map-settings-tab-content">
+      <div id="measurement-creation-tab-content">
         { this.renderNote() }
         <div id="coordinates-block">
           { this.renderCoordinatesFields() }
@@ -161,11 +194,13 @@ class MeasurementCreationTabContent extends React.Component {
 
 const mapStateToProps = ({
   sidebar: { selectedTabId },
-  userActions: { measurementCreation: { state: measurementCreationState, data: { latitude, longitude } } }
+  userActions: { measurementCreation: { state: measurementCreationState, data: { latitude, longitude } } },
+  mainMap: { settings: { units: defaultUnits }, settingsOptions: { units: unitsOptions } }
 }) => ({
   selectedTabId,
   measurementCreationState,
-  latitude, longitude
+  latitude, longitude,
+  defaultUnits, unitsOptions
 });
 
 const mapDispatchToProps = dispatch => ({

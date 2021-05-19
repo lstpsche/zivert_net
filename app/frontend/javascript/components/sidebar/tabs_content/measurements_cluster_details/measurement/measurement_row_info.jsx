@@ -104,13 +104,14 @@ class MeasurementRowInfo extends React.Component {
   }
 
   render () {
-    const { measurement: { userId, value } } = this.props;
+    const { valueUnits } = this.props;
+    const { measurement: { userId, ["value_" + valueUnits]: measurementValue } } = this.props;
     const { removeConfirmationShowed } = this.state;
 
     return (
       <div ref={(el) => this.measurementRow = el} className="measurement-row info">
         <div className="measurement-value-container">
-          <span className="measurement-value">{ value }</span>
+          <span className="measurement-value">{ measurementValue }</span>
         </div>
 
         <div className={ "measurement-details" + (removeConfirmationShowed ? " remove-confirmation" : "") }>
@@ -136,6 +137,14 @@ MeasurementRowInfo.propTypes = {
   onRemoveCallback: PropTypes.func
 }
 
-const mapStateToProps = ({ currentUser: { id, admin }, users }) => ({ currentUserId: id, isAdmin: admin, users });
+const mapStateToProps = ({
+  currentUser: { id: currentUserId, admin: isAdmin },
+  mainMap: { settings: { units: valueUnits } },
+  users
+}) => ({
+  currentUserId, isAdmin,
+  valueUnits,
+  users
+});
 
 export default connect(mapStateToProps)(MeasurementRowInfo);

@@ -16,6 +16,8 @@ module ZivertNet
 
     config.middleware.use I18n::JS::Middleware
 
+    config.autoload_paths += %W(#{Rails.root}/app/services)
+
     config.generators do |g|
       g.factory_bot suffix: 'factory'
     end

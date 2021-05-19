@@ -40,7 +40,7 @@ import {
 } from "../actionTypes/main_map";
 
 function mainMap(state = {}, action) {
-  const { type: actionType, block, layerName, layerSelected, ref, settings, units, settingsOptions } = action;
+  const { type: actionType, block, layerName, layerSelected, ref, settings, settingsOptions } = action;
 
   switch(actionType) {
     case SET_MAIN_MAP_BLOCK:
@@ -56,7 +56,7 @@ function mainMap(state = {}, action) {
     case SET_OVERLAY_LAYER:
       let overlays = {
         ...state.layers.overlays,
-        [layerName]: { layerSelected }
+        [layerName]: { selected: layerSelected }
       };
       return { ...state, layers: { ...state.layers, overlays } };
 

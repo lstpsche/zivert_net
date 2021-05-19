@@ -23,7 +23,7 @@ const defaultStoreValue = {
     settings: {
       id: undefined,
       user_id: undefined,
-      units: undefined
+      units: "urh"
     },
     settingsOptions: {
       units: []

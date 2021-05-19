@@ -19,7 +19,7 @@ describe Measurement, type: :model do
     end
 
     describe 'after_update' do
-      subject { measurement.update(value: rand(100)) }
+      subject { measurement.update(value_urh: rand(100)) }
 
       let(:measurement) { create(:measurement) }
 

@@ -15,7 +15,8 @@
 import {
   ENABLE_MEASUREMENT_CREATION,
   DISABLE_MEASUREMENT_CREATION,
-  SET_MEASUREMENT_CREATION_DATA
+  SET_MEASUREMENT_CREATION_DATA,
+  SET_MEASUREMENT_CREATION_COORDINATES
 } from "../actionTypes/user_actions";
 
 function userActions(state = {}, action) {
@@ -36,6 +37,18 @@ function userActions(state = {}, action) {
           data: {
             ...state.measurementCreation.data,
             value, latitude, longitude
+          }
+        }
+      };
+
+    case SET_MEASUREMENT_CREATION_COORDINATES:
+      return {
+        ...state,
+        measurementCreation: {
+          ...state.measurementCreation,
+          data: {
+            ...state.measurementCreation.data,
+            latitude, longitude
           }
         }
       };

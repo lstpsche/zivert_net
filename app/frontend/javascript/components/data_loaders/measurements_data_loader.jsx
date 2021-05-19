@@ -11,8 +11,8 @@ class MeasurementsDataLoader extends React.Component {
       link: "/api/v1/measurements",
       onSuccess: (response) => {
         setMeasurements(
-          response.measurements.map(({ data: { attributes: { id, longitude, latitude, value, comment, user_id: userId } } }) => (
-            { id, longitude, latitude, value, comment, userId }
+          response.measurements.map(({ data: { attributes: { id, longitude, latitude, value_urh, value_ush, user_id: userId } } }) => (
+            { id, longitude, latitude, value_urh, value_ush, userId }
           ))
         );
       },

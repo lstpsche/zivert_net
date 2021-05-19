@@ -122,16 +122,16 @@ class Sidebar extends React.Component {
 
     if (selectedTabId === "measurement-creation-tab" && !sidebarCollapsed)
       this.onMeasurementCreationTabSelected();
+    else
+      switch(prevProps.selectedTabId) {
+        case "measurement-creation-tab":
+          this.onMeasurementCreationTabUnselected();
+          break;
 
-    switch(prevProps.selectedTabId) {
-      case "measurement-creation-tab":
-        this.onMeasurementCreationTabUnselected();
-        break;
-
-      case "map-settings-tab":
-        this.onMapSettingsTabUnselected();
-        break;
-    }
+        case "map-settings-tab":
+          this.onMapSettingsTabUnselected();
+          break;
+      }
   }
 
   render () {

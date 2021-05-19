@@ -3,32 +3,47 @@ import { showSidebar, setSidebarCluster, setSidebarClusterMeasurements } from ".
 import generateMarkerClassName from "../../../../../helpers/generate_marker_class_name";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import MeasurementMarker from "../../measurement_marker";
-import countClusterValue from "../../../../../helpers/count_cluster_value";
+import { countRoundedClusterValue } from "../../../../../helpers/count_cluster_value";
 
 class MeasurementsLayer extends React.Component {
-  measurementsMarkers () {
-    const { measurements } = this.props;
+  constructor(props) {
+    super(props);
 
-    return measurements.map(({ id, latitude, longitude, value }) => {
+    this.clusterIcon = this.clusterIcon.bind(this);
+  }
+
+  measurementsMarkers () {
+    const { measurements, valueUnits } = this.props;
+
+    return measurements.map(({ id, latitude, longitude, value_urh, value_ush }) => {
       return (
         <MeasurementMarker
           key={"measurement-marker-" + id}
           id={id}
           latitude={latitude}
           longitude={longitude}
-          value={value}
+          value_urh={value_urh}
+          value_ush={value_ush}
+          valueUnits={valueUnits}
         />
       )
     })
   }
 
-  regionIcon (cluster) {
-    const childrenValues = cluster.getAllChildMarkers().map(marker => parseInt(marker.options.text));
+  clusterIcon (cluster) {
+    const { valueUnits, unitsOptions } = this.props;
+    let clusterValuesInUnits = {};
 
-    const clusterValue = countClusterValue(childrenValues);
-    const className = generateMarkerClassName(clusterValue);
+    unitsOptions.forEach(unitOption => {
+      const childrenValues = cluster.getAllChildMarkers().map(marker => marker.options["measurementValue_" + unitOption]);
 
-    return new L.DivIcon({ html: "<div><div>" + clusterValue + "</div></div>", className: "marker-icon " + className });
+      return clusterValuesInUnits[unitOption] = countRoundedClusterValue(childrenValues, 2);
+    });
+
+    const className = generateMarkerClassName(clusterValuesInUnits.urh);
+    const currentClusterValue = clusterValuesInUnits[valueUnits];
+
+    return new L.DivIcon({ html: "<div><div>" + currentClusterValue + "</div></div>", className: "marker-icon " + className });
   }
 
   onClusterClick (cluster) {
@@ -54,7 +69,7 @@ class MeasurementsLayer extends React.Component {
         removeOutsideVisibleBounds={true}
         animate={true}
         animateAddingMarkers={true}
-        iconCreateFunction={this.regionIcon}
+        iconCreateFunction={this.clusterIcon}
       >
         { this.measurementsMarkers() }
       </MarkerClusterGroup>
@@ -62,7 +77,17 @@ class MeasurementsLayer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ measurements }) => ({ measurements });
+const mapStateToProps = ({
+  measurements,
+  mainMap: {
+   settings: { units: valueUnits },
+   settingsOptions: { units: unitsOptions }
+  }
+}) => ({
+  measurements,
+  valueUnits,
+  unitsOptions
+});
 
 const mapDispatchToProps = dispatch => ({
   showClusterSidebar: () => dispatch(showSidebar({ selectedTabId: "measurements-cluster-details-tab" })),
