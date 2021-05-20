@@ -7,6 +7,7 @@ import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
 import MeasurementsLayer from "./map_layers/overlays/measurements_layer";
 import MeasurementCreationLayer from "./map_layers/overlays/measurement_creation_layer";
+import CustomHeatmapLayer from "./map_layers/overlays/heatmap_layer";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -37,11 +38,12 @@ class MapBase extends React.Component {
 
   render () {
     const { center, zoom, regularMapSelected, setMainMapRef, measurementCreationEnabled } = this.props;
-    let { dimmedLayerSelected, measurementsLayerSelected } = this.props;
+    let { dimmedLayerSelected, measurementsLayerSelected, heatmapLayerSelected } = this.props;
 
     if (measurementCreationEnabled) {
       dimmedLayerSelected = true
       measurementsLayerSelected = false
+      heatmapLayerSelected = false
     }
 
     return (
@@ -70,6 +72,10 @@ class MapBase extends React.Component {
           <LayersControl.Overlay checked={measurementCreationEnabled} name={I18n.t("map.layers.overlay.measurements")}>
             <MeasurementCreationLayer />
           </LayersControl.Overlay>
+
+          <LayersControl.Overlay checked={heatmapLayerSelected} name={I18n.t("map.layers.overlay.heatmap")}>
+            <CustomHeatmapLayer />
+          </LayersControl.Overlay>
         </LayersControl>
       </MapLeaflet>
     )
@@ -95,6 +101,7 @@ const mapStateToProps = ({
   regularMapSelected: layers.base.regularMap.selected,
   dimmedLayerSelected: layers.overlays.dimmer.selected,
   measurementsLayerSelected: layers.overlays.measurements.selected,
+  heatmapLayerSelected: layers.overlays.heatmap.selected,
   measurementCreationEnabled
 });
 

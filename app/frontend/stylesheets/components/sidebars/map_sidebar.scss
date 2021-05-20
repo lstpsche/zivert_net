@@ -3,6 +3,15 @@
   max-height: 900px;
   transition: max-height .3s, width .3s;
 
+  .sidebar-tabs {
+    ul[role="tablist"] {
+      li.active {
+        background-color: #ffa414;
+        color: #e9ecef;
+      }
+    }
+  }
+
   .sidebar-close {
     display: none;
   }
@@ -27,6 +36,10 @@
   .sidebar-pane {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .sidebar-content {
+    background-color: white;
   }
 
   &.collapsed {

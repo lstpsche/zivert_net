@@ -158,65 +158,172 @@ describe Api::V1::MeasurementsController, type: :controller do
         context 'when measurement belongs to user' do
           let(:measurement_user_id) { user.id }
 
-          context 'when measurement was destroyed' do
-            let(:destroyed) { true }
-            let(:serialized_measurement) { double(:serialized_measurement) }
-            let(:expected_result) do
-              {
-                success: true,
-                errors: []
-              }.to_json
+          context 'when user is admin' do
+            let(:user) { create(:user, admin: true) }
+
+            context 'when measurement was destroyed' do
+              let(:destroyed) { true }
+              let(:serialized_measurement) { double(:serialized_measurement) }
+              let(:expected_result) do
+                {
+                  success: true,
+                  errors: []
+                }.to_json
+              end
+
+              before do
+                allow(measurement).to receive(:json).with(no_args).and_return(serialized_measurement)
+                allow(measurement)
+                  .to receive_message_chain(:errors, :messages)
+                  .with(no_args).with(no_args)
+                  .and_return([])
+              end
+
+              it { is_expected.to have_http_status(:ok) }
+
+              it 'renders json with error message' do
+                subject
+
+                expect(response.body).to eq(expected_result)
+              end
             end
 
-            before do
-              allow(measurement).to receive(:json).with(no_args).and_return(serialized_measurement)
-              allow(measurement)
-                .to receive_message_chain(:errors, :messages)
-                .with(no_args).with(no_args)
-                .and_return([])
-            end
+            context 'when measurement was not destroyed' do
+              let(:destroyed) { false }
+              let(:measurement_errors_messages) { double(:measurement_errors_messages) }
+              let(:expected_result) { { success: false, errors: measurement_errors_messages }.to_json }
 
-            it { is_expected.to have_http_status(:ok) }
+              before do
+                allow(measurement).to receive_message_chain(:errors, :messages)
+                  .with(no_args).with(no_args)
+                  .and_return(measurement_errors_messages)
+              end
 
-            it 'renders json with error message' do
-              subject
+              it { is_expected.to have_http_status(:ok) }
 
-              expect(response.body).to eq(expected_result)
+              it 'renders json with error message' do
+                subject
+
+                expect(response.body).to eq(expected_result)
+              end
             end
           end
 
-          context 'when measurement was not destroyed' do
-            let(:destroyed) { false }
-            let(:measurement_errors_messages) { double(:measurement_errors_messages) }
-            let(:expected_result) { { success: false, errors: measurement_errors_messages }.to_json }
+          context 'when user is not admin' do
+            context 'when measurement was destroyed' do
+              let(:destroyed) { true }
+              let(:serialized_measurement) { double(:serialized_measurement) }
+              let(:expected_result) do
+                {
+                  success: true,
+                  errors: []
+                }.to_json
+              end
 
-            before do
-              allow(measurement).to receive_message_chain(:errors, :messages)
-                .with(no_args).with(no_args)
-                .and_return(measurement_errors_messages)
+              before do
+                allow(measurement).to receive(:json).with(no_args).and_return(serialized_measurement)
+                allow(measurement)
+                  .to receive_message_chain(:errors, :messages)
+                  .with(no_args).with(no_args)
+                  .and_return([])
+              end
+
+              it { is_expected.to have_http_status(:ok) }
+
+              it 'renders json with error message' do
+                subject
+
+                expect(response.body).to eq(expected_result)
+              end
             end
 
-            it { is_expected.to have_http_status(:ok) }
+            context 'when measurement was not destroyed' do
+              let(:destroyed) { false }
+              let(:measurement_errors_messages) { double(:measurement_errors_messages) }
+              let(:expected_result) { { success: false, errors: measurement_errors_messages }.to_json }
 
-            it 'renders json with error message' do
-              subject
+              before do
+                allow(measurement).to receive_message_chain(:errors, :messages)
+                  .with(no_args).with(no_args)
+                  .and_return(measurement_errors_messages)
+              end
 
-              expect(response.body).to eq(expected_result)
+              it { is_expected.to have_http_status(:ok) }
+
+              it 'renders json with error message' do
+                subject
+
+                expect(response.body).to eq(expected_result)
+              end
             end
           end
         end
 
         context 'when measurement does not belong to user' do
           let(:measurement_user_id) { user.id + 1 }
-          let(:expected_result) { { error: 'not permitted error' }.to_json }
-          let(:destroyed) { nil }
 
-          it { is_expected.to have_http_status(:bad_request) }
+          context 'when user is admin' do
+            let(:user) { create(:user, admin: true) }
 
-          it 'renders json with error message' do
-            subject
+            context 'when measurement was destroyed' do
+              let(:destroyed) { true }
+              let(:serialized_measurement) { double(:serialized_measurement) }
+              let(:expected_result) do
+                {
+                  success: true,
+                  errors: []
+                }.to_json
+              end
 
-            expect(response.body).to eq(expected_result)
+              before do
+                allow(measurement).to receive(:json).with(no_args).and_return(serialized_measurement)
+                allow(measurement)
+                  .to receive_message_chain(:errors, :messages)
+                  .with(no_args).with(no_args)
+                  .and_return([])
+              end
+
+              it { is_expected.to have_http_status(:ok) }
+
+              it 'renders json with error message' do
+                subject
+
+                expect(response.body).to eq(expected_result)
+              end
+            end
+
+            context 'when measurement was not destroyed' do
+              let(:destroyed) { false }
+              let(:measurement_errors_messages) { double(:measurement_errors_messages) }
+              let(:expected_result) { { success: false, errors: measurement_errors_messages }.to_json }
+
+              before do
+                allow(measurement).to receive_message_chain(:errors, :messages)
+                  .with(no_args).with(no_args)
+                  .and_return(measurement_errors_messages)
+              end
+
+              it { is_expected.to have_http_status(:ok) }
+
+              it 'renders json with error message' do
+                subject
+
+                expect(response.body).to eq(expected_result)
+              end
+            end
+          end
+
+          context 'when user is not admin' do
+            let(:expected_result) { { error: 'not permitted error' }.to_json }
+            let(:destroyed) { nil }
+
+            it { is_expected.to have_http_status(:bad_request) }
+
+            it 'renders json with error message' do
+              subject
+
+              expect(response.body).to eq(expected_result)
+            end
           end
         end
       end
