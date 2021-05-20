@@ -12,7 +12,7 @@ en:
           latitude: 'Latitude: '
           longitude: 'Longitude: '
           measurements: Measurements
-          overall: Overall
+          overall: Overall value
           rad_value: 'Precise radiation value: '
       map_settings:
         base_map:
