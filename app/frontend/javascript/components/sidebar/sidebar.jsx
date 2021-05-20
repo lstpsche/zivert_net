@@ -19,6 +19,7 @@ class Sidebar extends React.Component {
 
     this.renderUserMeasurementsHistoryTab = this.renderUserMeasurementsHistoryTab.bind(this);
     this.onSidebarClose = this.onSidebarClose.bind(this);
+    this.onEscapePress = this.onEscapePress.bind(this);
   }
 
   onSidebarClose () {
@@ -117,8 +118,28 @@ class Sidebar extends React.Component {
     });
   }
 
+  fieldStateChangedTo (state, fieldName, prevProps) {
+    const currentValue = this.props[fieldName];
+
+    return (currentValue === !prevProps[fieldName]) && (currentValue === state)
+  }
+
+  onEscapePress ({ key }) {
+    if (key === "Escape") {
+      this.onSidebarClose();
+    }
+  }
+
   componentDidUpdate (prevProps, _prevState, _snapshot) {
     const { selectedTabId, sidebarCollapsed } = this.props;
+
+    if (this.fieldStateChangedTo(false, "sidebarCollapsed", prevProps)) {
+      document.addEventListener('keydown', this.onEscapePress);
+    }
+
+    if (this.fieldStateChangedTo(true, "sidebarCollapsed", prevProps)) {
+      document.removeEventListener('keydown', this.onEscapePress);
+    }
 
     if (selectedTabId === "measurement-creation-tab" && !sidebarCollapsed)
       this.onMeasurementCreationTabSelected();

@@ -17,6 +17,7 @@ const defaultStoreValue = {
       },
       overlays: {
         dimmer: { selected: false },
+        heatmap: { selected: false },
         measurements: { selected: true }
       }
     },

@@ -23,6 +23,7 @@ en:
           header: Overlay layers
           labels:
             dimmer: Dim map
+            heatmap: Heatmap
             measurements: Measurements
         map_settings:
           header: Settings
