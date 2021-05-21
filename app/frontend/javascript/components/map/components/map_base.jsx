@@ -8,6 +8,7 @@ import DimmedLayer from "./map_layers/overlays/dimmed_layer";
 import MeasurementsLayer from "./map_layers/overlays/measurements_layer";
 import MeasurementCreationLayer from "./map_layers/overlays/measurement_creation_layer";
 import CustomHeatmapLayer from "./map_layers/overlays/heatmap_layer";
+import HexagonsLayer from "./map_layers/overlays/hexagons_layer";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -38,12 +39,21 @@ class MapBase extends React.Component {
 
   render () {
     const { center, zoom, regularMapSelected, setMainMapRef, measurementCreationEnabled } = this.props;
-    let { dimmedLayerSelected, measurementsLayerSelected, heatmapLayerSelected } = this.props;
+    let { dimmedLayerSelected, measurementsLayerSelected, heatmapLayerSelected, hexagonsLayerSelected } = this.props;
 
-    if (measurementCreationEnabled) {
-      dimmedLayerSelected = true
-      measurementsLayerSelected = false
-      heatmapLayerSelected = false
+    switch (true) {
+      case measurementCreationEnabled:
+        dimmedLayerSelected = true
+        measurementsLayerSelected = false
+        heatmapLayerSelected = false
+        hexagonsLayerSelected = false
+        break;
+
+      case hexagonsLayerSelected:
+        dimmedLayerSelected = false
+        measurementsLayerSelected = false
+        heatmapLayerSelected = false
+        break;
     }
 
     return (
@@ -76,6 +86,13 @@ class MapBase extends React.Component {
           <LayersControl.Overlay checked={heatmapLayerSelected} name={I18n.t("map.layers.overlay.heatmap")}>
             <CustomHeatmapLayer />
           </LayersControl.Overlay>
+
+          {
+            // LayersControl.Overlay can't control hexagons layer, so will use this crutch
+            hexagonsLayerSelected
+              ? <HexagonsLayer />
+              : null
+          }
         </LayersControl>
       </MapLeaflet>
     )
@@ -102,6 +119,7 @@ const mapStateToProps = ({
   dimmedLayerSelected: layers.overlays.dimmer.selected,
   measurementsLayerSelected: layers.overlays.measurements.selected,
   heatmapLayerSelected: layers.overlays.heatmap.selected,
+  hexagonsLayerSelected: layers.overlays.hexagons.selected,
   measurementCreationEnabled
 });
 

@@ -24,44 +24,16 @@ class OverlayLayersSelection extends BaseSelection {
     )
   }
 
-  renderDimmerCheck () {
+  renderOverlayCheck (name) {
     return (
       <Form.Check
         type="checkbox"
         className="map-setting-checkbox"
-        label={ I18n.t("sidebar.tabs.map_settings.overlay_layers.labels.dimmer") }
-        id="dimmer-layer-checkbox"
-        name="dimmer"
+        label={ I18n.t("sidebar.tabs.map_settings.overlay_layers.labels." + name) }
+        id={name + "-layer-checkbox"}
+        name={name}
         onChange={this.onOverlayChange}
-        checked={this.isChecked("dimmer")}
-      />
-    )
-  }
-
-  renderMeasurementsCheck () {
-    return (
-      <Form.Check
-        type="checkbox"
-        className="map-setting-checkbox"
-        label={ I18n.t("sidebar.tabs.map_settings.overlay_layers.labels.measurements") }
-        id="measurements-layer-checkbox"
-        name="measurements"
-        onChange={this.onOverlayChange}
-        checked={this.isChecked("measurements")}
-      />
-    )
-  }
-
-  renderHeatmapCheck () {
-    return (
-      <Form.Check
-        type="checkbox"
-        className="map-setting-checkbox"
-        label={ I18n.t("sidebar.tabs.map_settings.overlay_layers.labels.heatmap") }
-        id="heatmap-layer-checkbox"
-        name="heatmap"
-        onChange={this.onOverlayChange}
-        checked={this.isChecked("heatmap")}
+        checked={this.isChecked(name)}
       />
     )
   }
@@ -69,9 +41,10 @@ class OverlayLayersSelection extends BaseSelection {
   renderSectionBody () {
     return (
       <div>
-        { this.renderDimmerCheck() }
-        { this.renderMeasurementsCheck() }
-        { this.renderHeatmapCheck() }
+        { this.renderOverlayCheck("dimmer") }
+        { this.renderOverlayCheck("measurements") }
+        { this.renderOverlayCheck("heatmap") }
+        { this.renderOverlayCheck("hexagons") }
       </div>
     )
   }

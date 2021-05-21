@@ -24,6 +24,7 @@ en:
           labels:
             dimmer: Dim map
             heatmap: Heatmap
+            hexagons: Hexagons
             measurements: Measurements
         map_settings:
           header: Settings
