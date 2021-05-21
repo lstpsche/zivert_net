@@ -17,7 +17,10 @@ class MeasurementsClusterInfo extends React.Component {
   }
 
   overallValue () {
-    return roundValue(this.clusterValue(), 2);
+    const value = this.clusterValue();
+    const precision = 4 - value.toString().split(".")[0].length;
+
+    return roundValue(value, precision < 0 ? 0 : precision);
   }
 
   renderInfoOverall () {
