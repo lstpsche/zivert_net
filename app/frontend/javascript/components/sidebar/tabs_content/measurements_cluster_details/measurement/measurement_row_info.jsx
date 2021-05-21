@@ -30,12 +30,6 @@ class MeasurementRowInfo extends React.Component {
     return `${firstName} ${lastName}`.trim() + ` (@${nickname})`;
   }
 
-  isAuthor (measurementAuthorId) {
-    const { currentUserId, isAdmin } = this.props;
-
-    return (isAdmin || currentUserId === measurementAuthorId)
-  }
-
   handleRemoveClick () {
     const { onRemoveCallback } = this.props;
     const { removeConfirmationShowed } = this.state;
@@ -84,7 +78,7 @@ class MeasurementRowInfo extends React.Component {
     const { measurement: { comment } } = this.props;
 
     return (
-      <div>
+      <div className="measurement-details">
         <div className="measurement-author-info">{ this.authorFullName(user) }</div>
         <EllipsisWithTooltip placement="bottom">
           <div className="measurement-comment">{ comment }</div>
@@ -93,20 +87,9 @@ class MeasurementRowInfo extends React.Component {
     )
   }
 
-  measurementRemoveConfirmation () {
-    return (
-      <div className="remove-confirmation">
-        <div className="remove-confirmation-text">
-          Click again to delete this measurement.
-        </div>
-      </div>
-    )
-  }
-
   render () {
     const { valueUnits } = this.props;
     const { measurement: { userId, ["value_" + valueUnits]: measurementValue } } = this.props;
-    const { removeConfirmationShowed } = this.state;
 
     return (
       <div ref={(el) => this.measurementRow = el} className="measurement-row info">
@@ -114,27 +97,14 @@ class MeasurementRowInfo extends React.Component {
           <span className="measurement-value">{ measurementValue }</span>
         </div>
 
-        <div className={ "measurement-details" + (removeConfirmationShowed ? " remove-confirmation" : "") }>
-          {
-            removeConfirmationShowed
-            ? this.measurementRemoveConfirmation()
-            : this.measurementDetails()
-          }
-        </div>
-
-        {
-          this.isAuthor(userId)
-          ? this.renderActionButtons()
-          : null
-        }
+        { this.measurementDetails() }
       </div>
     )
   }
 }
 
 MeasurementRowInfo.propTypes = {
-  measurement: PropTypes.object.isRequired,
-  onRemoveCallback: PropTypes.func
+  measurement: PropTypes.object.isRequired
 }
 
 const mapStateToProps = ({
