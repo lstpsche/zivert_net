@@ -1,59 +1,35 @@
 import { connect } from "react-redux";
 import { withLeaflet } from "react-leaflet";
-import { HexbinLayer } from 'react-leaflet-d3';
-const WrappedHexbinLayer = withLeaflet(HexbinLayer);
+import ReactLeafletD3Hexbin from "../../../../../lib/react-leaflet-d3-hexbin";
+import { countRoundedClusterValue } from "../../../../../helpers/count_cluster_value";
+const WrappedHexbinLayer = withLeaflet(ReactLeafletD3Hexbin);
 
 class HexagonsLayer extends React.Component {
   constructor(props) {
     super(props);
 
     this.options = {
-      colorScaleExtent: [1, 4],
-      radiusScaleExtent: [1, undefined],
-      colorRange: ['#f5e180', '#ef1717'],
-      radiusRange: [5, 12]
-    };
-
-    this.pointerEvents = this.pointerEvents.bind(this);
-    this.onHexagonClick = this.onHexagonClick.bind(this);
-  }
-
-  pointerEvents () {
-
-  }
-
-  onHexagonClick () {
-
-  }
-
-  geoJsonFeatureCollection () {
-    return {
-      type: "FeatureCollection",
-      crs: {
-        type: "name",
-        properties: {
-          name: "EPSG:4326"
-        }
-      },
-      features: this.measurementsData()
+      colorScaleRange: ['#f5e180', '#ffd402', '#f58d23', '#ef1717'],
+      latFunc: (measurement) => measurement.latitude,
+      lngFunc: (measurement) => measurement.longitude,
+      colorValueFunc: (measurement) => this.hexagonColor(measurement)
     };
   }
 
-  measurementsData () {
+  hexagonColor (hexagonData) {
+    const measurementsValues = hexagonData.map(({ o: measurementData }) => measurementData.value_urh);
+
+    return countRoundedClusterValue(measurementsValues);
+  }
+
+  measurementsLatLng () {
     const { measurements } = this.props;
 
     return measurements.map (measurement => (
-      {
-        type: "Feature",
-        id: measurement.id,
-        geometry: {
-          type: "Point",
-          coordinates: [parseFloat(measurement.longitude), parseFloat(measurement.latitude)]
-        },
-        properties: {
-          OBJECTID: measurement.id
-        }
-      }
+      [
+        measurement.longitude,
+        measurement.latitude
+      ]
     ));
   }
 
@@ -62,7 +38,7 @@ class HexagonsLayer extends React.Component {
       return null;
 
     return (
-      <WrappedHexbinLayer data={this.geoJsonFeatureCollection()} {...this.options} />
+      <WrappedHexbinLayer data={this.props.measurements} {...this.options} />
     )
   }
 }
