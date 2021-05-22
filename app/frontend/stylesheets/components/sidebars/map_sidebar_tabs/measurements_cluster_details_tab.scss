@@ -107,10 +107,6 @@
                 padding: 1px 15px 1px 5px;
                 width: inherit;
 
-                &.remove-confirmation {
-                  background-color: #f8d7da;
-                }
-
                 .measurement-author-info {
                   text-align: start;
                 }
@@ -121,17 +117,6 @@
                   text-overflow: ellipsis;
                   white-space: nowrap;
                   width: 95%;
-                }
-
-                .remove-confirmation {
-                  align-items: center;
-                  display: flex;
-                  justify-content: center;
-                  height: 100%;
-
-                  .remove-confirmation-text {
-                    font-size: 12px;
-                  }
                 }
               }
 

@@ -1,0 +1,23 @@
+.hexbin-hexagon {
+  fill-opacity: 0.7;
+  stroke: #75613b;
+  stroke-width: 1px;
+  transition: 200ms;
+}
+
+.hexbin-container:hover {
+  .hexbin-hexagon {
+    fill-opacity: 0.9;
+    stroke: #825600;
+    stroke-opacity: 1;
+    stroke-width: 1px;
+    transition: 200ms;
+  }
+}
+
+.hexbin-tooltip {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 8px;
+}

@@ -7,6 +7,7 @@ en:
       overlay:
         dim_map: Dim map
         heatmap: Heatmap
+        hexagons: Hexagons
         measurements: Measurements
     attribution:
       about_link: About

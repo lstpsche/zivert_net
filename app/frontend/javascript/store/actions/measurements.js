@@ -10,9 +10,9 @@ export const setMeasurements = (measurements) => ({
   measurements
 })
 
-export const addMeasurement = ({ attributes: { id, latitude, longitude, value_urh, value_ush, user_id } }) => ({
+export const addMeasurement = ({ attributes: { id, latitude, longitude, value_urh, value_ush, user_id, created_at } }) => ({
   type: ADD_MEASUREMENT,
-  id, latitude, longitude, value_urh, value_ush, userId: user_id
+  id, latitude, longitude, value_urh, value_ush, userId: user_id, createdAt: created_at
 })
 
 export const updateMeasurement = ({ id, latitude, longitude, value_urh, value_ush }) => ({
