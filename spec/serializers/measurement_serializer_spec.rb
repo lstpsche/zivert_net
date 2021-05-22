@@ -15,6 +15,7 @@ describe MeasurementSerializer do
       expect(result_json[:value_urh]).to eq(measurement.value_urh)
       expect(result_json[:value_ush]).to eq(measurement.value_ush)
       expect(result_json[:user_id]).to eq(measurement.user_id)
+      expect(result_json[:created_at]).to eq(measurement.created_at)
     end
   end
 end

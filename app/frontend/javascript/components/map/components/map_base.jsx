@@ -15,17 +15,6 @@ class MapBase extends React.Component {
     super(props);
 
     this.handleMapSnglClick = this.handleMapSnglClick.bind(this);
-    this.handleMapDblClick = this.handleMapDblClick.bind(this);
-  }
-
-  handleMapDblClick ({ originalEvent: { target: { className: targetClassName } }, latlng }) {
-    if (!this.props.signedIn)
-      return;
-
-    const targetClasses = targetClassName.split(" ");
-
-    if (targetClasses.includes("marker-icon"))
-      return;
   }
 
   handleMapSnglClick () {
@@ -63,8 +52,7 @@ class MapBase extends React.Component {
         center={center}
         zoom={zoom}
         onClick={this.handleMapSnglClick}
-        doubleClickZoom={false}
-        ondblclick={this.handleMapDblClick}
+        doubleClickZoom={true}
       >
         <LayersControl position="topleft">
           <LayersControl.BaseLayer checked={regularMapSelected} name={I18n.t("map.layers.base.map")}>

@@ -12,14 +12,23 @@ class HexagonsLayer extends React.Component {
       colorScaleRange: ['#f5e180', '#ffd402', '#f58d23', '#ef1717'],
       latFunc: (measurement) => measurement.latitude,
       lngFunc: (measurement) => measurement.longitude,
-      colorValueFunc: (measurement) => this.hexagonColor(measurement)
+      colorValueFunc: (measurement) => this.hexagonColor(measurement),
+      tooltip: { tooltipContent: this.hexagonPopupContent }
     };
+
+    this.hexagonPopupContent = this.hexagonPopupContent.bind(this);
   }
 
-  hexagonColor (hexagonData) {
-    const measurementsValues = hexagonData.map(({ o: measurementData }) => measurementData.value_urh);
+  hexagonColor (measurements) {
+    const measurementValues = measurements.map(({ o: measurement }) => measurement.value_urh);
 
-    return countRoundedClusterValue(measurementsValues);
+    return countRoundedClusterValue(measurementValues);
+  }
+
+  hexagonPopupContent (data) {
+    const text = countRoundedClusterValue(data.map(({ o }) => o.value_urh), 4)
+
+    return 'Overall value: ' + text;
   }
 
   measurementsLatLng () {
@@ -34,9 +43,6 @@ class HexagonsLayer extends React.Component {
   }
 
   render () {
-    if (this.props.measurements.length === 0)
-      return null;
-
     return (
       <WrappedHexbinLayer data={this.props.measurements} {...this.options} />
     )

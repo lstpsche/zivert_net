@@ -86,7 +86,6 @@ export default class ReactLeafletD3Hexbin extends MapLayer {
       tooltip
     } = props;
 
-
     if (tooltip) {
       hexLayer.hoverHandler(L.HexbinHoverHandler.tooltip(tooltip));
     }
