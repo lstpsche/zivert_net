@@ -23,15 +23,19 @@
 
 @import "react-block-ui/style.css";
 @import "loaders.css/loaders.min.css";
+@import "react-leaflet-markercluster/dist/styles.min.css";
 
 // components
+@import "./components/admin_panel.scss";
+@import "./components/auth.scss";
 @import "./components/block_ui.scss";
 @import "./components/common.scss";
 @import "./components/dropdown.scss";
 @import "./components/map/map.scss";
 @import "./components/modals/modal.scss";
 @import "./components/navbar.scss";
-@import "./components/auth.scss";
+@import "./components/settings.scss";
+@import "./components/sidebars/map_sidebar";
 
 :focus {
   outline: none !important;

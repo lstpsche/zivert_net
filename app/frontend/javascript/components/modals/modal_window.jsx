@@ -38,7 +38,7 @@ class ModalWindow extends React.Component {
           aria-hidden="true"
           className="button-loading-spinner"
         />
-        { I18n.t("modals.buttons.creating_geo_point") }
+        { I18n.t("modals.buttons.creating") }
       </Button>
     )
   }
@@ -46,7 +46,7 @@ class ModalWindow extends React.Component {
   regularSubmitButton () {
     return (
       <Button variant="outline-secondary" onClick={this.handleSubmit}>
-        { I18n.t("modals.buttons.create_geo_point") }
+        { I18n.t("modals.buttons.create") }
       </Button>
     )
   }

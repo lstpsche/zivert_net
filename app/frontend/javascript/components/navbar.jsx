@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Badge } from "react-bootstrap";
 import { showAboutModal } from "../store/actions/modals";
 import UserDropdown from "./common/user_dropdown";
 
@@ -31,9 +32,9 @@ class Navbar extends React.Component {
 
     if (isAdmin)
       return (
-        <span id="admin-badge" className="btn mr-2">
+        <Badge id="admin-badge" className="mr-2" variant="light">
           { I18n.t("common.admin") }
-        </span>
+        </Badge>
       )
   }
 
@@ -95,7 +96,7 @@ class Navbar extends React.Component {
       </nav>
     )
   }
-};
+}
 
 const mapStateToProps = ({ currentUser }) => ({ currentUser });
 

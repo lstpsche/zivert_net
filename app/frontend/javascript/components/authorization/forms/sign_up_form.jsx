@@ -1,12 +1,13 @@
-import { Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import FormBase from "./form_base";
+import { Row, Col, Form, Button } from "react-bootstrap";
+import AuthFormBase from "./auth_form_base";
 
-class SignUpForm extends FormBase {
+class SignUpForm extends AuthFormBase {
   constructor (props) {
     super(props);
 
     this.state = {
+      firstName: "",
+      lastName: "",
       username: "",
       password: "",
       passwordConfirmation: "",
@@ -15,33 +16,23 @@ class SignUpForm extends FormBase {
       error: ""
     }
 
-    this.isPasswordsMatch = this.isPasswordsMatch.bind(this);
-    this.isPasswordLengthValid = this.isPasswordLengthValid.bind(this);
-
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onFailure = this.onFailure.bind(this);
-
-    this.renderAlert = this.renderAlert.bind(this);
-    this.renderUsernameField = this.renderUsernameField.bind(this);
-    this.renderPasswordField = this.renderPasswordField.bind(this);
-    this.renderPasswordInvalidFeedback = this.renderPasswordInvalidFeedback.bind(this);
-
-    this.toggleAlert = this.toggleAlert.bind(this);
   }
 
   handleSubmit () {
     const { onSubmit } = this.props;
-    const { username, password, passwordConfirmation } = this.state;
+    const { firstName, lastName, username, password, passwordConfirmation } = this.state;
 
     if ((this.form.checkValidity() === false) || !this.isPasswordLengthValid() || !this.isPasswordsMatch()) {
       this.setState({ formValidated: true });
       return;
     }
 
-    onSubmit({ username, password, passwordConfirmation, failureCallback: this.onFailure });
+    onSubmit({ firstName, lastName, username, password, passwordConfirmation, failureCallback: this.onFailure });
   }
 
   onFailure ({ error }) {
@@ -54,9 +45,42 @@ class SignUpForm extends FormBase {
     this.toggleAlert(true);
   }
 
+  renderFirstNameField () {
+    return this.renderInput(
+      "firstName",
+      {
+        required: false,
+        label: "auth.fields.sign_up.labels.first_name"
+      }
+    )
+  }
+
+  renderLastNameField () {
+    return this.renderInput(
+      "lastName",
+      {
+        required: false,
+        label: "auth.fields.sign_up.labels.last_name"
+      }
+    )
+  }
+
+  renderFirstLastNameFieldsRow () {
+    return (
+      <Row className="first-last-name-row">
+        <Col className="first-name-col">
+          { this.renderFirstNameField() }
+        </Col>
+        <Col className="last-name-col">
+          { this.renderLastNameField() }
+        </Col>
+      </Row>
+    )
+  }
+
   renderPasswordInvalidFeedback () {
     if (this.isPasswordLengthValid())
-      return ""
+      return "";
 
     return (
       <Form.Control.Feedback type="invalid">
@@ -65,53 +89,41 @@ class SignUpForm extends FormBase {
     )
   }
 
-  renderPasswordConfirmationField () {
-    const { formValidated, passwordConfirmation } = this.state;
-
+  renderPasswordConfirmationInvalidFeedback () {
     return (
-      <Form.Group controlId="formPasswordConfirmation">
-        <Form.Label>
-          { I18n.t("auth.fields.sign_up.labels.password_confirmation") }
-        </Form.Label>
-        <Form.Control
-          required
-          type="password"
-          name="passwordConfirmation"
-          value={passwordConfirmation}
-          onChange={this.handleInputChange}
-          onKeyPress={this.handleKeyPress}
-          isValid={formValidated && this.isPasswordsMatch()}
-          isInvalid={formValidated && !this.isPasswordsMatch()}
-        />
-        {
-          this.isPasswordsMatch()
-          ? ""
-          : (
-            <Form.Control.Feedback type="invalid" className="password-confirmation-feedback">
-              { I18n.t("auth.fields.sign_up.errors.password_confirm") }
-            </Form.Control.Feedback>
-          )
-        }
-      </Form.Group>
+      this.isPasswordsMatch()
+        ? ""
+        : (
+          <Form.Control.Feedback type="invalid" className="password-confirmation-feedback">
+            { I18n.t("auth.fields.sign_up.errors.password_confirm") }
+          </Form.Control.Feedback>
+        )
     )
   }
 
-  renderFormActions () {
-    return (
-      <div className="form-actions">
-        <Link
-          to="/sign_in"
-          id="already-registered-link"
-          className="secondary-link bold"
-        >
-          { I18n.t("auth.buttons.already_registered") }
-        </Link>
-
-        <Button variant="secondary" type="button" className="submit-button" onClick={this.handleSubmit}>
-          { I18n.t("auth.buttons.sign_up") }
-        </Button>
-      </div>
+  renderPasswordConfirmationField () {
+    return this.renderValidatableInput(
+      "passwordConfirmation",
+      {
+        label: "auth.fields.sign_up.labels.password_confirmation",
+        type: "password",
+        required: true,
+        valid: this.isPasswordsMatch(),
+        invalidFeedback: this.renderPasswordConfirmationInvalidFeedback()
+      }
     )
+  }
+
+  renderActions () {
+    return this.renderFormActions({
+      additionalButtons: [{
+        linkTo: "/sign_in",
+        id: "already-registered-link",
+        className: "secondary-link bold",
+        text: "auth.buttons.already_registered"
+      }],
+      submitLabel: "auth.buttons.sign_up"
+    })
   }
 
   render () {
@@ -127,12 +139,13 @@ class SignUpForm extends FormBase {
         { this.renderAlert(error) }
 
         <div className="form-inputs">
+          { this.renderFirstLastNameFieldsRow() }
           { this.renderUsernameField("sign_up") }
-          { this.renderPasswordField("sign_up") }
+          { this.renderPasswordField("sign_up", this.renderPasswordInvalidFeedback()) }
           { this.renderPasswordConfirmationField() }
         </div>
 
-        { this.renderFormActions() }
+        { this.renderActions() }
       </Form>
     )
   }

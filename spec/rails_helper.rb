@@ -86,4 +86,8 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
+
+  config.before(:each, altering_database: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
 end

@@ -6,6 +6,8 @@ en:
         satellite: Satellite view
       overlay:
         dim_map: Dim map
-        geo_points: Geo Points
+        heatmap: Heatmap
+        hexagons: Hexagons
+        measurements: Measurements
     attribution:
       about_link: About

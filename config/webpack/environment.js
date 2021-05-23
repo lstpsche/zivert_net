@@ -10,7 +10,8 @@ environment.plugins.prepend("Provide", new webpack.ProvidePlugin({
   React: "react",
   BlockUi: ["react-block-ui", "default"],
   _: "underscore",
-  PropTypes: "prop-types"
+  PropTypes: "prop-types",
+  L: "leaflet"
 }));
 
 environment.plugins.append("MiniCssExtract", new MiniCssExtractPlugin());

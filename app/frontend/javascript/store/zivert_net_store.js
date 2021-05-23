@@ -2,15 +2,53 @@ import { createStore } from "redux";
 import reducers from "./reducers/index";
 
 const defaultStoreValue = {
-  geoPoints: [],
+  measurements: [],
+  users: [],
   modals: {
-    geoPointCreation: { show: false },
     about: { show: false }
   },
   currentUser: { signedIn: undefined, admin: false },
-  blocking: { fullPage: true },
+  blocking: { fullPage: { state: true, blockMessage: undefined } },
   mainMap: {
-    block: { state: false, blockMessage: undefined }
+    block: { state: false, blockMessage: undefined },
+    layers: {
+      base: {
+        regularMap: { selected: true }
+      },
+      overlays: {
+        dimmer: { selected: false },
+        heatmap: { selected: false },
+        hexagons: { selected: true },
+        measurements: { selected: true }
+      }
+    },
+    settings: {
+      id: undefined,
+      user_id: undefined,
+      units: "urh"
+    },
+    settingsOptions: {
+      units: []
+    },
+    ref: undefined
+  },
+  sidebar: {
+    collapsed: true,
+    selectedTabId: "",
+    data: {
+      cluster: undefined,
+      clusterMeasurements: []
+    }
+  },
+  userActions: {
+    measurementCreation: {
+      state: false,
+      data: {
+        value: "",
+        latitude: "",
+        longitude: ""
+      }
+    }
   }
 }
 

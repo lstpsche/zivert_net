@@ -6,23 +6,49 @@ class Dropdown extends React.Component {
 
     this.state = { showMenu: false }
 
-    this.toggleMenu = this.toggleMenu.bind(this);
-    this.renderItems = this.renderItems.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.hideMenu = this.hideMenu.bind(this);
+    this.showMenu = this.showMenu.bind(this);
   }
 
-  toggleMenu (state) {
-    this.setState({ showMenu: state }, () => {
-      if (state)
-        document.addEventListener("click", this.closeMenu);
-      else
-        document.removeEventListener("click", this.closeMenu);
-    })
+  handleClick () {
+    const { showMenu } = this.state;
+
+    if (showMenu)
+      this.hideMenu();
+    else
+      this.showMenu();
   }
 
-  renderItems (items) {
-    var menu = [];
+  hideMenu (event) {
+    if (event === undefined || !this.dropdownContainer.contains(event.target))
+      this.setState({ showMenu: false }, () => {
+        document.removeEventListener("click", this.hideMenu);
+      });
+  }
 
-    items.forEach((item, index) => {
+  showMenu () {
+    this.setState({ showMenu: true }, () => {
+      document.addEventListener("click", this.hideMenu);
+    });
+  }
+
+  renderHeader () {
+    return {
+      title: "Dropdown title",
+      className: "",
+      id: ""
+    }
+  }
+
+  itemsList () {
+    return [{}];
+  }
+
+  renderItems () {
+    let menu = [];
+
+    this.itemsList().forEach((item, index) => {
       menu.push(
         <DropdownItem key={index} item={item} />
       )
@@ -31,58 +57,58 @@ class Dropdown extends React.Component {
     return menu;
   }
 
-  render () {
-    const { header, items } = this.props;
+  renderMenu () {
     const { showMenu } = this.state;
 
     return (
-      <div className="dropdown mr-2">
+      showMenu
+        ? (
+          <div
+            className="dropdown-menu show"
+            onClick={() => this.hideMenu()}
+          >
+            { this.renderItems() }
+          </div>
+        )
+        : null
+    )
+  }
+
+  render () {
+    const header = this.renderHeader();
+
+    return (
+      <div
+        ref={(el) => this.dropdownContainer = el}
+        className="dropdown mr-2"
+      >
         <button
           className={"dropdown-header dropdown-toggle " + header.className}
           id={header.id}
-          onClick={() => this.toggleMenu(!showMenu)}
+          onClick={this.handleClick}
         >
-          {header.title}
+          { header.title }
         </button>
 
-        {
-          showMenu
-            ? (
-              <div className="dropdown-menu show">
-                { this.renderItems(items) }
-              </div>
-            )
-            : null
-        }
+        { this.renderMenu() }
       </div>
     )
   }
 }
 
-Dropdown.propTypes = {
-  header: PropTypes.object,
-  // {
-  //   title: PropTypes.string,
-  //   className: PropTypes.string,
-  //   id: PropTypes.string
-  // },
-  items: PropTypes.array
-  // [{
-  //   title: PropTypes.string,
-  //   link: PropTypes.string,
-  //   method: PropTypes.string,
-  //   className: PropTypes.string,
-  //   onClickCallback: PropTypes.func
-  // }]
-}
-
-Dropdown.defaultProps = {
-  header: {
-    title: "Dropdown title",
-    className: "",
-    id: ""
-  },
-  items: [{}]
-}
+// Dropdown.propTypes = {
+//   header: {
+//     title: PropTypes.string,
+//     className: PropTypes.string,
+//     id: PropTypes.string
+//   },
+//   items: [{
+//     title: PropTypes.string,
+//     link: PropTypes.string,
+//     method: PropTypes.string,
+//     className: PropTypes.string,
+//     onClickCallback: PropTypes.func
+//   }]
+// }
 
 export default Dropdown;

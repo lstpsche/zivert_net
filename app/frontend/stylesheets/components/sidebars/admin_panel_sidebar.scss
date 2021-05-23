@@ -1,0 +1,36 @@
+.admin-panel-tabs {
+  margin-right: 30px;
+  min-width: 185px;
+  padding-right: 24px;
+  padding-top: 6px;
+  width: 25%;
+
+  &__tabs-list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+
+    li.tab {
+      border: 1px solid #eaecef;
+      border-radius: 5px 5px 0 0;
+      color: #1b1f23;
+      cursor: pointer;
+      display: block;
+      padding: 6px 16px;
+
+      &:hover {
+        background-color: #f6f8fa;
+      }
+
+      &.active {
+        border-top: 2px solid orange;
+        border-left: 2px solid orange;
+        border-right: 2px solid orange;
+        border-bottom: 2px solid white;
+        padding: 5px 15px;
+        pointer-events: none;
+      }
+    }
+  }
+}

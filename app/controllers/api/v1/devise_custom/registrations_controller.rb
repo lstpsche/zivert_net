@@ -6,19 +6,40 @@ module Api
       class RegistrationsController < Devise::RegistrationsController
         respond_to :json
 
-        before_action :check_username_uniqueness!, only: :create
+        rescue_from Authentication::PasswordNotValid, with: :render_password_not_valid
+        rescue_from Authentication::UsernameNotUnique, with: :render_username_not_unique
+
+        before_action :verify_password!, only: :update
+        before_action :check_username_uniqueness!, only: %i[create update]
         before_action :configure_permitted_parameters
 
         private
 
-        def check_username_uniqueness!
-          return true if User.username_unique?(params[:user][:username])
+        def verify_password!
+          password = params[:registration][:user][:current_password]
+          return true if current_user.valid_password?(password)
 
+          raise Authentication::PasswordNotValid
+        end
+
+        def check_username_uniqueness!
+          params_username = params[:user][:username]
+          return true if current_user&.username == params_username || User.username_unique?(params_username)
+
+          raise Authentication::UsernameNotUnique
+        end
+
+        def render_password_not_valid
+          render json: { error: I18n.t('errors.password_not_valid') }
+        end
+
+        def render_username_not_unique
           render json: { error: I18n.t('errors.username_not_unique') }
         end
 
         def configure_permitted_parameters
-          devise_parameter_sanitizer.permit(:sign_up, keys: %i[username nickname first_name last_name])
+          devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name username nickname])
+          devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name username])
         end
 
         # needed to render json as response

@@ -1,0 +1,19 @@
+en:
+  settings:
+    tabs:
+      profile: Profile
+    profile:
+      buttons:
+        submit: Submit
+      dropdown_title: Profile Settings
+      fields:
+        first_name:
+          title: First name
+        last_name:
+          title: Last name
+        current_password:
+          invalid_feedback: Provide your password to apply changes.
+          title: Your Password
+        username:
+          title: Username
+      title: Profile Settings

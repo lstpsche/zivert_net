@@ -2,16 +2,21 @@
 @import "./popup.scss";
 @import "./zoom_control.scss";
 @import "./layers_control.scss";
+@import "./hexbin_layer.scss";
 
 #main-map {
   height: 100vh;
-  left: 0px;
+  left: 0;
   position: fixed;
-  top: 0px;
+  top: 0;
   width: 100vw;
 }
 
 .leaflet-control-container {
+  .leaflet-control-layers {
+    display: none;
+  }
+
   .leaflet-control-attribution.leaflet-control {
     display: none;
   }

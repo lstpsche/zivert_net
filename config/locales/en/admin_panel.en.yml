@@ -1,0 +1,14 @@
+en:
+  admin_panel:
+    title: Admin Panel
+    tabs:
+      users:
+        title: Users
+        table:
+          headers:
+            id: ID
+            first_name: First name
+            last_name: Last name
+            username: Username
+            nickname: Nickname
+    user_dropdown_title: Admin panel

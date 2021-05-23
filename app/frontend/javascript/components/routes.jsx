@@ -5,6 +5,8 @@ import Home from "./home";
 import SignIn from "./authorization/sign_in";
 import SignUp from "./authorization/sign_up";
 import MapIndex from "./map/map_index";
+import SettingsIndex from "./settings/settings_index";
+import AdminPanelIndex from "./admin_panel/admin_panel_index";
 
 class Routes extends React.Component {
   removeTrailingSlashes () {
@@ -21,7 +23,9 @@ class Routes extends React.Component {
       <Switch>
         { this.removeTrailingSlashes() }
         <Route path="/" exact component={MapIndex} />
+        <Route path="/admin_panel/:tab?" exact component={AdminPanelIndex} />
         <Route path="/map" exact component={MapIndex} />
+        <Route path="/settings/:tab?" exact component={SettingsIndex} />
         <Redirect from="/sign_in" to="/" />
         <Redirect from="/sign_up" to="/" />
         <Route path="/" component={NotFound} />
@@ -48,10 +52,14 @@ class Routes extends React.Component {
   render () {
     const { currentUserSignedIn } = this.props;
 
-    if (currentUserSignedIn)
-      return this.signedInRoutes();
-    else
-      return this.notSignedInRoutes();
+    switch (currentUserSignedIn) {
+      case true:
+        return this.signedInRoutes();
+      case false:
+        return this.notSignedInRoutes();
+      default:
+        return null;
+    }
   }
 }
 

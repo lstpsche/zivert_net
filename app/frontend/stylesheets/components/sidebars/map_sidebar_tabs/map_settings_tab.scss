@@ -1,0 +1,52 @@
+#sidebar {
+  .sidebar-content {
+    #map-settings-tab {
+      #map-settings-tab-content {
+        color: #383838;
+        margin-top: 10px;
+
+        .map-settings-section {
+          margin-bottom: 30px;
+          margin-left: 25px;
+
+          &-header {
+            color: #525252;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+          }
+
+          &-body {
+            margin-left: 20px;
+            margin-top: 10px;
+            text-align: left;
+          }
+        }
+
+        .map-settings-section {
+          #map-settings-section-units {
+            display: flex;
+            justify-content: space-between;
+
+            .form-label {
+              padding: 7px 0;
+            }
+
+            #map-settings-units-select {
+              margin-right: 7px;
+              width: 60%;
+            }
+          }
+        }
+
+        .map-setting-checkbox {
+          user-select: none;
+        }
+
+        .map-setting-radio {
+          user-select: none;
+        }
+      }
+    }
+  }
+}

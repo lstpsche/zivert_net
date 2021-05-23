@@ -1,16 +1,10 @@
 import Dropdown from "./dropdown/dropdown";
 
-class UserDropdown extends React.Component {
-  constructor (props) {
-    super(props);
-
-    this.onSignOut = this.onSignOut.bind(this);
-  }
-
+class UserDropdown extends Dropdown {
   dropdownTitle () {
     const { user: { firstName, lastName, nickname } } = this.props;
 
-    var fullName = [firstName, lastName].join(" ");
+    const fullName = [firstName, lastName].join(" ");
 
     if (fullName === " ")
       return nickname;
@@ -23,33 +17,53 @@ class UserDropdown extends React.Component {
   }
 
   renderHeader () {
-    return (
-      {
-        title: this.dropdownTitle(),
-        className: "btn nav-link",
-        id: "user-dropdown"
-      }
-    )
+    return {
+      title: this.dropdownTitle(),
+      className: "btn nav-link",
+      id: "user-dropdown"
+    }
   }
 
-  renderItemsList () {
-    return [
-      {
-        title: I18n.t("devise.sessions.sign_out"),
-        link: "/users/sign_out",
-        method: "DELETE",
-        onClickCallback: this.onSignOut
-      }
-    ];
+  settingsButtonParams () {
+    return {
+      title: I18n.t("settings.profile.dropdown_title"),
+      link: "/settings/profile",
+      method: "GET",
+      onClickCallback: this.hideMenu
+    }
   }
 
-  render () {
-    return (
-      <Dropdown
-        header={this.renderHeader()}
-        items={this.renderItemsList()}
-      />
-    )
+  adminPanelButtonParams () {
+    const { user: { admin } } = this.props;
+
+    if (admin)
+      return {
+        title: I18n.t("admin_panel.user_dropdown_title"),
+        link: "/admin_panel/users",
+        method: "GET",
+        onClickCallback: this.hideMenu
+      }
+  }
+
+  signOutButtonParams () {
+    return {
+      title: I18n.t("devise.sessions.sign_out"),
+      link: "/users/sign_out",
+      method: "DELETE",
+      onSuccessCallback: this.onSignOut
+    }
+  }
+
+  clearEmptyValues (array) {
+    return array.filter(el => el != null);
+  }
+
+  itemsList () {
+    return this.clearEmptyValues([
+      this.settingsButtonParams(),
+      this.adminPanelButtonParams(),
+      this.signOutButtonParams()
+    ]);
   }
 }
 

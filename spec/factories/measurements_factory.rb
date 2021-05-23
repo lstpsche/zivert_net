@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :measurement do
-    sequence(:id) { |i| i }
-    sequence(:value) { |_i| rand(100) }
-    sequence(:user) { |_i| create(:user) }
-    sequence(:geo_point) { |_i| create(:geo_point) }
+  factory Measurement do
+    sequence(:value_urh) { rand(100) }
+    sequence(:value_ush) { rand(100) }
+    sequence(:latitude) { rand(100) }
+    sequence(:longitude) { rand(100) }
+    association :user
   end
 end

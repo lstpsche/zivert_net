@@ -7,6 +7,15 @@ nav.navbar {
     padding: 10px 16px 7px;
   }
 
+  #admin-badge {
+    box-shadow: 0 0 0 1px #616161;
+    color: #353535;
+    font-weight: 500;
+    margin-bottom: auto;
+    margin-top: auto;
+    padding: 3px 6px;
+  }
+
   button#user-dropdown {
     &::after {
       vertical-align: 2px;
@@ -49,17 +58,6 @@ nav.navbar {
       &:hover {
         color: #808488;
       }
-    }
-
-    &#admin-badge {
-      box-shadow: inset 0 0 0 1px #616161;
-      color: #353535;
-      font-size: 12px;
-      height: 25px;
-      margin-bottom: auto;
-      margin-top: auto;
-      padding: 3px 6px;
-      pointer-events: none;
     }
   }
 }

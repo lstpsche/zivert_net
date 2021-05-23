@@ -2,21 +2,13 @@ import fetchLink from "../../../helpers/fetch_link";
 import { Link } from "react-router-dom";
 
 class DropdownItem extends React.Component {
-  constructor (props) {
-    super(props);
-
-    this.itemLink = this.itemLink.bind(this);
-    this.itemButton = this.itemButton.bind(this);
-    this.onButtonClick = this.onButtonClick.bind(this);
-  }
-
-  onButtonClick ({ link, method, onClickCallback }) {
+  onButtonClick ({ link, method, onSuccessCallback }) {
     fetchLink({
       link: link,
       method: method,
       onSuccess: (response) => {
-        if (typeof(onClickCallback) === "function")
-          onClickCallback(response);
+        if (typeof(onSuccessCallback) === "function")
+          onSuccessCallback(response);
       }
     });
   }
@@ -68,7 +60,7 @@ DropdownItem.defaultProps = {
     className: "",
     id: "",
     title: "Sample item title",
-    onClickCallback: undefined
+    onSuccessCallback: () => {}
   }
 }
 

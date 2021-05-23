@@ -1,0 +1,45 @@
+en:
+  sidebar:
+    tabs:
+      headers:
+        measurements_cluster_details: Measurements Cluster
+        map_settings: Map Settings
+        measurement_creation: Add Measurement
+        user_measurements_history: My Measurements
+      measurements_cluster_details:
+        placeholder: Pick a cluster to show
+        labels:
+          latitude: 'Latitude: '
+          longitude: 'Longitude: '
+          measurements: Measurements
+          overall: Overall value
+          rad_value: 'Precise radiation value: '
+      map_settings:
+        base_map:
+          header: Base map
+          labels:
+            regular_map: Regular map
+        overlay_layers:
+          header: Overlay layers
+          labels:
+            dimmer: Dim map
+            heatmap: Heatmap
+            hexagons: Hexagons
+            measurements: Measurements
+        map_settings:
+          header: Settings
+          labels:
+            units: Radiation Units
+          options:
+            urh: Roentgen (µR/h)
+            ush: Sievert (µSv/h)
+      measurement_creation:
+        labels:
+          latitude: Latitude
+          longitude: Longitude
+          note_html: Drag a marker on the map to the place you want to add measurement from
+          radiation_value: Radiation value
+        appends:
+          units:
+            urh: μR/h
+            ush: μSv/h

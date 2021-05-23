@@ -10,29 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_07_203653) do
+ActiveRecord::Schema.define(version: 2021_05_18_151003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "geo_points", force: :cascade do |t|
+  create_table "map_settings", force: :cascade do |t|
+    t.string "units", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "rad_value", default: 0.0, null: false
-    t.float "latitude", default: 0.0, null: false
-    t.float "longitude", default: 0.0, null: false
-    t.string "comment", default: "", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_geo_points_on_user_id"
+    t.index ["user_id"], name: "index_map_settings_on_user_id"
   end
 
   create_table "measurements", force: :cascade do |t|
-    t.float "value", default: 0.0, null: false
-    t.bigint "geo_point_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["geo_point_id"], name: "index_measurements_on_geo_point_id"
+    t.string "latitude", default: "0.0", null: false
+    t.string "longitude", default: "0.0", null: false
+    t.float "value_urh"
+    t.float "value_ush"
     t.index ["user_id"], name: "index_measurements_on_user_id"
   end
 
@@ -53,6 +51,8 @@ ActiveRecord::Schema.define(version: 2020_06_07_203653) do
     t.inet "last_sign_in_ip"
     t.string "nickname", null: false
     t.boolean "admin", default: false, null: false
+    t.bigint "map_settings_id"
+    t.index ["map_settings_id"], name: "index_users_on_map_settings_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
