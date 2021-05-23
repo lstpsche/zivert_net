@@ -25,9 +25,9 @@ class CustomHeatmapLayer extends React.Component {
     this.options = {
       max: 100.0,
       minOpacity: 0.4,
-      maxZoom: 15,
+      maxZoom: 30,
       radius: 30,
-      blur: 10,
+      blur: 20,
       gradient: this.gradient,
       latitudeExtractor: point => point.latitude,
       longitudeExtractor: point => point.longitude,

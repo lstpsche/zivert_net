@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { forwardRef } from "react";
 import BaseSelection from "./base_selection";
 import DatePicker from "react-datepicker";
 import { setSettingsMeasurementsPeriod } from "../../../../store/actions/main_map";
@@ -8,12 +7,20 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
   constructor(props) {
     super(props);
 
+    const { measurementsPeriod: { startDate, endDate } } = this.props;
+
+    this.state = {
+      startDate,
+      endDate
+    }
+
     this.renderSectionBody = this.renderSectionBody.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
   }
 
   renderDatePicker () {
-    const { measurements, measurementsPeriod: { startDate, endDate } } = this.props;
+    const { measurements } = this.props;
+    const { startDate, endDate } = this.state;
 
     return (
       <DatePicker
@@ -31,13 +38,24 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
   onDateChange (dates) {
     const [startDate, endDate] = dates;
 
-    this.props.setSettingsMeasurementsPeriod({ startDate, endDate });
+    this.setState({ startDate, endDate });
+
+    if (!!endDate)
+      this.props.setSettingsMeasurementsPeriod({ startDate, endDate });
   }
 
   minDate (measurements) {
     let minDate = measurements.map(m => Date.parse(m.createdAt)).sort()[0]
 
     return new Date(minDate);
+  }
+
+  componentDidUpdate(prevProps, _prevState, _snapshot) {
+    if (prevProps !== this.props) {
+      const { measurementsPeriod: {startDate, endDate} } = this.props;
+
+      this.setState({ startDate, endDate });
+    }
   }
 
   renderSectionLabel () {

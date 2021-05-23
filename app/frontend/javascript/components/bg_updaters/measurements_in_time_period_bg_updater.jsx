@@ -5,7 +5,7 @@ import getMeasurementsInTimePeriod from "../../helpers/get_measurements_in_time_
 class MeasurementsInTimePeriodBGUpdater extends React.Component {
   generateMeasurementsInTimePeriod () {
     const { measurements, measurementsPeriod: { startDate, endDate }, setMeasurementsInPeriod } = this.props;
-    debugger
+
     setMeasurementsInPeriod(getMeasurementsInTimePeriod(measurements, startDate, endDate));
   }
 
