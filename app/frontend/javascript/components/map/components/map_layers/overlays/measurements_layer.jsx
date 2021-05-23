@@ -78,7 +78,7 @@ class MeasurementsLayer extends React.Component {
 }
 
 const mapStateToProps = ({
-  measurements,
+  measurementsInPeriod: measurements,
   mainMap: {
    settings: { units: valueUnits },
    settingsOptions: { units: unitsOptions }

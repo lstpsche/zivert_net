@@ -10,6 +10,7 @@ import MeasurementsDataLoader from "../javascript/components/data_loaders/measur
 import MapSettingsDataLoader from "../javascript/components/data_loaders/map_settings_data_loader";
 import MeasurementsChannel from "../javascript/components/channels/measurements_channel";
 import UsersChannel from "../javascript/components/channels/users_channel";
+import MeasurementsInTimePeriodBGUpdater from "../javascript/components/bg_updaters/measurements_in_time_period_bg_updater";
 
 document.addEventListener("DOMContentLoaded", () => {
   render (
@@ -24,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <UsersChannel />
         <MeasurementsChannel />
+
+        <MeasurementsInTimePeriodBGUpdater />
 
         <App />
       </Provider>

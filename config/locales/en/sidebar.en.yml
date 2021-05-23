@@ -26,6 +26,8 @@ en:
             heatmap: Heatmap
             hexagons: Hexagons
             measurements: Measurements
+        time_period:
+          header: Time period
         map_settings:
           header: Settings
           labels:

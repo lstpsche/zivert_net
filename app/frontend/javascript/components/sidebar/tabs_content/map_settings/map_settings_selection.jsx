@@ -28,9 +28,7 @@ class MapSettingsSelection extends BaseSelection {
   }
 
   renderSectionLabel () {
-    return (
-      <h5 className="map-settings-section-header">{ I18n.t("sidebar.tabs.map_settings.map_settings.header") }</h5>
-    )
+    return super.renderSectionLabel(I18n.t("sidebar.tabs.map_settings.map_settings.header"));
   }
 
   renderUnitsOptions () {
@@ -62,9 +60,9 @@ class MapSettingsSelection extends BaseSelection {
 
   renderSectionBody () {
     return (
-      <div>
+      <>
         { this.renderUnitsSelection() }
-      </div>
+      </>
     )
   }
 }

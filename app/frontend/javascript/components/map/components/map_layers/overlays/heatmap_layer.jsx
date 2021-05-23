@@ -59,7 +59,7 @@ class CustomHeatmapLayer extends React.Component {
 }
 
 const mapStateToProps = ({
-  measurements
+  measurementsInPeriod: measurements,
 }) => ({
   measurements
 });

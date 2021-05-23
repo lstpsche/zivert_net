@@ -19,9 +19,7 @@ class BaseMapSelection extends BaseSelection {
   }
 
   renderSectionLabel () {
-    return (
-      <h5 className="map-settings-section-header">{ I18n.t("sidebar.tabs.map_settings.base_map.header") }</h5>
-    )
+    return super.renderSectionLabel(I18n.t("sidebar.tabs.map_settings.base_map.header"));
   }
 
   renderRegularMapRadio () {
@@ -40,9 +38,9 @@ class BaseMapSelection extends BaseSelection {
 
   renderSectionBody () {
     return (
-      <div>
+      <>
         { this.renderRegularMapRadio() }
-      </div>
+      </>
     )
   }
 }

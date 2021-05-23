@@ -102,19 +102,20 @@ class Sidebar extends React.Component {
   }
 
   onMapSettingsTabUnselected () {
-    const { mapSettings: { id, units } } = this.props;
-
-    fetchLink({
-      link: "/api/v1/map_settings/" + id,
-      method: "PUT",
-      body: JSON.stringify({
-        map_settings: { units }
-      }),
-      onFailure: (error) => {
-        // TODO: add parsing of internal server errors
-        throw new Error(error);
-      }
-    });
+    // TODO: not working properly with time selector, commenting out - don't have time to fix now
+    // const { mapSettings: { id, units } } = this.props;
+    //
+    // fetchLink({
+    //   link: "/api/v1/map_settings/" + id,
+    //   method: "PUT",
+    //   body: JSON.stringify({
+    //     map_settings: { units }
+    //   }),
+    //   onFailure: (error) => {
+    //     // TODO: add parsing of internal server errors
+    //     throw new Error(error);
+    //   }
+    // });
   }
 
   fieldStateChangedTo (state, fieldName, prevProps) {
