@@ -5,8 +5,8 @@
 //     id: measurementId,
 //     latitude: latitudeValue,
 //     longitude: longitudeValue,
-//     value: measurementValue,
-//     comment: measurementComment,
+//     value_urh: measurementValueUrh,
+//     value_ush: measurementValueUsh,
 //     userId: measurementUserId
 //   },
 //   ...
@@ -21,11 +21,14 @@ import {
 } from "../actionTypes/measurements";
 
 function measurements(state = [], action) {
-  const { type: actionType, id, latitude, longitude, value_urh, value_ush, userId, createdAt } = action;
+  const { type: actionType, measurements, id, latitude, longitude, value_urh, value_ush, userId, createdAt } = action;
 
   switch(actionType) {
     case SET_MEASUREMENTS:
-      return action.measurements;
+      let createdAts = measurements.map(m => Date.parse(m.createdAt)).sort()
+      let startDate = new Date(createdAts[0]);
+      let endDate = new Date(createdAts[createdAts.length - 1]);
+      return measurements;
 
     case ADD_MEASUREMENT:
       return [

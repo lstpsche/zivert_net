@@ -50,7 +50,7 @@ class HexagonsLayer extends React.Component {
 }
 
 const mapStateToProps = ({
-  measurements
+  measurementsInPeriod: measurements,
 }) => ({
   measurements
 });
