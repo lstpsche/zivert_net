@@ -63,6 +63,7 @@ class MeasurementsLayer extends React.Component {
     return (
       <MarkerClusterGroup
         ref={el => this.markerClusterGroup = el?.leafletElement}
+        maxClusterRadius={50}
         showCoverageOnHover={true}
         zoomToBoundsOnClick={false}
         spiderfyOnMaxZoom={true}
