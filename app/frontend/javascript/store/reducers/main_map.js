@@ -22,6 +22,10 @@
 //   },
 //   settings: {
 //     units: string
+//     measurementsPeriod: {
+//       startDate: date,
+//       endDate: date
+//     }
 //   },
 //   settingsOptions: {
 //     units: arrayOfStrings
@@ -36,11 +40,12 @@ import {
   SET_OVERLAY_LAYER,
   SET_MAIN_MAP_REF,
   SET_SETTINGS,
-  SET_SETTINGS_OPTIONS
+  SET_SETTINGS_OPTIONS,
+  SET_SETTINGS_MEASUREMENTS_PERIOD
 } from "../actionTypes/main_map";
 
 function mainMap(state = {}, action) {
-  const { type: actionType, block, layerName, layerSelected, ref, settings, settingsOptions } = action;
+  const { type: actionType, block, layerName, layerSelected, ref, settings, settingsOptions, startDate, endDate } = action;
 
   switch(actionType) {
     case SET_MAIN_MAP_BLOCK:
@@ -64,10 +69,13 @@ function mainMap(state = {}, action) {
       return { ...state, ref };
 
     case SET_SETTINGS:
-      return { ...state, settings };
+      return { ...state, settings: { ...state.settings, ...settings } };
 
     case SET_SETTINGS_OPTIONS:
       return { ...state, settingsOptions };
+
+    case SET_SETTINGS_MEASUREMENTS_PERIOD:
+      return { ...state, settings: { ...state.settings, measurementsPeriod: { startDate, endDate } } };
 
     default:
       return state;

@@ -7,9 +7,11 @@ import blocking from "./blocking";
 import mainMap from "./main_map";
 import sidebar from "./sidebar";
 import userActions from "./user_actions";
+import measurementsInPeriod from "./measurements_in_period";
 
 export default combineReducers({
   measurements,
+  measurementsInPeriod,
   modals,
   currentUser,
   users,
