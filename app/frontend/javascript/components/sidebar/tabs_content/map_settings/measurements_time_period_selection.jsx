@@ -29,6 +29,7 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
         startDate={startDate}
         endDate={endDate}
         minDate={this.minDate(measurements)}
+        maxDate={this.maxDate()}
         selectsRange
         inline
       />
@@ -48,6 +49,10 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
     let minDate = measurements.map(m => Date.parse(m.createdAt)).sort()[0]
 
     return new Date(minDate);
+  }
+
+  maxDate () {
+    return new Date();
   }
 
   componentDidUpdate(prevProps, _prevState, _snapshot) {
