@@ -38,12 +38,11 @@ class Sidebar extends React.Component {
         header={ I18n.t("sidebar.tabs.headers.user_measurements_history") }
         icon={<FaMapMarkedAlt />}
         anchor="top"
-        disabled={!userSignedIn}
+        disabled={true} //{!userSignedIn} will be disabled until developed
       >
         <UserMeasurementsHistoryTabContent />
       </Tab>
     )
-
   }
 
   renderMeasurementCreationTab () {
