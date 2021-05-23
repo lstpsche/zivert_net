@@ -3,6 +3,7 @@ import reducers from "./reducers/index";
 
 const defaultStoreValue = {
   measurements: [],
+  measurementsInPeriod: [],
   users: [],
   modals: {
     about: { show: false }
@@ -25,7 +26,11 @@ const defaultStoreValue = {
     settings: {
       id: undefined,
       user_id: undefined,
-      units: "urh"
+      units: "urh",
+      measurementsPeriod: {
+        startDate: new Date(new Date().setHours(0,0,0,0)),
+        endDate: new Date(new Date().setHours(23,59,59,999))
+      }
     },
     settingsOptions: {
       units: []

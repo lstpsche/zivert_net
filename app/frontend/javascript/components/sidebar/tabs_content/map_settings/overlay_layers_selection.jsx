@@ -19,9 +19,7 @@ class OverlayLayersSelection extends BaseSelection {
   }
 
   renderSectionLabel () {
-    return (
-      <h5 className="map-settings-section-header">{ I18n.t("sidebar.tabs.map_settings.overlay_layers.header") }</h5>
-    )
+    return super.renderSectionLabel(I18n.t("sidebar.tabs.map_settings.overlay_layers.header"))
   }
 
   renderOverlayCheck (name) {
@@ -40,12 +38,12 @@ class OverlayLayersSelection extends BaseSelection {
 
   renderSectionBody () {
     return (
-      <div>
+      <>
         { this.renderOverlayCheck("dimmer") }
         { this.renderOverlayCheck("measurements") }
         { this.renderOverlayCheck("heatmap") }
         { this.renderOverlayCheck("hexagons") }
-      </div>
+      </>
     )
   }
 }

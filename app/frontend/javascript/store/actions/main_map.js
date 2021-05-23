@@ -4,8 +4,8 @@ import {
   SET_OVERLAY_LAYER,
   SET_MAIN_MAP_REF,
   SET_SETTINGS,
-  SET_SETTINGS_UNITS,
-  SET_SETTINGS_OPTIONS
+  SET_SETTINGS_OPTIONS,
+  SET_SETTINGS_MEASUREMENTS_PERIOD
 } from "../actionTypes/main_map";
 
 export const setMainMapBlock = ({ state = false, blockMessage = undefined }) => ({
@@ -36,4 +36,9 @@ export const setMapSettings = (settings) => ({
 export const setSettingsOptions = (settingsOptions) => ({
   type: SET_SETTINGS_OPTIONS,
   settingsOptions
+});
+
+export const setSettingsMeasurementsPeriod = ({ startDate, endDate }) => ({
+  type: SET_SETTINGS_MEASUREMENTS_PERIOD,
+  startDate, endDate
 });
