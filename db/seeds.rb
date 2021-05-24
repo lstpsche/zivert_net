@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -13,8 +14,8 @@ east_longitude = 28.01959991455078
 south_latitude = 53.71052639598225
 north_latitude = 54.07349133491893
 
-start_date = (DateTime::now() - 1.month).to_time.to_i
-end_date = (DateTime::now() + 3.weeks).to_time.to_i
+start_date = (DateTime.now - 1.month).to_time.to_i
+end_date = (DateTime.now + 3.weeks).to_time.to_i
 
 user_id = User.find_by(username: 'lstpsche').id
 
