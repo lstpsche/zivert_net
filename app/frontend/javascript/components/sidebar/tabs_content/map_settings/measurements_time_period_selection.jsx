@@ -39,10 +39,8 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
   onDateChange (dates) {
     let [startDate, endDate] = dates;
 
-    if (Date.parse(startDate) === Date.parse(endDate)) {
-      startDate = new Date(startDate.setHours(0, 0, 0, 0));
-      endDate = new Date(endDate.setHours(23, 59, 59, 999));
-    }
+    startDate = new Date(startDate.setHours(0, 0, 0, 0));
+    endDate = new Date(endDate.setHours(23, 59, 59, 999));
 
     this.setState({ startDate, endDate });
 
