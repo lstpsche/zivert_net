@@ -130,7 +130,8 @@ class MeasurementCreationTabContent extends React.Component {
   isSendButtonDisabled () {
     const { value } = this.state;
 
-    return !/^\d+$/.test(value);
+    // looks scary, but does the job -- only valid int/float numbers
+    return !/^(?=.)([+-]?([0-9]*)(\.([0-9]+))?)$/.test(value);
   }
 
   submitForm () {
