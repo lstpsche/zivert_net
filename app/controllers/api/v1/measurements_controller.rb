@@ -7,8 +7,6 @@ module Api
       before_action :check_authorship!, only: %i[destroy]
 
       def index
-        measurements = Measurement.all.map(&:json)
-
         render json: { measurements: measurements }.to_json
       end
 
@@ -30,6 +28,13 @@ module Api
         return true if current_user.admin?
 
         raise Authentication::NotPermitted unless current_user.id == measurement.user_id
+      end
+
+      def measurements
+        [
+          Measurement.all,
+          StaticMeasurement.latest_measurements
+        ].flatten.map(&:json)
       end
 
       def render_json_response(success:)

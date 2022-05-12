@@ -19,6 +19,7 @@ class MeasurementUnitsCounterService
 
   private
 
+  # ex. ['value_ush', 12]
   def filled_value
     @filled_value ||= @measurement.attributes.slice(*UNITS_COEFS.keys).compact.first
   end
