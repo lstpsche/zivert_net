@@ -7,10 +7,6 @@ class StaticMeasurement < MeasurementBase
 
   REJECTED_ATTRIBUTES = %w[id created_at updated_at value_ush].freeze
 
-
-  # TODO: figure out why update doesn't work on this model
-
-
   class << self
     def latest_measurements
       # that's a crunch bc there's no good (and fast) sql method for getting unique records by column
@@ -20,12 +16,12 @@ class StaticMeasurement < MeasurementBase
 
   # incoming value SHOULD be in urh and int or float
   def update_value(new_value_urh)
-    self.class.create(attributes_for_update(new_value_urh))
+    self.class.create(new_station_attributes(new_value_urh))
   end
 
   private
 
-  def attributes_for_update(new_value_urh)
+  def new_station_attributes(new_value_urh)
     attributes
       .except(*REJECTED_ATTRIBUTES)
       .merge('value_urh' => new_value_urh)
