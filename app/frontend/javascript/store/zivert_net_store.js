@@ -3,6 +3,7 @@ import reducers from "./reducers/index";
 
 const defaultStoreValue = {
   measurements: [],
+  staticMeasurements: [],
   measurementsInPeriod: [],
   users: [],
   modals: {
@@ -57,4 +58,6 @@ const defaultStoreValue = {
   }
 }
 
+// will use deprecated createStore until they will finally remove it
+// it's easier than rewriting the whole redux part
 export default createStore(reducers, defaultStoreValue);

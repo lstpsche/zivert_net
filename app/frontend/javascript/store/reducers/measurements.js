@@ -25,9 +25,9 @@ function measurements(state = [], action) {
 
   switch(actionType) {
     case SET_MEASUREMENTS:
-      let createdAts = measurements.map(m => Date.parse(m.createdAt)).sort()
-      let startDate = new Date(createdAts[0]);
-      let endDate = new Date(createdAts[createdAts.length - 1]);
+      // let createdAts = measurements.map(m => Date.parse(m.createdAt)).sort()
+      // let startDate = new Date(createdAts[0]);
+      // let endDate = new Date(createdAts[createdAts.length - 1]);
       return measurements;
 
     case ADD_MEASUREMENT:

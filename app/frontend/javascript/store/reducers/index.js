@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import measurements from "./measurements";
+import staticMeasurements from "./static_measurements";
 import modals from "./modals";
 import currentUser from "./current_user";
 import users from "./users";
@@ -11,6 +12,7 @@ import measurementsInPeriod from "./measurements_in_period";
 
 export default combineReducers({
   measurements,
+  staticMeasurements,
   measurementsInPeriod,
   modals,
   currentUser,

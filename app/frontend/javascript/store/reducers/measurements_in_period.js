@@ -7,6 +7,8 @@
 //     longitude: longitudeValue,
 //     value_urh: measurementValueUrh,
 //     value_ush: measurementValueUsh,
+//     isStatic: measurementIsStatic,
+//     stationName: measurementStationName,
 //     userId: measurementUserId
 //   },
 //   ...
