@@ -3,14 +3,14 @@
 class StaticMeasurement < MeasurementBase
   self.table_name = 'measurements'
 
-  default_scope { where(static: true) }
+  default_scope { where(is_static: true).order(created_at: :desc) }
 
-  REJECTED_ATTRIBUTES = %w[id created_at updated_at value_ush].freeze
+  REJECTED_ATTRIBUTES = %w[id created_at updated_at value_ush is_static].freeze
 
   class << self
     def latest_measurements
       # that's a crunch bc there's no good (and fast) sql method for getting unique records by column
-      order(updated_at: :desc).first(100).uniq(&:station_name)
+      first(100).uniq(&:station_name)
     end
   end
 

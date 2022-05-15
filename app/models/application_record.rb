@@ -8,6 +8,9 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def broadcast_creation
+
+    # TODO: should create StaticMeasurement::CreationJob and others + probably connect them with UI
+
     "#{class_name.pluralize}::CreationJob".safe_constantize&.perform_now(self)
   end
 

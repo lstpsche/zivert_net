@@ -3,5 +3,5 @@
 class Measurement < MeasurementBase
   self.table_name = 'measurements'
 
-  default_scope { where(static: false) }
+  default_scope { where(is_static: false) }
 end

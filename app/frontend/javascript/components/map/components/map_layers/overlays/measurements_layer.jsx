@@ -1,3 +1,5 @@
+// Measurements layer consists of both non-static and static measurements --  they both are inside of measurementsInPeriod
+
 import { connect } from "react-redux";
 import { showSidebar, setSidebarCluster, setSidebarClusterMeasurements } from "../../../../../store/actions/sidebar";
 import generateMarkerClassName from "../../../../../helpers/generate_marker_class_name";

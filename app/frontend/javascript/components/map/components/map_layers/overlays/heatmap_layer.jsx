@@ -38,7 +38,7 @@ class CustomHeatmapLayer extends React.Component {
   points () {
     const { measurements } = this.props;
 
-    if (measurements === [])
+    if (measurements.length === 0)
       return [];
 
     return measurements.map(measurement => {
