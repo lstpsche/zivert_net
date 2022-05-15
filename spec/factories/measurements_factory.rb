@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:value_ush) { rand(100) }
     sequence(:latitude) { rand(100) }
     sequence(:longitude) { rand(100) }
-    sequence(:static) { false }
+    sequence(:is_static) { false }
     sequence(:station_name) { nil }
     association :user
   end

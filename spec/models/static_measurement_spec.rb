@@ -65,4 +65,37 @@ describe StaticMeasurement, type: :model do
 
     it { is_expected.to eq(serialized_hash) }
   end
+
+  describe '.latest_measurements' do
+    subject { described_class.latest_measurements }
+
+    let(:hundred_measurements) { [measurement1, measurement2, measurement3] }
+    let(:measurement1) { instance_double(StaticMeasurement, station_name: 'test1') }
+    let(:measurement2) { instance_double(StaticMeasurement, station_name: 'test2') }
+    let(:measurement3) { instance_double(StaticMeasurement, station_name: 'test2') } # not unique on purpose
+    let(:expected_result) { [measurement1, measurement2] }
+
+    before { allow(described_class).to receive(:first).with(100).and_return(hundred_measurements) }
+
+    it 'gets uniq stations from the first 100' do
+      expect(subject).to eq(expected_result)
+    end
+  end
+
+  describe '#update_value' do
+    subject { static_measurement.update_value(new_value_urh) }
+
+    let(:new_value_urh) { 100 }
+    let(:rejected_attributes) { 'id' }
+
+    before { stub_const("#{described_class}::REJECTED_ATTRIBUTES", rejected_attributes) }
+
+    it 'creates new static measurement with new value_urh' do
+      expect(described_class).to receive(:create).with(
+        static_measurement.attributes.except(rejected_attributes).merge('value_urh' => new_value_urh)
+      )
+
+        subject
+    end
+  end
 end
