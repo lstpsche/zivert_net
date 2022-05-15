@@ -32,8 +32,8 @@ class MeasurementsInTimePeriodBGUpdater extends React.Component {
 
       return {
         ...staticMeasurementTemplate,
-        value_urh: countRoundedClusterValue(stationMeasurements.map(measurement => measurement.value_urh)),
-        value_ush: countRoundedClusterValue(stationMeasurements.map(measurement => measurement.value_ush))
+        value_urh: countRoundedClusterValue(stationMeasurements.map(measurement => measurement.value_urh), 2),
+        value_ush: countRoundedClusterValue(stationMeasurements.map(measurement => measurement.value_ush), 2)
       }
     });
   }
