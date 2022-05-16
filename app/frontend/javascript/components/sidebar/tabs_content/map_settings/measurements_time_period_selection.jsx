@@ -7,11 +7,10 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
   constructor(props) {
     super(props);
 
-    const { measurementsPeriod: { startDate, endDate } } = this.props;
+    const { measurementsPeriod: { startDate } } = this.props;
 
     this.state = {
-      startDate,
-      endDate
+      startDate
     }
 
     this.renderSectionBody = this.renderSectionBody.bind(this);
@@ -19,28 +18,20 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
   }
 
   renderDatePicker () {
-    const { measurements } = this.props;
-    const { startDate, endDate } = this.state;
+    const { startDate } = this.state;
 
     return (
       <DatePicker
         onChange={this.onDateChange}
         selected={startDate}
-        startDate={startDate}
-        endDate={endDate}
-        minDate={this.minDate(measurements)}
-        maxDate={this.maxDate()}
-        selectsRange
         inline
       />
     )
   }
 
-  onDateChange (dates) {
-    let [startDate, endDate] = dates;
-
-    startDate = new Date(startDate.setHours(0, 0, 0, 0));
-    endDate = new Date(endDate.setHours(23, 59, 59, 999));
+  onDateChange (date) {
+    let startDate = new Date(date.setHours(0, 0, 0, 0));
+    let endDate = new Date(date.setHours(23, 59, 59, 999));
 
     this.setState({ startDate, endDate });
 
@@ -49,19 +40,9 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
     }
   }
 
-  minDate (measurements) {
-    let minDate = measurements.map(m => Date.parse(m.createdAt)).sort()[0]
-
-    return new Date(minDate);
-  }
-
-  maxDate () {
-    return new Date();
-  }
-
   componentDidUpdate(prevProps, _prevState, _snapshot) {
     if (prevProps !== this.props) {
-      const { measurementsPeriod: {startDate, endDate} } = this.props;
+      const { measurementsPeriod: { startDate, endDate } } = this.props;
 
       this.setState({ startDate, endDate });
     }
@@ -81,10 +62,8 @@ class MeasurementsTimePeriodSelection extends BaseSelection {
 }
 
 const mapStateToProps = ({
-  measurements,
   mainMap: { settings: { measurementsPeriod } }
 }) => ({
-  measurements,
   measurementsPeriod
 });
 
