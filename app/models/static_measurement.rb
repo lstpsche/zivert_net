@@ -3,7 +3,11 @@
 class StaticMeasurement < MeasurementBase
   self.table_name = 'measurements'
 
+  has_one :weather_data, dependent: :destroy
+
   default_scope { where(is_static: true).order(created_at: :desc) }
+
+  after_create :create_weather_data
 
   REJECTED_ATTRIBUTES = %w[id created_at updated_at value_ush is_static].freeze
 
@@ -25,5 +29,9 @@ class StaticMeasurement < MeasurementBase
     attributes
       .except(*REJECTED_ATTRIBUTES)
       .merge('value_urh' => new_value_urh)
+  end
+
+  def create_weather_data
+    CreateWeatherDataForMeasurement.new(self).execute
   end
 end

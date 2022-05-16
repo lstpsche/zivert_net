@@ -10,14 +10,16 @@ class FetchYandexWeatherData
     'geo_object',
     'yesterday',
     'forecasts',
-    { 'info' => %w[n geoid url tzinfo slug zoom nr ns nsr p f _h def_pressure_mm def_pressure_pa] },
+    { 'info' => %w[n lat lon geoid url tzinfo slug zoom nr ns nsr p f _h def_pressure_mm def_pressure_pa] },
     { 'fact' => %w[obs_time uptime feels_like icon daytime polar prec_prob
                    season source soil_moisture soil_temp uv_index wind_gust] }
   ].freeze
 
-  def execute(lat, long)
+  def execute(lat:, long:)
     weather_json = weather_json(lat, long)
-    clean_up_json(weather_json)
+    cleaned_up_json = clean_up_json(weather_json).symbolize_keys
+
+    { **cleaned_up_json[:info].symbolize_keys, **cleaned_up_json[:fact].symbolize_keys }
   end
 
   private
