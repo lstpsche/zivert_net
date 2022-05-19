@@ -2,10 +2,11 @@ en:
   settings:
     tabs:
       profile: Profile
+      map_defaults: Map
     profile:
       buttons:
-        submit: Submit
-      dropdown_title: Profile Settings
+        submit: Save
+      dropdown_title: Account Settings
       fields:
         first_name:
           title: First name
@@ -17,3 +18,20 @@ en:
         username:
           title: Username
       title: Profile Settings
+    map_defaults:
+      buttons:
+        submit: Save
+      fields:
+        regular_map: Regular Map
+        dimmer: Dim map
+        measurements: Measurements
+        heatmap: Heatmap
+        hexagons: Hexagons
+        units:
+          urh: Roentgen (µR/h)
+          ush: Sievert (µSv/h)
+      section_titles:
+        base_map: Base Map
+        overlay_layers: Map Overlay Layers
+        units: Radiation Units
+      title: Map Default Settings

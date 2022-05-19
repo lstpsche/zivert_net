@@ -8,7 +8,20 @@ class MapSettingsDataLoader extends React.Component {
 
     fetchLink({
       link: "/api/v1/map_settings",
-      onSuccess: ({map_settings, map_settings_options }) => {
+      onSuccess: ({ map_settings, map_settings_options }) => {
+
+
+
+
+
+        // TODO: add loading of ALL map settings (base + layers included)
+
+
+
+
+
+
+
         setMapSettings(map_settings.data.attributes);
         setSettingsOptions(map_settings_options);
       },

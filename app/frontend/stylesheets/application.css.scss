@@ -41,3 +41,16 @@
 :focus {
   outline: none !important;
 }
+
+input {
+  &[type="checkbox"], &[type="radio"] {
+    accent-color: orange;
+  }
+}
+
+.form-control {
+  &:focus {
+    border-color: orange;
+    box-shadow: 0 0 0 0.05rem rgb(253 126 20 / 25%); // 'orange' with 25% opacity
+  }
+}

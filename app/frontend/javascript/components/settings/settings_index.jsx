@@ -1,4 +1,5 @@
 import ProfileSettingsPage from "./tabs_panes/profile/profile_settings_page";
+import MapDefaultsSettingsPage from "./tabs_panes/profile/map_defaults_settings_page";
 import SettingsTabs from "./settings_tabs";
 
 class SettingsIndex extends React.Component {
@@ -6,8 +7,9 @@ class SettingsIndex extends React.Component {
     super(props);
 
     this.tabsList = {
-      profile: { title: I18n.t("settings.tabs.profile"), component: ProfileSettingsPage }
-    };
+      profile: { title: I18n.t("settings.tabs.profile"), component: ProfileSettingsPage },
+      'map-defaults': { title: I18n.t("settings.tabs.map_defaults"), component: MapDefaultsSettingsPage }
+    }
 
     this.onTabSelect = this.onTabSelect.bind(this);
   }
