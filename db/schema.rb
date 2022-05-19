@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_13_170710) do
+ActiveRecord::Schema.define(version: 2022_05_16_214516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,9 @@ ActiveRecord::Schema.define(version: 2022_05_13_170710) do
     t.float "value_ush"
     t.boolean "is_static", default: false, null: false
     t.string "station_name"
+    t.bigint "weather_data_id"
     t.index ["user_id"], name: "index_measurements_on_user_id"
+    t.index ["weather_data_id"], name: "index_measurements_on_weather_data_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,6 +59,24 @@ ActiveRecord::Schema.define(version: 2022_05_13_170710) do
     t.index ["map_settings_id"], name: "index_users_on_map_settings_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "weather_data", force: :cascade do |t|
+    t.integer "temperature"
+    t.integer "pressure_mm"
+    t.integer "pressure_pa"
+    t.string "condition"
+    t.integer "cloudness"
+    t.integer "precipitation_type"
+    t.integer "precipitation_strength"
+    t.boolean "is_thunder"
+    t.integer "wind_speed"
+    t.string "wind_direction"
+    t.integer "humidity"
+    t.bigint "static_measurement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["static_measurement_id"], name: "index_weather_data_on_static_measurement_id"
   end
 
 end

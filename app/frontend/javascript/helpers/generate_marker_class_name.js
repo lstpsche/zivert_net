@@ -1,7 +1,7 @@
-const valueThresholdsOrder = [0.2, 0.5, 1, 'overhead', 'default'];
+const valueThresholdsOrder = [0.3, 0.5, 1, 'overhead', 'default'];
 
 const valueThresholds = {
-  0.2: "default",
+  0.3: "default",
   0.5: "warning",
   1: "danger",
   overhead: "critical",
