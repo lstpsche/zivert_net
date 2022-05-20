@@ -9,7 +9,6 @@ class MapSettings < ApplicationRecord
 
   belongs_to :user
 
-  enum base_map: { regular: 'regularMap' }
   enum units: { urh: 'urh', ush: 'ush' }
 
   before_create :assign_defaults

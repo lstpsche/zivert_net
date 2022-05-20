@@ -1,1 +1,3 @@
+base_map: 'regularMap'
+overlay_layers: ['measurements']
 units: 'urh'

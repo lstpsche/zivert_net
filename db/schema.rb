@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2022_05_19_195609) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "base_map", default: "regular", null: false
+    t.string "base_map", default: "regularMap", null: false
     t.string "overlay_layers", default: ["measurements"], null: false, array: true
     t.index ["user_id"], name: "index_map_settings_on_user_id"
   end

@@ -3,5 +3,5 @@
 class MapSettingsSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :id, :user_id, :units
+  attributes :id, :user_id, :base_map, :overlay_layers, :units
 end

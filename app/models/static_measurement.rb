@@ -9,7 +9,7 @@ class StaticMeasurement < MeasurementBase
 
   after_create :create_weather_data
 
-  REJECTED_ATTRIBUTES = %w[id created_at updated_at value_ush is_static].freeze
+  REJECTED_ATTRIBUTES = %w[id created_at updated_at value_urh is_static].freeze
 
   class << self
     def latest_measurements
@@ -18,17 +18,17 @@ class StaticMeasurement < MeasurementBase
     end
   end
 
-  # incoming value SHOULD be in urh and int or float
-  def update_value(new_value_urh)
-    self.class.create(new_station_attributes(new_value_urh))
+  # incoming value SHOULD be in USH and int or float
+  def update_value(new_value_ush)
+    self.class.create(new_station_attributes(new_value_ush))
   end
 
   private
 
-  def new_station_attributes(new_value_urh)
+  def new_station_attributes(new_value_ush)
     attributes
       .except(*REJECTED_ATTRIBUTES)
-      .merge('value_urh' => new_value_urh)
+      .merge('value_ush' => new_value_ush)
   end
 
   def create_weather_data

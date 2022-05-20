@@ -1,11 +1,16 @@
+import { connect } from "react-redux";
 import MapDefaultsSettingsForm from "./components/map_defaults_settings_form";
 import fetchLink from "../../../../helpers/fetch_link";
+import { setBaseLayer, setMapSettings, setOverlayLayer } from "../../../../store/actions/main_map";
 
 class MapDefaultsSettingsPage extends React.Component {
   constructor (props) {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.updateBaseLayerStore = this.updateBaseLayerStore.bind(this);
+    this.updateOverlayLayersStore = this.updateOverlayLayersStore.bind(this);
   }
 
   handleSubmit ({ mapSettingsId, baseLayers, overlayLayers, units }) {
@@ -20,20 +25,34 @@ class MapDefaultsSettingsPage extends React.Component {
         }
       }),
       onSuccess: () => {
+        const { setMapSettings } = this.props;
 
+        this.updateBaseLayerStore(baseLayers);
+        this.updateOverlayLayersStore(overlayLayers);
+        setMapSettings(units);
 
-
-
-
-
-
-        // TODO: update map_settings store
-
-
-
-
-
+        // TODO: SHOW SUCCESS ALERT (ZN-31)
       }
+    })
+  }
+
+  //
+  // STORE UPDATERS
+  //
+
+  updateBaseLayerStore (baseLayers) {
+    const { setBaseLayer } = this.props;
+
+    setBaseLayer(
+      Object.entries(baseLayers).filter(([_layerName, { selected }]) => (selected))[0][0]
+    )
+  }
+
+  updateOverlayLayersStore (overlayLayers) {
+    const { setOverlayLayer } = this.props;
+
+    Object.keys(overlayLayers).forEach((layerName) => {
+      setOverlayLayer({ layerName, selected: overlayLayers[layerName].selected })
     })
   }
 
@@ -52,4 +71,10 @@ class MapDefaultsSettingsPage extends React.Component {
   }
 }
 
-export default MapDefaultsSettingsPage;
+const mapDispatchToProps = dispatch => ({
+  setBaseLayer: (layerName) => dispatch(setBaseLayer({ layerName })),
+  setOverlayLayer: ({ layerName, selected }) => dispatch(setOverlayLayer({ layerName, selected })),
+  setMapSettings: (units) => dispatch(setMapSettings({ units }))
+});
+
+export default connect(undefined, mapDispatchToProps)(MapDefaultsSettingsPage);
