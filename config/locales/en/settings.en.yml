@@ -3,6 +3,9 @@ en:
     tabs:
       profile: Profile
       map_defaults: Map
+      geiger_counter: Geiger Counter
+    geiger_counter:
+      title: Geiger Counter Integration
     profile:
       buttons:
         submit: Save
