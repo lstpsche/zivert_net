@@ -13,7 +13,7 @@ module Api
       end
 
       def update
-        render_json_response(success: map_settings.update(map_settings_params))
+        render_json_response(success: map_settings.update_settings(map_settings_params))
       end
 
       private
@@ -37,7 +37,19 @@ module Api
       end
 
       def map_settings_params
-        params.require(:map_settings).permit(:units)
+        params.require(:map_settings).permit(
+          :units,
+          :overlay_layers,
+          base_map: [
+            regularMap: [:selected]
+          ],
+          overlay_layers: [
+            dimmer: [:selected],
+            measurements: [:selected],
+            heatmap: [:selected],
+            hexagons: [:selected]
+          ]
+        )
       end
     end
   end
