@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import MeasurementsClusterInfo from "./measurements_cluster_details/measurements_cluster_info";
 import MeasurementsClusterMeasurements from "./measurements_cluster_details/measurements_cluster_measurements";
+import staticMeasurements from "../../../store/reducers/static_measurements";
 
 class MeasurementsClusterDetailsTabContent extends React.Component {
   renderPlaceholder () {
@@ -9,32 +10,32 @@ class MeasurementsClusterDetailsTabContent extends React.Component {
     )
   }
 
-  renderInformation (measurementsCluster, measurements) {
+  renderInformation (measurementsCluster, allMeasurements) {
     const { valueUnits } = this.props;
 
     return (
       <div id="measurements-cluster-information">
-        <MeasurementsClusterInfo measurementsCluster={measurementsCluster} measurements={measurements} valueUnits={valueUnits} />
-        <MeasurementsClusterMeasurements measurements={measurements} />
+        <MeasurementsClusterInfo measurementsCluster={measurementsCluster} measurements={allMeasurements} valueUnits={valueUnits} />
+        <MeasurementsClusterMeasurements measurements={allMeasurements} />
       </div>
     )
   }
 
-  measurements () {
-    const { measurements, clusterMeasurementsIds } = this.props;
+  allMeasurementsInCluster () {
+    const { measurements, staticMeasurements, clusterMeasurementsIds } = this.props;
 
-    return clusterMeasurementsIds.map(id => measurements.find(measurement => measurement.id === id))
+    return clusterMeasurementsIds.map(id => measurements.concat(staticMeasurements).find(measurement => measurement.id === id))
   }
 
   render () {
     const { measurementsCluster } = this.props;
-    const measurements = this.measurements();
+    const allMeasurements = this.allMeasurementsInCluster();
 
     return (
       <div id="measurements-cluster-details-tab-content">
         {
-          measurements.length
-            ? this.renderInformation(measurementsCluster, measurements)
+          allMeasurements.length
+            ? this.renderInformation(measurementsCluster, allMeasurements)
             : this.renderPlaceholder()
         }
       </div>
@@ -44,10 +45,12 @@ class MeasurementsClusterDetailsTabContent extends React.Component {
 
 const mapStateToProps = ({
   measurements,
+  staticMeasurements,
   sidebar: { data: { cluster: measurementsCluster, clusterMeasurements: clusterMeasurementsIds } },
   mainMap: { settings: { units: valueUnits } }
 }) => ({
   measurements,
+  staticMeasurements,
   measurementsCluster,
   clusterMeasurementsIds,
   valueUnits
