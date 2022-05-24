@@ -43,7 +43,7 @@
   }
 
   &.collapsed {
-    max-height: 175px;
+    max-height: 230px;
     transition: max-height .3s .25s, width .3s;
     width: 42px;
   }
@@ -52,3 +52,4 @@
 @import "./map_sidebar_tabs/measurements_cluster_details_tab";
 @import "./map_sidebar_tabs/measurement_creation_tab";
 @import "./map_sidebar_tabs/map_settings_tab";
+@import "./map_sidebar_tabs/static_measurement_details_tab";

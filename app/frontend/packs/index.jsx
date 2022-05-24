@@ -9,6 +9,7 @@ import UsersDataLoader from "../javascript/components/data_loaders/users_data_lo
 import MeasurementsDataLoader from "../javascript/components/data_loaders/measurements_data_loader";
 import StaticMeasurementsDataLoader from "../javascript/components/data_loaders/static_measurements_data_loader";
 import MapSettingsDataLoader from "../javascript/components/data_loaders/map_settings_data_loader";
+import WeatherDataDataLoader from "../javascript/components/data_loaders/weather_data_data_loader";
 import MeasurementsChannel from "../javascript/components/channels/measurements_channel";
 import UsersChannel from "../javascript/components/channels/users_channel";
 import MeasurementsInTimePeriodBGUpdater from "../javascript/components/bg_updaters/measurements_in_time_period_bg_updater";
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <MeasurementsDataLoader />
         <StaticMeasurementsDataLoader />
         <MapSettingsDataLoader />
+        <WeatherDataDataLoader />
 
         <UsersChannel />
         <MeasurementsChannel />

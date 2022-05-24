@@ -1,0 +1,124 @@
+#static-measurement-details-tab-content {
+  color: #383838;
+  margin-right: 20px;
+  margin-top: 10px;
+
+  .radiation-section {
+    margin-bottom: 35px;
+    margin-left: 25px;
+
+    .station-name {
+      color: #525252;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .radiation-measurement {
+      margin-left: 20px;
+      text-align: left;
+
+      .value {
+        border-radius: 5px;
+        display: inline-block;
+        font-size: 22px;
+        padding: 5px;
+        width: fit-content;
+
+        &.default {
+          background-color: #ffefa3;
+          color: #4a4a4a;
+        }
+
+        &.warning {
+          background-color: #ffbe47;
+          color: #4a4a4a;
+        }
+
+        &.danger {
+          background-color: #f9840d;
+          color: #ffffff;
+        }
+
+        &.critical {
+          background-color: #dd0000;
+          color: #ffffff;
+        }
+
+      }
+
+      .measurement-time {
+        color: #525252;
+        display: inline-block;
+        margin-left: 20px;
+
+        .fetched-at {
+          font-size: 13px;
+          margin-bottom: -3px;
+        }
+
+        .provided-by {
+          font-size: 11px;
+          margin-bottom: -5px;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+
+  .coors-section {
+    margin-bottom: 35px;
+    margin-left: 25px;
+    text-align: left;
+
+    svg {
+      margin-right: 5px;
+    }
+
+    .coors-title {
+      color: #525252;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .coordinates {
+      margin-left: 20px;
+    }
+  }
+
+  .weather-section {
+    margin-bottom: 35px;
+    margin-left: 25px;
+    text-align: left;
+
+    svg {
+      margin-right: 5px;
+    }
+
+    .weather-title {
+      color: #525252;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .weather-data {
+      margin-left: 20px;
+    }
+
+    .weather-time {
+      margin-top: 15px;
+      text-align: center;
+
+      .fetched-date {
+        font-size: 11px;
+      }
+
+      .provided-by {
+        font-size: 11px;
+      }
+    }
+  }
+}

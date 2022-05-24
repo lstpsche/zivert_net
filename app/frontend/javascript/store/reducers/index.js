@@ -9,11 +9,13 @@ import mainMap from "./main_map";
 import sidebar from "./sidebar";
 import userActions from "./user_actions";
 import measurementsInPeriod from "./measurements_in_period";
+import weatherData from "./weather_data";
 
 export default combineReducers({
   measurements,
   staticMeasurements,
   measurementsInPeriod,
+  weatherData,
   modals,
   currentUser,
   users,

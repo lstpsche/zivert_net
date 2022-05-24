@@ -5,6 +5,7 @@ const defaultStoreValue = {
   measurements: [],
   staticMeasurements: [],
   measurementsInPeriod: [],
+  weatherData: [],
   users: [],
   modals: {
     about: { show: false }
