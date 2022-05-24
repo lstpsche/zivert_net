@@ -2,7 +2,8 @@ import {
   SET_STATIC_MEASUREMENTS,
   ADD_STATIC_MEASUREMENT,
   UPDATE_STATIC_MEASUREMENT,
-  REMOVE_STATIC_MEASUREMENT
+  REMOVE_STATIC_MEASUREMENT,
+  SELECT_STATIC_MEASUREMENT
 } from "../actionTypes/static_measurements";
 
 export const setStaticMeasurements = (staticMeasurements) => ({
@@ -23,5 +24,10 @@ export const updateStaticMeasurement = ({ id, latitude, longitude, value_urh, va
 
 export const removeStaticMeasurement = ({ id }) => ({
   type: REMOVE_STATIC_MEASUREMENT,
+  id
+})
+
+export const selectStaticMeasurement = ({ id }) => ({
+  type: SELECT_STATIC_MEASUREMENT,
   id
 })

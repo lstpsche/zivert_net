@@ -1,13 +1,17 @@
+import { connect } from "react-redux";
 import Marker from "react-leaflet-enhanced-marker";
 import MarkerIcon from "./marker/marker_icon";
 import generateMarkerClassName from "../../../helpers/generate_marker_class_name";
 import roundValue from "../../../helpers/round_value";
+import { showSidebar } from "../../../store/actions/sidebar";
+import { selectStaticMeasurement } from "../../../store/actions/static_measurements";
 
 class MeasurementMarker extends React.Component {
   constructor (props) {
     super(props);
 
     this.markerValue = this.markerValue.bind(this);
+    this.onMarkerClick = this.onMarkerClick.bind(this);
   }
 
   markerValue () {
@@ -18,6 +22,16 @@ class MeasurementMarker extends React.Component {
       return value;
 
     return roundValue(value, 2);
+  }
+
+  onMarkerClick () {
+    const { id, isStatic, selectStaticMeasurement, showStaticMeasurementSidebar } = this.props;
+
+    if (!isStatic)
+      return
+
+    selectStaticMeasurement(id);
+    showStaticMeasurementSidebar();
   }
 
   render () {
@@ -35,6 +49,7 @@ class MeasurementMarker extends React.Component {
         position={[latitude, longitude]}
         riseOnHover={true}
         onDrag={() => onMarkerDrag(this.marker.markerRef.leafletElement)}
+        onClick={() => this.onMarkerClick()}
       />
     )
   }
@@ -47,6 +62,7 @@ MeasurementMarker.propTypes = {
   value_urh: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   value_ush: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   valueUnits: PropTypes.string,
+  isStatic: PropTypes.bool,
   draggable: PropTypes.bool,
   onMarkerDrag: PropTypes.func
 }
@@ -55,4 +71,9 @@ MeasurementMarker.defaultProps = {
   draggable: false
 }
 
-export default MeasurementMarker;
+const mapDispatchToProps = dispatch => ({
+  selectStaticMeasurement: (id) => dispatch(selectStaticMeasurement({ id })),
+  showStaticMeasurementSidebar: () => dispatch(showSidebar({ selectedTabId: "station-measurement-details-tab" }))
+});
+
+export default connect(undefined, mapDispatchToProps)(MeasurementMarker);

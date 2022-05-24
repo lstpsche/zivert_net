@@ -7,11 +7,12 @@ import {
 } from "../../store/actions/user_actions";
 import { Sidebar as SidebarLib, Tab } from "react-leaflet-sidetabs";
 import { FaChevronRight, FaMapMarkerAlt, FaPlusCircle, FaMapMarkedAlt, FaLayerGroup } from "react-icons/fa";
+import { BiStation } from "react-icons/bi";
 import UserMeasurementsHistoryTabContent from "./tabs_content/user_measurements_history_tab_content";
 import MapSettingsTabContent from "./tabs_content/map_settings_tab_content";
 import MeasurementCreationTabContent from "./tabs_content/measurement_creation_tab_content";
 import MeasurementsClusterDetailsTabContent from "./tabs_content/measurements_cluster_details_tab_content";
-import fetchLink from "../../helpers/fetch_link";
+import StaticMeasurementDetailsTabContent from "./tabs_content/static_measurement_details_tab_content";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -69,6 +70,19 @@ class Sidebar extends React.Component {
         anchor="top"
       >
         <MeasurementsClusterDetailsTabContent />
+      </Tab>
+    )
+  }
+
+  renderStaticMeasurementDetailsTab () {
+    return (
+      <Tab
+        id="station-measurement-details-tab"
+        header={ I18n.t("sidebar.tabs.headers.static_measurement_details") }
+        icon={<BiStation />}
+        anchor="top"
+      >
+        <StaticMeasurementDetailsTabContent />
       </Tab>
     )
   }
@@ -168,6 +182,7 @@ class Sidebar extends React.Component {
         { this.renderMeasurementsClusterDetailsTab() }
         { this.renderMeasurementCreationTab() }
         { this.renderMapSettingsTab() }
+        { this.renderStaticMeasurementDetailsTab() }
       </SidebarLib>
     )
   }

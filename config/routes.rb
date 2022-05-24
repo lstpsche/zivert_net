@@ -12,7 +12,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :current_user, only: :index
       resources :measurements, except: %i[new edit]
-      resources :static_measurements
+      resources :static_measurements, only: :index
+      resources :weather_data, only: :index
       resources :users, only: :index
       resources :map_settings, only: %i[index update]
     end

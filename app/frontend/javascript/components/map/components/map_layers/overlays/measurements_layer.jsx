@@ -17,7 +17,7 @@ class MeasurementsLayer extends React.Component {
   measurementsMarkers () {
     const { measurements, valueUnits } = this.props;
 
-    return measurements.map(({ id, latitude, longitude, value_urh, value_ush }) => {
+    return measurements.map(({ id, latitude, longitude, value_urh, value_ush, isStatic }) => {
       return (
         <MeasurementMarker
           key={"measurement-marker-" + id}
@@ -27,6 +27,7 @@ class MeasurementsLayer extends React.Component {
           value_urh={value_urh}
           value_ush={value_ush}
           valueUnits={valueUnits}
+          isStatic={isStatic}
         />
       )
     })

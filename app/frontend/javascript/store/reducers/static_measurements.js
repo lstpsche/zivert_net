@@ -9,7 +9,8 @@
 //     value_ush: measurementValueUsh,
 //     isStatic: true,
 //     stationName: measurementStationName
-//     userId: measurementUserId
+//     userId: measurementUserId,
+//     selected: isSelected
 //   },
 //   ...
 // ]
@@ -19,7 +20,8 @@ import {
   SET_STATIC_MEASUREMENTS,
   ADD_STATIC_MEASUREMENT,
   UPDATE_STATIC_MEASUREMENT,
-  REMOVE_STATIC_MEASUREMENT
+  REMOVE_STATIC_MEASUREMENT,
+  SELECT_STATIC_MEASUREMENT
 } from "../actionTypes/static_measurements";
 
 function staticMeasurements(state = [], action) {
@@ -45,6 +47,12 @@ function staticMeasurements(state = [], action) {
 
     case REMOVE_STATIC_MEASUREMENT:
       return state.filter(({ id: static_measurementId }) => static_measurementId !== parseInt(id))
+
+    case SELECT_STATIC_MEASUREMENT:
+      return state.map(staticMeasurement =>
+        staticMeasurement.id === id ? { ...staticMeasurement, selected: true } : { ...staticMeasurement, selected: false }
+      );
+
 
     default:
       return state;

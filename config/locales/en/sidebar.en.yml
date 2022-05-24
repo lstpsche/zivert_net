@@ -6,6 +6,7 @@ en:
         map_settings: Map Settings
         measurement_creation: Add Measurement
         user_measurements_history: My Measurements
+        static_measurement_details: Station Measurement
       measurements_cluster_details:
         placeholder: Pick a cluster to show
         labels:
@@ -45,3 +46,24 @@ en:
           units:
             urh: μR/h
             ush: μSv/h
+      static_measurement_details:
+        placeholder: Pick a station to show
+        labels:
+          station_name: Station -
+          urh: µR/h
+          ush: µSv/h
+          fetched_at: fetched at
+          rad_provided_by: Data provided by Belhydromet
+          coordinates_title: Coordinates
+          latitude: latitude
+          longitude: longitude
+          weather_title: Weather data
+          temperature: Temperature
+          humidity: Humidity
+          wind_speed: Wind speed
+          wind_direction: Wind direction
+          condition: Condition
+          pressure: Pressure
+          mmhg: mmHg
+          pa: Pa
+          weather_provided_by: Yandex.Weather
