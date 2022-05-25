@@ -64,10 +64,10 @@ en:
           weather_title: Weather data
           temperature: Temperature
           humidity: Humidity
-          wind_speed: Wind speed
-          wind_direction: Wind direction
+          wind: Wind
+          wind_units: m/s
           condition: Condition
           pressure: Pressure
           mmhg: mmHg
-          pa: Pa
-          weather_provided_by: Yandex.Weather
+          pa: hPa
+          weather_provided_by: OpenWeather

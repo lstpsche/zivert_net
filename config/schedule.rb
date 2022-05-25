@@ -22,7 +22,7 @@
 # crontab -r                                                  # clear current cron schedule
 # whenever --update-crontab --set environment='development'   # update cron schedule
 
-every 1.day, at: '9:00 am' do
+every 1.day, at: ['12:00 am', '9:00 am'] do
   rake 'measurements:update_stations_rad_data'
 end
 
