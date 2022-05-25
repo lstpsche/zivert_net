@@ -32,4 +32,28 @@ describe MapSettings, type: :model do
 
     it { is_expected.to eq(defaults) }
   end
+
+  describe '#update_settings' do
+    subject { super().update_settings(settings_params) }
+
+    let(:settings_params) do
+      {
+        base_map: {
+          'wrong' => { selected: false },
+          'correct' => { selected: true }
+        },
+        overlay_layers: {
+          'correct' => { selected: true },
+          'wrong' => { selected: false }
+        },
+        units: 'test_units'
+      }
+    end
+
+    it 'updates map setings' do
+      expect(map_settings).to receive(:update).with(base_map: 'correct', overlay_layers: ['correct'], units: 'test_units')
+
+      subject
+    end
+  end
 end

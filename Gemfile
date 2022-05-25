@@ -83,4 +83,5 @@ group :test do
   gem 'webdrivers'
   gem 'simplecov', '~> 0.17.1', require: false
   gem 'simplecov-json'
+  gem 'webmock'
 end

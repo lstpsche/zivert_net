@@ -70,7 +70,7 @@ describe Api::V1::MapSettingsController, type: :controller do
 
         before do
           allow(MapSettings).to receive(:find).with(map_settings_id.to_s).and_return(map_settings)
-          allow(map_settings).to receive(:update).and_return(update_success)
+          allow(map_settings).to receive(:update_settings).and_return(update_success)
         end
 
         context 'when update was successful' do
