@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import toast from "react-hot-toast";
 import fetchLink from "../../../helpers/fetch_link";
 import { FormControl, Col, InputGroup, Row } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
@@ -138,19 +139,36 @@ class MeasurementCreationTabContent extends React.Component {
     const { latitude, longitude } = this.props;
     const { value, units } = this.state;
 
-    fetchLink({
-      link: "/api/v1/measurements",
-      method: "POST",
-      body: JSON.stringify({ measurement: { latitude, longitude, ["value_" + units]: value } }),
-      onSuccess: ({ success, errors }) => {
-        if (success) {
-          this.onMeasurementCreate();
-        } else {
-          // TODO: add errors handling with alertify or smth
-          console.log(errors);
+    let saveRequest = new Promise((resolve, reject) => {
+      fetchLink({
+        link: "/api/v1/measurements",
+        method: "POST",
+        body: JSON.stringify({ measurement: { latitude, longitude, ["value_" + units]: value } }),
+        onSuccess: ({ success, errors }) => {
+          if (success) {
+            resolve();
+            this.onMeasurementCreate();
+          } else {
+            reject();
+            console.log(errors);
+          }
+        }
+      })
+    })
+
+    toast.promise(
+      saveRequest,
+      {
+        loading: I18n.t("sidebar.tabs.measurement_creation.notifications.loading"),
+        success: I18n.t("sidebar.tabs.measurement_creation.notifications.success"),
+        error: I18n.t("sidebar.tabs.measurement_creation.notifications.error")
+      },
+      {
+        style: {
+          minWidth: '250px'
         }
       }
-    });
+    )
   }
 
   renderSubmitButton () {

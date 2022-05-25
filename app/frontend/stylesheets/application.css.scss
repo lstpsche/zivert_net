@@ -27,15 +27,16 @@
 @import "~react-datepicker";
 
 // components
-@import "./components/admin_panel.scss";
-@import "./components/auth.scss";
-@import "./components/block_ui.scss";
-@import "./components/common.scss";
-@import "./components/dropdown.scss";
-@import "./components/map/map.scss";
-@import "./components/modals/modal.scss";
-@import "./components/navbar.scss";
-@import "./components/settings.scss";
+@import "./components/admin_panel";
+@import "./components/auth";
+@import "./components/block_ui";
+@import "./components/toast_notification";
+@import "./components/common";
+@import "./components/dropdown";
+@import "./components/map/map";
+@import "./components/modals/modal";
+@import "./components/navbar";
+@import "./components/settings";
 @import "./components/sidebars/map_sidebar";
 
 :focus {

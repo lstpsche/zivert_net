@@ -20,6 +20,10 @@ en:
           title: Your Password
         username:
           title: Username
+      notifications:
+        loading: Saving...
+        success: Profile settings saved successfully!
+        error: Some error happen :(
       title: Profile Settings
     map_defaults:
       buttons:
@@ -37,4 +41,8 @@ en:
         base_map: Base Map
         overlay_layers: Map Overlay Layers
         units: Radiation Units
+      notifications:
+        loading: Saving...
+        success: Map settings saved successfully!
+        error: Some error happen :(
       title: Map Default Settings

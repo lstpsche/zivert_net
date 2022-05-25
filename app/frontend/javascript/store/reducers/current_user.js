@@ -10,6 +10,7 @@
 
 import {
   SET_CURRENT_USER,
+  UPDATE_CURRENT_USER,
   REMOVE_CURRENT_USER
 } from "../actionTypes/current_user";
 
@@ -19,6 +20,9 @@ function currentUser(state = { signedIn: undefined }, action) {
   switch(actionType) {
     case SET_CURRENT_USER:
       return { id, firstName, lastName, username, nickname, signedIn, admin };
+
+    case UPDATE_CURRENT_USER:
+      return { ...state, firstName, lastName, username, nickname };
 
     case REMOVE_CURRENT_USER:
       return {};

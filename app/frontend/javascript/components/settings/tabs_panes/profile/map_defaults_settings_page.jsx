@@ -14,25 +14,32 @@ class MapDefaultsSettingsPage extends React.Component {
   }
 
   handleSubmit ({ mapSettingsId, baseLayers, overlayLayers, units }) {
-    fetchLink({
-      link: "/api/v1/map_settings/" + mapSettingsId,
-      method: "PUT",
-      body: JSON.stringify({
-        map_settings: {
-          base_map: baseLayers,
-          overlay_layers: overlayLayers,
-          units
+    return new Promise((resolve, reject) => {
+      fetchLink({
+        link: "/api/v1/map_settings/" + mapSettingsId,
+        method: "PUT",
+        body: JSON.stringify({
+          map_settings: {
+            base_map: baseLayers,
+            overlay_layers: overlayLayers,
+            units
+          }
+        }),
+        onSuccess: ({ error }) => {
+          if (error) {
+            reject();
+
+            return;
+          }
+
+          const { setMapSettings } = this.props;
+
+          resolve();
+          this.updateBaseLayerStore(baseLayers);
+          this.updateOverlayLayersStore(overlayLayers);
+          setMapSettings(units);
         }
-      }),
-      onSuccess: () => {
-        const { setMapSettings } = this.props;
-
-        this.updateBaseLayerStore(baseLayers);
-        this.updateOverlayLayersStore(overlayLayers);
-        setMapSettings(units);
-
-        // TODO: SHOW SUCCESS ALERT (ZN-31)
-      }
+      })
     })
   }
 
