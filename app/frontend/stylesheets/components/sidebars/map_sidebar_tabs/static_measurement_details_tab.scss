@@ -76,6 +76,7 @@
       margin-right: 5px;
     }
 
+
     .coors-title {
       color: #525252;
       font-size: 1.2rem;
@@ -93,8 +94,12 @@
     margin-left: 25px;
     text-align: left;
 
-    svg {
+    svg:not(.wind-dir) {
       margin-right: 5px;
+    }
+
+    svg.wind-dir {
+      margin-left: -5px;
     }
 
     .weather-title {

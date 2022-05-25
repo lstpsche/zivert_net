@@ -4,8 +4,13 @@ describe StaticMeasurement, type: :model do
   subject { static_measurement }
 
   let(:static_measurement) { build_stubbed(:static_measurement) }
+  let(:weather_data_service) { instance_double(CreateWeatherDataForMeasurement) }
 
-  before { allow(StaticMeasurements::CreationJob).to receive(:perform_now) }
+  before do
+    allow(StaticMeasurements::CreationJob).to receive(:perform_now)
+    allow(CreateWeatherDataForMeasurement).to receive(:new).and_return(weather_data_service)
+    allow(weather_data_service).to receive(:execute).with(no_args)
+  end
 
   describe 'callbacks' do
     describe 'after_create' do
@@ -13,6 +18,12 @@ describe StaticMeasurement, type: :model do
 
       it 'calls measurements creation job' do
         expect(StaticMeasurements::CreationJob).to receive(:perform_now)
+
+        subject
+      end
+
+      it 'calls weather data creation' do
+        expect(weather_data_service).to receive(:execute).with(no_args)
 
         subject
       end
@@ -83,19 +94,19 @@ describe StaticMeasurement, type: :model do
   end
 
   describe '#update_value' do
-    subject { static_measurement.update_value(new_value_urh) }
+    subject { static_measurement.update_value(new_value_ush) }
 
-    let(:new_value_urh) { 100 }
+    let(:new_value_ush) { 100 }
     let(:rejected_attributes) { 'id' }
 
     before { stub_const("#{described_class}::REJECTED_ATTRIBUTES", rejected_attributes) }
 
     it 'creates new static measurement with new value_urh' do
       expect(described_class).to receive(:create).with(
-        static_measurement.attributes.except(rejected_attributes).merge('value_urh' => new_value_urh)
+        static_measurement.attributes.except(rejected_attributes).merge('value_ush' => new_value_ush)
       )
 
-        subject
+      subject
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_19_195609) do
+ActiveRecord::Schema.define(version: 2022_05_25_201612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,20 +64,17 @@ ActiveRecord::Schema.define(version: 2022_05_19_195609) do
   end
 
   create_table "weather_data", force: :cascade do |t|
-    t.integer "temperature"
-    t.integer "pressure_mm"
-    t.integer "pressure_pa"
+    t.float "temperature"
+    t.float "pressure_mm"
+    t.float "pressure_pa"
     t.string "condition"
-    t.integer "cloudness"
-    t.integer "precipitation_type"
-    t.integer "precipitation_strength"
-    t.boolean "is_thunder"
-    t.integer "wind_speed"
+    t.float "wind_speed"
     t.string "wind_direction"
     t.integer "humidity"
     t.bigint "static_measurement_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "wind_direction_deg"
     t.index ["static_measurement_id"], name: "index_weather_data_on_static_measurement_id"
   end
 

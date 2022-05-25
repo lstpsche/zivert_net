@@ -13,21 +13,21 @@ class WeatherDataDataLoader extends React.Component {
         setWeatherData(
           response.weatherData.map(({
                                 data: { attributes: {
-                                  id, temperature, pressure_mm: pressureMm, pressure_pa: pressurePa, cloudness,
-                                  precipitation_type: precipitationType, precipitation_strength: precipitationStrength,
+                                  id, temperature, pressure_mm: pressureMm, pressure_pa: pressurePa,
                                   wind_speed: windSpeed, humidity, condition, wind_direction: windDirection,
-                                  is_thunder: isThunder, static_measurement_id: staticMeasurementId, created_at: createdAt
+                                  wind_direction_deg: windDirectionDeg,
+                                  static_measurement_id: staticMeasurementId, created_at: createdAt
                                 } }
           }) => (
             {
-              id, temperature, pressureMm, pressurePa, cloudness, precipitationType, precipitationStrength,
-              windSpeed, humidity, condition, windDirection, isThunder, staticMeasurementId, createdAt
+              id, temperature, pressureMm, pressurePa, windSpeed,
+              humidity, condition, windDirection, windDirectionDeg,
+              staticMeasurementId, createdAt
             }
           ))
         )
       },
       onFailure: (error) => {
-        // TODO: add parsing of internal server errors
         throw new Error(error);
       },
       onComplete: () => setFullPageBlock(false)

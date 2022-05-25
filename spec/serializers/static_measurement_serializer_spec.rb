@@ -2,6 +2,13 @@
 
 describe StaticMeasurementSerializer do
   let(:static_measurement) { create(:static_measurement) }
+  let(:weather_data_service) { instance_double(CreateWeatherDataForMeasurement) }
+
+  before do
+    allow(StaticMeasurements::CreationJob).to receive(:perform_now)
+    allow(CreateWeatherDataForMeasurement).to receive(:new).and_return(weather_data_service)
+    allow(weather_data_service).to receive(:execute).with(no_args)
+  end
 
   describe 'attributes' do
     subject { described_class.new(static_measurement).serializable_hash }
