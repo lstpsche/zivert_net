@@ -46,6 +46,10 @@ en:
           units:
             urh: μR/h
             ush: μSv/h
+        notifications:
+          loading: Creating...
+          success: Measurement successfully created!
+          error: Could not create measurement :(
       static_measurement_details:
         placeholder: Pick a station to show
         labels:

@@ -26,12 +26,6 @@ const headers = {
   "Content-Type": "application/json"
 }
 
-
-
-// TODO: FIND OUT WHY MEASUREMENTS DOES NOT FETCH (you can try to load the page and observe the error in inspect)
-
-
-
 function fetchGet ({
     link,
     onSuccess = defaultArgs.onSuccess,

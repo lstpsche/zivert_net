@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import FormBase from "../../../../common/form_base";
 import { Form } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -31,7 +32,19 @@ class MapDefaultsSettingsForm extends FormBase {
     const { onSubmit, mapSettingsId } = this.props;
     const { baseLayers, overlayLayers, units } = this.state;
 
-    onSubmit({ mapSettingsId, baseLayers, overlayLayers, units });
+    toast.promise(
+      onSubmit({ mapSettingsId, baseLayers, overlayLayers, units }),
+      {
+        loading: I18n.t("settings.map_defaults.notifications.loading"),
+        success: I18n.t("settings.map_defaults.notifications.success"),
+        error: I18n.t("settings.map_defaults.notifications.error")
+      },
+      {
+        style: {
+          minWidth: '250px'
+        }
+      }
+    )
   }
 
   //

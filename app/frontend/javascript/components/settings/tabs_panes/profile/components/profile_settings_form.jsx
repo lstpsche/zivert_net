@@ -1,6 +1,7 @@
+import { connect } from "react-redux";
+import toast from "react-hot-toast";
 import FormBase from "../../../../common/form_base";
 import { Form } from "react-bootstrap";
-import { connect } from "react-redux";
 
 class ProfileSettingsForm extends FormBase {
   constructor (props) {
@@ -22,6 +23,7 @@ class ProfileSettingsForm extends FormBase {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onFailure = this.onFailure.bind(this);
+    this.onSuccess = this.onSuccess.bind(this);
 
     this.renderCurrentPasswordInvalidFeedback = this.renderCurrentPasswordInvalidFeedback.bind(this);
   }
@@ -35,7 +37,19 @@ class ProfileSettingsForm extends FormBase {
       return;
     }
 
-    onSubmit({ firstName, lastName, username, currentPassword, failureCallback: this.onFailure });
+    toast.promise(
+      onSubmit({ firstName, lastName, username, currentPassword, failureCallback: this.onFailure, successCallback: this.onSuccess }),
+      {
+        loading: I18n.t("settings.profile.notifications.loading"),
+        success: I18n.t("settings.profile.notifications.success"),
+        error: I18n.t("settings.profile.notifications.error")
+      },
+      {
+        style: {
+          minWidth: '250px'
+        }
+      }
+    )
   }
 
   onFailure ({ error }) {
@@ -46,6 +60,12 @@ class ProfileSettingsForm extends FormBase {
     });
 
     this.toggleAlert(true);
+  }
+
+  onSuccess () {
+    this.setState({
+      currentPassword: ""
+    });
   }
 
   renderFirstNameField () {
