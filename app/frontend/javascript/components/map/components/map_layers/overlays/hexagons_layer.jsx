@@ -8,6 +8,8 @@ class HexagonsLayer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.hexagonPopupContent = this.hexagonPopupContent.bind(this);
+
     this.options = {
       colorScaleRange: ['#f5e180', '#ffd402', '#f58d23', '#ef1717'],
       latFunc: (measurement) => measurement.latitude,
@@ -15,8 +17,6 @@ class HexagonsLayer extends React.Component {
       colorValueFunc: (measurement) => this.hexagonColor(measurement),
       tooltip: { tooltipContent: this.hexagonPopupContent }
     };
-
-    this.hexagonPopupContent = this.hexagonPopupContent.bind(this);
   }
 
   hexagonColor (measurements) {
@@ -26,7 +26,9 @@ class HexagonsLayer extends React.Component {
   }
 
   hexagonPopupContent (data) {
-    const text = countRoundedClusterValue(data.map(({ o }) => o.value_urh), 4)
+    const { valueUnits } = this.props;
+
+    const text = countRoundedClusterValue(data.map(({ o }) => o["value_" + valueUnits]), 4)
 
     return 'Overall value: ' + text;
   }
@@ -51,8 +53,12 @@ class HexagonsLayer extends React.Component {
 
 const mapStateToProps = ({
   measurementsInPeriod: measurements,
+  mainMap: {
+    settings: { units }
+  }
 }) => ({
-  measurements
+  measurements,
+  valueUnits: units
 });
 
 export default connect(mapStateToProps)(HexagonsLayer);
