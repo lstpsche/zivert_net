@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
 import { BsX } from "react-icons/bs";
-import EllipsisWithTooltip from 'react-ellipsis-with-tooltip'
+import { RiBaseStationFill } from "react-icons/ri";
+import { IconContext } from "react-icons";
+import EllipsisWithTooltip from 'react-ellipsis-with-tooltip';
 
 class MeasurementRowInfo extends React.Component {
   constructor(props) {
@@ -59,6 +61,12 @@ class MeasurementRowInfo extends React.Component {
     document.removeEventListener("click", this.hideRemoveConfirmation);
   }
 
+  staticClassName () {
+    const { measurement: { isStatic } } = this.props;
+
+    return isStatic ? " station-measurement" : null;
+  }
+
   renderActionButtons () {
     const { removeConfirmationShowed } = this.state;
 
@@ -89,22 +97,29 @@ class MeasurementRowInfo extends React.Component {
 
   render () {
     const { valueUnits } = this.props;
-    const { measurement: { userId, ["value_" + valueUnits]: measurementValue } } = this.props;
+    const { measurement: { ["value_" + valueUnits]: measurementValue }, clickEvent } = this.props;
 
     return (
-      <div ref={(el) => this.measurementRow = el} className="measurement-row info">
+      <div ref={(el) => this.measurementRow = el} className={"measurement-row info" + this.staticClassName()} onClick={clickEvent}>
         <div className="measurement-value-container">
           <span className="measurement-value">{ measurementValue }</span>
         </div>
 
         { this.measurementDetails() }
+
+        <IconContext.Provider value={{ style: { height: '100%', width: "1em" } }}>
+          <div className="station-measurement-icon">
+            <RiBaseStationFill />
+          </div>
+        </IconContext.Provider>
       </div>
     )
   }
 }
 
 MeasurementRowInfo.propTypes = {
-  measurement: PropTypes.object.isRequired
+  measurement: PropTypes.object.isRequired,
+  clickEvent: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({

@@ -91,6 +91,10 @@
               width: 88%;
               z-index: 1;
 
+              &.station-measurement {
+                cursor: pointer;
+              }
+
               .measurement-value-container {
                 border: 2px #868686;
                 border-style: none solid none none;
@@ -137,6 +141,10 @@
                   position: relative;
                   top: -5px;
                 }
+              }
+
+              .station-measurement-icon {
+                min-width: 25px;
               }
             }
           }

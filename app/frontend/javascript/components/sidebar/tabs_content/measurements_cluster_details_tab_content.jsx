@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import MeasurementsClusterInfo from "./measurements_cluster_details/measurements_cluster_info";
 import MeasurementsClusterMeasurements from "./measurements_cluster_details/measurements_cluster_measurements";
-import staticMeasurements from "../../../store/reducers/static_measurements";
 
 class MeasurementsClusterDetailsTabContent extends React.Component {
   renderPlaceholder () {
