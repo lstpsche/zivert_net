@@ -6,10 +6,17 @@ class StaticMeasurementInfoBase extends React.Component {
     let year = date.getFullYear();
     let month = months[date.getMonth()];
     let day = date.getDate();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
+    let hours = this.formatSingleDigitTime(date.getHours() + '');
+    let minutes = this.formatSingleDigitTime(date.getMinutes() + '');
 
     return `${hours}:${minutes}, ${month} ${day} ${year}`
+  }
+
+  formatSingleDigitTime (time) {
+    if (time.length === 1)
+      return '0' + time;
+
+    return time;
   }
 }
 
