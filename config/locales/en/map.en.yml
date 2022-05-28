@@ -4,6 +4,10 @@ en:
       base:
         map: Map view
         satellite: Satellite view
+        temperature: Temperature map
+        wind: Wind speed map
+        precipitation: Precipitation map
+        clouds: Clouds map
       overlay:
         dim_map: Dim map
         heatmap: Heatmap

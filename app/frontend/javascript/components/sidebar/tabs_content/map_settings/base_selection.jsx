@@ -2,9 +2,16 @@ import { Form } from "react-bootstrap";
 
 class BaseSelection extends React.Component {
   isChecked (name) {
-    const { layers } = this.props;
+    return this.state[name].selected
+  }
 
-    return layers[name].selected
+  onRadioChange (selectedLayer) {
+    let layers = this.state;
+    Object.keys(layers).map(name =>
+      layers[name].selected = (name === selectedLayer)
+    );
+
+    this.setState({ ...layers });
   }
 
   renderSectionLabel (text) {

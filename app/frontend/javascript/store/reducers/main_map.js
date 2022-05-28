@@ -7,17 +7,19 @@
 //   }
 //   layers: {
 //     base: {
-//       regularMap: {
-//         selected: boolean
-//       }
+//       regularMap: { selected: boolean }
 //     },
 //     overlays: {
-//       dimmer: {
-//         selected: boolean
-//       },
-//       measurements: {
-//         selected: boolean
-//       }
+//       dimmer: { selected: boolean },
+//       measurements: { selected: boolean },
+//       heatmap: { selected: boolean },
+//       hexagons: { selected: boolean }
+//     },
+//     weatherOverlays: {
+//       temperature: { selected: boolean },
+//       wind: { selected: boolean },
+//       precipitation: { selected: boolean },
+//       clouds: { selected: boolean }
 //     }
 //   },
 //   settings: {
@@ -38,6 +40,7 @@ import {
   SET_MAIN_MAP_BLOCK,
   SET_BASE_LAYER,
   SET_OVERLAY_LAYER,
+  SET_WEATHER_LAYER,
   SET_MAIN_MAP_REF,
   SET_SETTINGS,
   SET_SETTINGS_OPTIONS,
@@ -64,6 +67,13 @@ function mainMap(state = {}, action) {
         [layerName]: { selected: layerSelected }
       };
       return { ...state, layers: { ...state.layers, overlays } };
+
+    case SET_WEATHER_LAYER:
+      let weatherOverlays = state.layers.weatherOverlays;
+      Object.keys(weatherOverlays).map(name =>
+        weatherOverlays[name].selected = (name === layerName)
+      );
+      return { ...state, layers: { ...state.layers, weatherOverlays } };
 
     case SET_MAIN_MAP_REF:
       return { ...state, ref };

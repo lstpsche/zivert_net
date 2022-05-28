@@ -7,15 +7,18 @@ class BaseMapSelection extends BaseSelection {
   constructor(props) {
     super(props);
 
-    this.onBaseChange = this.onBaseChange.bind(this);
+    this.state = this.props.baseLayers;
+
+    this.onRadioChange = this.onRadioChange.bind(this);
     this.isChecked = this.isChecked.bind(this);
     this.renderSectionBody = this.renderSectionBody.bind(this);
   }
 
-  onBaseChange ({ target: { name } }) {
+  onRadioChange ({ target: { name } }) {
     const { setBaseLayer } = this.props;
 
     setBaseLayer(name);
+    super.onRadioChange(name);
   }
 
   renderSectionLabel () {
@@ -30,7 +33,7 @@ class BaseMapSelection extends BaseSelection {
         label={ I18n.t("sidebar.tabs.map_settings.base_map.labels.regular_map") }
         id="regular-map-radio"
         name="regularMap"
-        onChange={this.onBaseChange}
+        onChange={this.onRadioChange}
         checked={this.isChecked("regularMap")}
       />
     )
@@ -45,8 +48,8 @@ class BaseMapSelection extends BaseSelection {
   }
 }
 
-const mapStateToProps = ({ mainMap: { layers } }) => ({
-  layers: layers.base
+const mapStateToProps = ({ mainMap: { layers: { base } } }) => ({
+  baseLayers: base
 });
 
 const mapDispatchToProps = dispatch => ({

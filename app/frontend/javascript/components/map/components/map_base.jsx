@@ -4,12 +4,16 @@ import { setMainMapRef } from "../../../store/actions/main_map";
 import { disableMeasurementCreation, setMeasurementCreationData } from "../../../store/actions/user_actions";
 import { Map as MapLeaflet, LayersControl } from "react-leaflet";
 import RegularMapLayer from "./map_layers/base_layers/regular_map_layer";
+import TemperatureMapLayer from "./map_layers/weather_overlays/temperature_map_layer";
+import WindMapLayer from "./map_layers/weather_overlays/wind_map_layer";
+import PrecipitationMapLayer from "./map_layers/weather_overlays/precipitation_map_layer";
+import CloudsMapLayer from "./map_layers/weather_overlays/clouds_map_layer";
 import DimmedLayer from "./map_layers/overlays/dimmed_layer";
 import MeasurementsLayer from "./map_layers/overlays/measurements_layer";
 import MeasurementCreationLayer from "./map_layers/overlays/measurement_creation_layer";
 import CustomHeatmapLayer from "./map_layers/overlays/heatmap_layer";
 import HexagonsLayer from "./map_layers/overlays/hexagons_layer";
-import CurrentLocationControl from 'react-leaflet-current-location-control'
+import CurrentLocationControl from "react-leaflet-current-location-control";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -28,7 +32,10 @@ class MapBase extends React.Component {
   }
 
   render () {
-    const { center, zoom, regularMapSelected, setMainMapRef, measurementCreationEnabled } = this.props;
+    const {
+      center, zoom, regularMapSelected, setMainMapRef, measurementCreationEnabled,
+      temperatureLayerSelected, windLayerSelected, precipitationLayerSelected, cloudsLayerSelected
+    } = this.props;
     let { dimmedLayerSelected, measurementsLayerSelected, heatmapLayerSelected, hexagonsLayerSelected } = this.props;
 
     switch (true) {
@@ -62,6 +69,24 @@ class MapBase extends React.Component {
             <RegularMapLayer />
           </LayersControl.BaseLayer>
 
+          {/* WEATHER LAYERS */}
+          <LayersControl.Overlay checked={temperatureLayerSelected} name={I18n.t("map.layers.base.temperature")}>
+            <TemperatureMapLayer />
+          </LayersControl.Overlay>
+
+          <LayersControl.Overlay checked={windLayerSelected} name={I18n.t("map.layers.base.wind")}>
+            <WindMapLayer />
+          </LayersControl.Overlay>
+
+          <LayersControl.Overlay checked={precipitationLayerSelected} name={I18n.t("map.layers.base.precipitation")}>
+            <PrecipitationMapLayer />
+          </LayersControl.Overlay>
+
+          <LayersControl.Overlay checked={cloudsLayerSelected} name={I18n.t("map.layers.base.clouds")}>
+            <CloudsMapLayer />
+          </LayersControl.Overlay>
+
+          {/* MEASUREMENTS LAYERS */}
           <LayersControl.Overlay checked={dimmedLayerSelected} name={I18n.t("map.layers.overlay.dim_map")}>
             <DimmedLayer />
           </LayersControl.Overlay>
@@ -106,11 +131,18 @@ const mapStateToProps = ({
   userActions: { measurementCreation: { state: measurementCreationEnabled } }
 }) => ({
   signedIn,
+  // BASE
   regularMapSelected: layers.base.regularMap.selected,
+  // MEASUREMENTS
   dimmedLayerSelected: layers.overlays.dimmer.selected,
   measurementsLayerSelected: layers.overlays.measurements.selected,
   heatmapLayerSelected: layers.overlays.heatmap.selected,
   hexagonsLayerSelected: layers.overlays.hexagons.selected,
+  // WEATHER
+  temperatureLayerSelected: layers.weatherOverlays.temperature.selected,
+  windLayerSelected: layers.weatherOverlays.wind.selected,
+  precipitationLayerSelected: layers.weatherOverlays.precipitation.selected,
+  cloudsLayerSelected: layers.weatherOverlays.clouds.selected,
   measurementCreationEnabled
 });
 

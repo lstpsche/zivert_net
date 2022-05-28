@@ -24,9 +24,17 @@
         }
 
         .map-settings-section {
+          &:last-child {
+            margin-bottom: 0;
+          }
+
           #map-settings-section-units {
             display: flex;
             justify-content: space-between;
+
+            &.form-group {
+              margin-bottom: 0;
+            }
 
             .form-label {
               padding: 7px 0;

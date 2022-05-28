@@ -22,7 +22,14 @@ const defaultStoreValue = {
         dimmer: { selected: false },
         heatmap: { selected: false },
         hexagons: { selected: false },
-        measurements: { selected: true }
+        measurements: { selected: true },
+      },
+      weatherOverlays: {
+        none: { selected: true },
+        temperature: { selected: false },
+        wind: { selected: false },
+        precipitation: { selected: false },
+        clouds: { selected: false }
       }
     },
     settings: {
