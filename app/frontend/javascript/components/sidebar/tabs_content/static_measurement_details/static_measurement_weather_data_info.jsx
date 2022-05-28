@@ -7,6 +7,7 @@ import { WiDayCloudy, WiDaySprinkle, WiDaySunny, WiHumidity, WiThunderstorm, WiT
 import { FaCloudRain, FaTemperatureLow, FaWind } from "react-icons/fa";
 import { GiSmashArrows, GiSnowing } from "react-icons/gi";
 import { RiMistFill } from "react-icons/ri";
+import roundValue from "../../../../helpers/round_value";
 
 class StaticMeasurementWeatherDataInfo extends StaticMeasurementInfoBase {
   windDirectionArrow (windDir) {
@@ -69,7 +70,7 @@ class StaticMeasurementWeatherDataInfo extends StaticMeasurementInfoBase {
             { this.conditionIcon(weatherData.condition) } { I18n.t("sidebar.tabs.static_measurement_details.labels.condition") }: { weatherData.condition }
           </div>
           <div className="pressure">
-            <GiSmashArrows/> { I18n.t("sidebar.tabs.static_measurement_details.labels.pressure") }: { weatherData.pressureMm } <small>{ I18n.t("sidebar.tabs.static_measurement_details.labels.mmhg") }</small>, { weatherData.pressurePa } <small>{ I18n.t("sidebar.tabs.static_measurement_details.labels.pa") }</small>
+            <GiSmashArrows/> { I18n.t("sidebar.tabs.static_measurement_details.labels.pressure") }: { roundValue(weatherData.pressureMm) } <small>{ I18n.t("sidebar.tabs.static_measurement_details.labels.mmhg") }</small>, { weatherData.pressurePa } <small>{ I18n.t("sidebar.tabs.static_measurement_details.labels.pa") }</small>
           </div>
         </div>
 
