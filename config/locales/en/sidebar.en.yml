@@ -27,6 +27,14 @@ en:
             heatmap: Heatmap
             hexagons: Hexagons
             measurements: Measurements
+        weather_overlays:
+          header: Weather overlay layers
+          labels:
+            none: None
+            temperature: Temperature
+            wind: Wind
+            precipitation: Precipitation
+            clouds: Clouds
         time_period:
           header: Time period
         map_settings:

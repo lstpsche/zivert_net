@@ -7,6 +7,8 @@ class OverlayLayersSelection extends BaseSelection {
   constructor (props) {
     super(props);
 
+    this.state = this.props.overlayLayers;
+
     this.onOverlayChange = this.onOverlayChange.bind(this);
     this.isChecked = this.isChecked.bind(this);
     this.renderSectionBody = this.renderSectionBody.bind(this);
@@ -16,6 +18,7 @@ class OverlayLayersSelection extends BaseSelection {
     const { setOverlayLayer } = this.props;
 
     setOverlayLayer(name, checked);
+    this.setState({ ...this.state, [name]: { selected: checked } });
   }
 
   renderSectionLabel () {
@@ -48,8 +51,8 @@ class OverlayLayersSelection extends BaseSelection {
   }
 }
 
-const mapStateToProps = ({ mainMap: { layers } }) => ({
-  layers: layers.overlays
+const mapStateToProps = ({ mainMap: { layers: { overlays } } }) => ({
+  overlayLayers: overlays
 });
 
 const mapDispatchToProps = dispatch => ({

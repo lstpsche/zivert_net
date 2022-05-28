@@ -2,6 +2,7 @@ import {
   SET_MAIN_MAP_BLOCK,
   SET_BASE_LAYER,
   SET_OVERLAY_LAYER,
+  SET_WEATHER_LAYER,
   SET_MAIN_MAP_REF,
   SET_SETTINGS,
   SET_SETTINGS_OPTIONS,
@@ -26,6 +27,11 @@ export const setBaseLayer = ({ layerName }) => ({
 export const setOverlayLayer = ({ layerName, selected }) => ({
   type: SET_OVERLAY_LAYER,
   layerName, layerSelected: selected
+});
+
+export const setWeatherLayer = ({ layerName }) => ({
+  type: SET_WEATHER_LAYER,
+  layerName
 });
 
 export const setMapSettings = (settings) => ({
