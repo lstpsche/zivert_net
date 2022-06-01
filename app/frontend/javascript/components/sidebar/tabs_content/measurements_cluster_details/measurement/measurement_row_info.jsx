@@ -108,6 +108,16 @@ class MeasurementRowInfo extends React.Component {
     )
   }
 
+  renderStationIcon () {
+    return (
+      <IconContext.Provider value={{ style: { height: '100%', width: "1em" } }}>
+        <div className="station-measurement-icon">
+          <RiBaseStationFill />
+        </div>
+      </IconContext.Provider>
+    )
+  }
+
   render () {
     const { valueUnits } = this.props;
     const { measurement: { ["value_" + valueUnits]: measurementValue, isStatic }, clickEvent } = this.props;
@@ -124,11 +134,10 @@ class MeasurementRowInfo extends React.Component {
           : this.measurementDetails()
         }
 
-        <IconContext.Provider value={{ style: { height: '100%', width: "1em" } }}>
-          <div className="station-measurement-icon">
-            <RiBaseStationFill />
-          </div>
-        </IconContext.Provider>
+        { isStatic
+          ? this.renderStationIcon()
+          : null
+        }
       </div>
     )
   }
