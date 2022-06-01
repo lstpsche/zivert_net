@@ -15,6 +15,7 @@ en:
           measurements: Measurements
           overall: Overall value
           rad_value: 'Precise radiation value: '
+          station: Station
       map_settings:
         base_map:
           header: Base map
