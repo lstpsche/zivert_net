@@ -13,7 +13,7 @@ import MeasurementsLayer from "./map_layers/overlays/measurements_layer";
 import MeasurementCreationLayer from "./map_layers/overlays/measurement_creation_layer";
 import CustomHeatmapLayer from "./map_layers/overlays/heatmap_layer";
 import HexagonsLayer from "./map_layers/overlays/hexagons_layer";
-import CurrentLocationControl from "react-leaflet-current-location-control";
+import LocationControl from "./location_control";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -62,7 +62,7 @@ class MapBase extends React.Component {
         onClick={this.handleMapSnglClick}
         doubleClickZoom={true}
       >
-        <CurrentLocationControl position="topleft" />
+        <LocationControl />
 
         <LayersControl position="topleft">
           <LayersControl.BaseLayer checked={regularMapSelected} name={I18n.t("map.layers.base.map")}>
