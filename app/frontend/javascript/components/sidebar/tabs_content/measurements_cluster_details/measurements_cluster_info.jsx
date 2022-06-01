@@ -33,10 +33,12 @@ class MeasurementsClusterInfo extends React.Component {
   }
 
   renderDetailsRadValue () {
+    const { valueUnits } = this.props;
+
     return (
       <div className="rad-value">
         <span className="detail-label">{ I18n.t("sidebar.tabs.measurements_cluster_details.labels.rad_value") }</span>
-        <span>{ truncate(this.clusterValue(), 4) }</span>
+        <span>{ truncate(this.clusterValue(), 4) } <small>{ I18n.t("sidebar.tabs.measurements_cluster_details.labels.rad_value_" + valueUnits) }</small></span>
       </div>
     )
   }
