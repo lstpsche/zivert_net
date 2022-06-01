@@ -14,6 +14,7 @@ class LocationControl extends React.Component {
     this.onPositionFound = this.onPositionFound.bind(this);
     this.onPositionStart = this.onPositionStart.bind(this);
     this.dismissToast = this.dismissToast.bind(this);
+    this.onPositionStop = this.onPositionStop.bind(this);
   }
 
   dismissToast () {
@@ -42,6 +43,11 @@ class LocationControl extends React.Component {
     this.setState({ toastId });
   }
 
+  onPositionStop () {
+    this.dismissToast();
+    this.setState({ positionFound: false });
+  }
+
   render () {
     return (
       <CurrentLocationControl
@@ -49,7 +55,7 @@ class LocationControl extends React.Component {
         geoLocationOptions={{enableHighAccuracy: true}}
         onPosition={this.onPositionFound}
         onPositionStart={this.onPositionStart}
-        onPositionStop={this.dismissToast}
+        onPositionStop={this.onPositionStop}
       />
     )
   }
