@@ -95,9 +95,22 @@ class MeasurementRowInfo extends React.Component {
     )
   }
 
+  staticMeasurementDetails () {
+    const { measurement: { stationName } } = this.props;
+
+    return (
+      <div className="measurement-details">
+        <div className="measurement-author-info">{ I18n.t("sidebar.tabs.measurements_cluster_details.labels.station") }</div>
+        <EllipsisWithTooltip placement="bottom">
+          <div className="measurement-comment">{ stationName }</div>
+        </EllipsisWithTooltip>
+      </div>
+    )
+  }
+
   render () {
     const { valueUnits } = this.props;
-    const { measurement: { ["value_" + valueUnits]: measurementValue }, clickEvent } = this.props;
+    const { measurement: { ["value_" + valueUnits]: measurementValue, isStatic }, clickEvent } = this.props;
 
     return (
       <div ref={(el) => this.measurementRow = el} className={"measurement-row info" + this.staticClassName()} onClick={clickEvent}>
@@ -105,7 +118,11 @@ class MeasurementRowInfo extends React.Component {
           <span className="measurement-value">{ measurementValue }</span>
         </div>
 
-        { this.measurementDetails() }
+        {
+          isStatic
+          ? this.staticMeasurementDetails()
+          : this.measurementDetails()
+        }
 
         <IconContext.Provider value={{ style: { height: '100%', width: "1em" } }}>
           <div className="station-measurement-icon">
