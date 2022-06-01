@@ -14,7 +14,7 @@ class MapSettings < ApplicationRecord
   before_create :assign_defaults
 
   def self.defaults
-    YAML.load_file("#{Rails.root}/config/defaults/map_settings.yml")
+    OpenStruct.new(YAML.load_file("#{Rails.root}/config/defaults/map_settings.yml")).to_h
   end
 
   # { field_name: { fieldOption: { selected: true/false } } }

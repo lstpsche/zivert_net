@@ -28,10 +28,10 @@ class CreateMapSettingsTable < ActiveRecord::Migration[5.2]
   end
 
   def assign_default_map_settings_to_users
-    defaults = OpenStruct.new(YAML.load_file("#{Rails.root}/config/defaults/map_settings.yml"))
+    defaults = { units: 'urh' }
 
     UserTemp.all.map do |user|
-      MapSettingsTemp.create(defaults.to_h.merge(user_id: user.id))
+      MapSettingsTemp.create(defaults.merge(user_id: user.id))
     end
   end
 end
