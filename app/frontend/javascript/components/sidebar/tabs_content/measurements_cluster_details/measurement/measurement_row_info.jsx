@@ -134,7 +134,8 @@ class MeasurementRowInfo extends React.Component {
           : this.measurementDetails()
         }
 
-        { isStatic
+        {
+          isStatic
           ? this.renderStationIcon()
           : null
         }
