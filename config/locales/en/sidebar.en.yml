@@ -30,6 +30,7 @@ en:
             heatmap: Heatmap
             hexagons: Hexagons
             measurements: Measurements
+            measurementsDiff: Measurements Diff
         weather_overlays:
           header: Weather overlay layers
           labels:
@@ -47,6 +48,8 @@ en:
           options:
             urh: Roentgen (µR/h)
             ush: Sievert (µSv/h)
+        diff_period:
+          header: Measurements diff period
       measurement_creation:
         labels:
           latitude: Latitude

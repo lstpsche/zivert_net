@@ -44,7 +44,8 @@ import {
   SET_MAIN_MAP_REF,
   SET_SETTINGS,
   SET_SETTINGS_OPTIONS,
-  SET_SETTINGS_MEASUREMENTS_PERIOD
+  SET_SETTINGS_MEASUREMENTS_PERIOD,
+  SET_SETTINGS_MEASUREMENTS_DIFF_PERIOD
 } from "../actionTypes/main_map";
 
 function mainMap(state = {}, action) {
@@ -86,6 +87,20 @@ function mainMap(state = {}, action) {
 
     case SET_SETTINGS_MEASUREMENTS_PERIOD:
       return { ...state, settings: { ...state.settings, measurementsPeriod: { startDate, endDate } } };
+
+    case SET_SETTINGS_MEASUREMENTS_DIFF_PERIOD:
+      let type = "";
+      let date = new Date;
+
+      if (!!startDate) {
+        type = "startDate";
+        date = startDate;
+      } else {
+        type = "endDate";
+        date = endDate;
+      }
+
+      return { ...state, settings: { ...state.settings, measurementsDiffPeriod: { ...state.settings.measurementsDiffPeriod, [type]: date } } };
 
     default:
       return state;

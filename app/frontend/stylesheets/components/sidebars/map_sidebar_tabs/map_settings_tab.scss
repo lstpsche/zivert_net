@@ -73,6 +73,27 @@
           border-radius: .3rem;
           color: #fff;
         }
+
+        .measurements-diff-selection {
+          .measurements-diff-period-button {
+            cursor: pointer;
+            padding: 5px 15px;
+            border: 0;
+            border-radius: 4px;
+            background-color: #ff9800;
+            font: inherit;
+            color: #fff;
+          }
+
+          .selection-label {
+            display: inline-block;
+            width: 50px;
+          }
+
+          .from-selection {
+            margin-bottom: 10px;
+          }
+        }
       }
     }
   }

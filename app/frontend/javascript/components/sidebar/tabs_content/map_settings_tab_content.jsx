@@ -4,6 +4,7 @@ import OverlayLayersSelection from "./map_settings/overlay_layers_selection";
 import WeatherLayersSelection from "./map_settings/weather_layers_selection";
 import MapSettingsSelection from "./map_settings/map_settings_selection";
 import MeasurementsTimePeriodSelection from "./map_settings/measurements_time_period_selection";
+import MeasurementsDiffSelection from "./map_settings/measurements_diff_selection";
 
 class MapSettingsTabContent extends React.Component {
   render () {
@@ -14,6 +15,7 @@ class MapSettingsTabContent extends React.Component {
         <WeatherLayersSelection />
         <MeasurementsTimePeriodSelection />
         <MapSettingsSelection />
+        <MeasurementsDiffSelection />
       </div>
     )
   }

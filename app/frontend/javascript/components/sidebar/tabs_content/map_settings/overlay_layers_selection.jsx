@@ -44,6 +44,7 @@ class OverlayLayersSelection extends BaseSelection {
       <>
         { this.renderOverlayCheck("dimmer") }
         { this.renderOverlayCheck("measurements") }
+        { this.renderOverlayCheck("measurementsDiff") }
         { this.renderOverlayCheck("heatmap") }
         { this.renderOverlayCheck("hexagons") }
       </>
