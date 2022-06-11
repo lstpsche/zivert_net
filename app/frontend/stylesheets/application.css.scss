@@ -55,3 +55,13 @@ input {
     box-shadow: 0 0 0 0.05rem rgb(253 126 20 / 25%); // 'orange' with 25% opacity
   }
 }
+
+.sidebar .sidebar-content {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  /* Chrome, Safari, Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

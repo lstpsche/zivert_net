@@ -13,6 +13,7 @@ import WeatherDataDataLoader from "../javascript/components/data_loaders/weather
 import MeasurementsChannel from "../javascript/components/channels/measurements_channel";
 import UsersChannel from "../javascript/components/channels/users_channel";
 import MeasurementsInTimePeriodBGUpdater from "../javascript/components/bg_updaters/measurements_in_time_period_bg_updater";
+import MeasurementsDiffBGUpdater from "../javascript/components/bg_updaters/measurements_diff_bg_updater";
 
 document.addEventListener("DOMContentLoaded", () => {
   render (
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <MeasurementsChannel />
 
         <MeasurementsInTimePeriodBGUpdater />
+        <MeasurementsDiffBGUpdater />
 
         <App />
       </Provider>

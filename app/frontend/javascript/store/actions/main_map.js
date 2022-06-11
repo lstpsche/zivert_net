@@ -6,7 +6,8 @@ import {
   SET_MAIN_MAP_REF,
   SET_SETTINGS,
   SET_SETTINGS_OPTIONS,
-  SET_SETTINGS_MEASUREMENTS_PERIOD
+  SET_SETTINGS_MEASUREMENTS_PERIOD,
+  SET_SETTINGS_MEASUREMENTS_DIFF_PERIOD
 } from "../actionTypes/main_map";
 
 export const setMainMapBlock = ({ state = false, blockMessage = undefined }) => ({
@@ -46,5 +47,10 @@ export const setSettingsOptions = (settingsOptions) => ({
 
 export const setSettingsMeasurementsPeriod = ({ startDate, endDate }) => ({
   type: SET_SETTINGS_MEASUREMENTS_PERIOD,
+  startDate, endDate
+});
+
+export const setSettingsMeasurementsDiffPeriod = ({ startDate, endDate }) => ({
+  type: SET_SETTINGS_MEASUREMENTS_DIFF_PERIOD,
   startDate, endDate
 });

@@ -23,6 +23,7 @@ const defaultStoreValue = {
         heatmap: { selected: false },
         hexagons: { selected: false },
         measurements: { selected: true },
+        measurementsDiff: { selected: false }
       },
       weatherOverlays: {
         none: { selected: true },
@@ -39,6 +40,10 @@ const defaultStoreValue = {
       measurementsPeriod: {
         startDate: new Date(new Date().setHours(0,0,0,0)),
         endDate: new Date(new Date().setHours(23,59,59,999))
+      },
+      measurementsDiffPeriod: {
+        startDate: new Date,
+        endDate: new Date
       }
     },
     settingsOptions: {

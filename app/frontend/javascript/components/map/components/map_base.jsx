@@ -14,6 +14,7 @@ import MeasurementCreationLayer from "./map_layers/overlays/measurement_creation
 import CustomHeatmapLayer from "./map_layers/overlays/heatmap_layer";
 import HexagonsLayer from "./map_layers/overlays/hexagons_layer";
 import LocationControl from "./location_control";
+import MeasurementsDiffLayer from "./map_layers/overlays/measurements_diff_layer";
 
 class MapBase extends React.Component {
   constructor (props) {
@@ -36,7 +37,7 @@ class MapBase extends React.Component {
       center, zoom, regularMapSelected, setMainMapRef, measurementCreationEnabled,
       temperatureLayerSelected, windLayerSelected, precipitationLayerSelected, cloudsLayerSelected
     } = this.props;
-    let { dimmedLayerSelected, measurementsLayerSelected, heatmapLayerSelected, hexagonsLayerSelected } = this.props;
+    let { dimmedLayerSelected, measurementsLayerSelected, measurementsDiffLayerSelected, heatmapLayerSelected, hexagonsLayerSelected } = this.props;
 
     switch (true) {
       case measurementCreationEnabled:
@@ -47,6 +48,12 @@ class MapBase extends React.Component {
         break;
 
       case hexagonsLayerSelected:
+        dimmedLayerSelected = false
+        measurementsLayerSelected = false
+        heatmapLayerSelected = false
+        break;
+
+      case measurementsDiffLayerSelected:
         dimmedLayerSelected = false
         measurementsLayerSelected = false
         heatmapLayerSelected = false
@@ -95,6 +102,10 @@ class MapBase extends React.Component {
             <MeasurementsLayer />
           </LayersControl.Overlay>
 
+          <LayersControl.Overlay checked={measurementsDiffLayerSelected} name={I18n.t("map.layers.overlay.measurements_diff")}>
+            <MeasurementsDiffLayer />
+          </LayersControl.Overlay>
+
           <LayersControl.Overlay checked={measurementCreationEnabled} name={I18n.t("map.layers.overlay.measurements")}>
             <MeasurementCreationLayer />
           </LayersControl.Overlay>
@@ -136,6 +147,7 @@ const mapStateToProps = ({
   // MEASUREMENTS
   dimmedLayerSelected: layers.overlays.dimmer.selected,
   measurementsLayerSelected: layers.overlays.measurements.selected,
+  measurementsDiffLayerSelected: layers.overlays.measurementsDiff.selected,
   heatmapLayerSelected: layers.overlays.heatmap.selected,
   hexagonsLayerSelected: layers.overlays.hexagons.selected,
   // WEATHER

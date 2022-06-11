@@ -13,5 +13,6 @@ en:
         heatmap: Heatmap
         hexagons: Hexagons
         measurements: Measurements
+        measurements_diff: Measurements Diff
     attribution:
       about_link: About
