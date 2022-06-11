@@ -33,16 +33,19 @@ class MeasurementsDiffBGUpdater extends React.Component {
     let measurementsDiff = Object.values(groupedByCoords).map(measurementsSet => {
       const { start, end } = measurementsSet;
 
+      if (!start || !end)
+        return undefined;
+
       return {
         id: start.id,
         latitude: start.latitude,
         longitude: start.longitude,
-        isStatic: start.isStatic && end.isStatic,
-        stationName: (start.stationName === end.stationName) ? start.stationName : "",
+        isStatic: start?.isStatic && end?.isStatic,
+        stationName: (start?.stationName === end?.stationName) ? start?.stationName : "",
         value_urh: roundValue(end.value_urh - start.value_urh, 2),
         value_ush: roundValue(end.value_ush - start.value_ush, 2)
       }
-    });
+    }).filter((m) => m !== undefined);
 
     setMeasurementsDiff(measurementsDiff);
   }
